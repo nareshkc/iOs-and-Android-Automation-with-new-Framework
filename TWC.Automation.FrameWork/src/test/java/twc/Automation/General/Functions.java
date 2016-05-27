@@ -16,9 +16,6 @@ import twc.Automation.ReadDataFromFile.read_xml_data_into_buffer;
 
 public class Functions extends Drivers{
 	
-	//static String excel_sheet_name = "location";
-	static int Cap = 2;
-	
 	public static void validate_API_Call_With_PubAds_Call(String excel_sheet_name) throws Exception{
 		
 		System.out.println("===================================================");
@@ -88,6 +85,8 @@ public class Functions extends Drivers{
 		System.out.println("===================================================");
 	}
 	public static Map<String , String>  read_API_Call_Data(String excel_sheet_name) throws Exception{
+		DeviceStatus device_status = new DeviceStatus();
+		int Cap = device_status.Device_Status();
 		
 		Map<String , String> expected_map_results = new HashMap<String, String>();
 		ArrayList<String> expected_Values_List = new ArrayList<String>();
@@ -179,6 +178,9 @@ public class Functions extends Drivers{
 	
 	public static Map<String , String> read_Pub_Ad_Call_Data(String excel_sheet_name) throws Exception{
 		
+		DeviceStatus device_status = new DeviceStatus();
+		int Cap = device_status.Device_Status();
+		
 		Map<String , String> expected_results = new HashMap<String, String>();
 		
 		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
@@ -218,6 +220,9 @@ public class Functions extends Drivers{
 	}
 	
 	public static void clean_App_Launch(String excel_sheet_name) throws Exception{
+		DeviceStatus device_status = new DeviceStatus();
+		int Cap = device_status.Device_Status();
+		
 		System.out.println("===================================================");
 		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
 		read_xml_data_into_buffer xml_data_into_buffer = new read_xml_data_into_buffer();
@@ -263,6 +268,10 @@ public class Functions extends Drivers{
 	
 	
 	public static void bb_call_validation(String excel_sheet_name) throws Exception{
+		System.out.println("===================================================");
+		
+		DeviceStatus device_status = new DeviceStatus();
+		int Cap = device_status.Device_Status();
 		
 		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
 		read_xml_data_into_buffer xml_data_into_buffer = new read_xml_data_into_buffer();
@@ -285,6 +294,9 @@ public class Functions extends Drivers{
 	}
 	
 	public static void verify_bb_call_in_Test_Mode(String excel_sheet_name) throws Exception{
+		DeviceStatus device_status = new DeviceStatus();
+		int Cap = device_status.Device_Status();
+		
 		System.out.println("===================================================");
 		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
 		read_xml_data_into_buffer xml_data_into_buffer = new read_xml_data_into_buffer();

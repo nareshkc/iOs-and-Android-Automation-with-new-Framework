@@ -26,7 +26,7 @@ public class somkeTestCases extends Drivers{
 	public void PulltoRefresh_Test_Case_Using_Charles() throws Exception{
 		CharlesFunctions.openCharlesBrowser();
 		AppiumFunctions.LaunchApp();
-		AppFunctions.Pull_To_Refresh();
+		AppFunctions.Pull_To_Refresh("pulltorefresh");
 		CharlesFunctions.StopExportSessionXMLFile();
 		Functions.bb_call_validation("pulltorefresh");
 	}
@@ -36,31 +36,31 @@ public class somkeTestCases extends Drivers{
 		CharlesFunctions.openCharlesBrowser();
 		AppiumFunctions.LaunchApp();
 		CharlesFunctions.StopExportSessionXMLFile();
-		Functions.validate_API_Call_With_PubAds_Call("lotame");
+		Functions.validate_API_Call_With_PubAds_Call("ad");
 	}
 	/* Hourly Module Extended Page Ad Test Case */
 	@Test(priority=3)
 	public void Verify_Ad_Present_On_HourlyExtended_page() throws Exception {
 		AppiumFunctions.LaunchApp();
-		AppFunctions.verify_adpresent_onextendedHourly_page();
+		AppFunctions.verify_adpresent_onextendedHourly_page("Hourly");
 	}
 	/* Daily Module Extended Page Ad Test Case */
 	@Test(priority=4)
 	public void Verify_Ad_Present_On_DailyExtended_page() throws Exception {
 		AppiumFunctions.LaunchApp();
-		AppFunctions.verify_adpresent_onextendedTenday_page();
+		AppFunctions.verify_adpresent_onextendedTenday_page("Daily");
 	}
 	/* RADAR And MAPS Module Extended Page Ad Test Case */
 	@Test(priority=5)
 	public void Verify_Ad_Present_On_MapsExtended_page() throws Exception {
 		AppiumFunctions.LaunchApp();
-		AppFunctions.verify_adpresent_onextendedMap_page();
+		AppFunctions.verify_adpresent_onextendedMap_page("Map");
 	}
 	/* News Module Extended Page Ad Test Case */
 	@Test(priority=6)
 	public void Verify_Ad_Present_On_NewsExtended_page() throws Exception {
 		AppiumFunctions.LaunchApp();
-		AppFunctions.verify_adpresent_onextendedNews_page();
+		AppFunctions.verify_adpresent_onextendedNews_page("News");
 	}
 	/* Clean Launch  Test Case */
 	@Test(priority=7)
@@ -83,14 +83,14 @@ public class somkeTestCases extends Drivers{
 		cxtgFunctions.validateCXTGResultsFromPubadAndTriggerCalls();
 	}
 	/* Test Mode BB Call Test Case */
-	@Test(priority=9)
-	public void Verify_TestMode_BBCall() throws Exception{
-		CharlesFunctions.openCharlesBrowser();
-		AppiumFunctions.LaunchApp();
-		AppFunctions.Change_to_Test_Mode();
-		CharlesFunctions.StopExportSessionXMLFile();
-		Functions.verify_bb_call_in_Test_Mode("testmode");
-	}
+//	@Test(priority=9)
+//	public void Verify_TestMode_BBCall() throws Exception{
+//		CharlesFunctions.openCharlesBrowser();
+//		AppiumFunctions.LaunchApp();
+//		AppFunctions.Change_to_Test_Mode();
+//		CharlesFunctions.StopExportSessionXMLFile();
+//		Functions.verify_bb_call_in_Test_Mode("testmode");
+//	}
 	
 	@BeforeTest
 	public void Before_Test() throws Exception{

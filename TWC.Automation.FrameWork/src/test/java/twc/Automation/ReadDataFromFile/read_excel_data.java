@@ -16,7 +16,6 @@ public static String[][] exceldataread(String Type) throws Exception {
 		
 		Drivers.property();
 		
-		//System.out.println("File path " + properties.getProperty("excel_file_path"));
 		File f_validation= new File(properties.getProperty("excel_file_path"));
 		
 		FileInputStream fis_validation = new FileInputStream(f_validation);

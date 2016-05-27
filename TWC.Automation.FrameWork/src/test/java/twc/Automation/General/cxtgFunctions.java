@@ -147,15 +147,31 @@ public class cxtgFunctions extends Drivers{
 	/* --- Start Getting the PubAds CXTG Values based on ZIP Code  --- */
 	public static HashMap<String, String> pub_ads_validate() throws Exception{
 		
-		Drivers.property();
+		
 		String zip = null;
 		String cxtg_val = null;
+		
+		DeviceStatus device_status = new DeviceStatus();
+		int Cap = device_status.Device_Status();
+		
+		String[][] paths = read_excel_data.exceldataread("paths");
+		String xml_file_path=null;
+		File folder = new File(paths[4][Cap]);
+		File[] listOfFiles = folder.listFiles();
+		String Filename = null;
+		for (File file : listOfFiles) {
+			if (file.isFile()) {
+				Filename = file.getName();
+				xml_file_path = paths[4][Cap]+Filename;
+				System.out.println("XML File Path is : "+xml_file_path);
+			}
+		}
 		
 		HashMap<String, String> zcs_array_list = new HashMap<String, String>();
 		/* --- Start Try Cache Method  --- */
 		try {
 			
-			File fXmlFile = new File(properties.getProperty("xmlFilePath"));
+			File fXmlFile = new File(xml_file_path);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(fXmlFile);
@@ -213,7 +229,7 @@ public class cxtgFunctions extends Drivers{
 			}/* --- End In XML Node Tag Name Start With transaction  --- */
 		    } catch (Exception e) {
 		    	System.out.println("Pub Ad Calls are not generated");
-		    	Assert.fail("Pug Ad Class are not matched. May be need to set up the wifi address");
+		    	Assert.fail("Pug Ad Class are not matched.");
 		    }/* --- Start Try Catch Method  --- */
 		
 		return zcs_array_list;

@@ -14,10 +14,10 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 
 import twc.Automation.Driver.Drivers;
+import twc.Automation.General.DeviceStatus;
 import twc.Automation.ReadDataFromFile.read_excel_data;
 
 public class CharlesFunctions extends Drivers{
-	
 	
 	public static void charlesOpen() throws Exception{
 		
@@ -28,13 +28,15 @@ public class CharlesFunctions extends Drivers{
 	
 	public static void openCharlesBrowser() throws IOException, Exception{
 		
-		Drivers.property();
+		DeviceStatus device_status = new DeviceStatus();
+		int Cap = device_status.Device_Status();
 		
 		String[][] charlesdata = read_excel_data.exceldataread("Charlesdeatils");
+		String[][] paths = read_excel_data.exceldataread("paths");
 		
-		String downloadPath = properties.getProperty("downloadPath");
+		//String downloadPath = properties.getProperty("downloadPath");
 		
-		File index = new File(downloadPath);
+		File index = new File(paths[4][Cap]);
 		
 		if (!index.exists()) {
 			System.out.println("Specified folder is not exist and creating the same folder now");
@@ -47,7 +49,7 @@ public class CharlesFunctions extends Drivers{
 		
 		FirefoxProfile profile = new FirefoxProfile();
 		profile.setPreference("browser.download.folderList", 2);
-		profile.setPreference("browser.download.dir", downloadPath);
+		profile.setPreference("browser.download.dir", paths[4][Cap]);
 		profile.setPreference("browser.helperApps.neverAsk.openFile","text/xml,text/csv,application/x-msexcel,application/octet-stream,application/vnd.android.package-archive,application/excel,application/x-excel,application/vnd.ms-excel,image/png,image/jpeg,text/html,text/plain,application/msword,application/xml,application/apk");
 		profile.setPreference("browser.helperApps.neverAsk.saveToDisk","text/xml,text/csv,application/x-msexcel,application/octet-stream,application/vnd.android.package-archive,application/excel,application/x-excel,application/vnd.ms-excel,image/png,image/jpeg,text/html,text/plain,application/msword,application/xml,application/apk");
 		
@@ -58,7 +60,7 @@ public class CharlesFunctions extends Drivers{
 		
 		//app_download_from_hockeyapp();
 		
-		driver.get("http://mohantestengg:123456@control.charles");
+		driver.get(paths[9][Cap]);
 		Thread.sleep(1000);
 		driver.findElement(By.linkText(charlesdata[1][0])).click();
 		Thread.sleep(1000);
@@ -73,7 +75,8 @@ public class CharlesFunctions extends Drivers{
 	
 	public static void StopExportSessionXMLFile() throws Exception{
 		
-		Drivers.property();
+		DeviceStatus device_status = new DeviceStatus();
+		int Cap = device_status.Device_Status();
 		
 		String[][] charlesdata = read_excel_data.exceldataread("Charlesdeatils");
 		Thread.sleep(1000);
@@ -86,16 +89,18 @@ public class CharlesFunctions extends Drivers{
 		System.out.println("Exporting The Session Data Into XML File");
 		driver.findElement(By.linkText(charlesdata[7][0])).click();
 		Thread.sleep(2000);
-		String xml_file_name = null;
+		//String xml_file_name = null;
 		
 		/* --- Start XML File Location and Saved into Properties File After Downloading  --- */
-		String session_downloadPath = properties.getProperty("downloadPath");
-		//CXTG_Validate listfiles = new CXTG_Validate();
-		List<String> get_xml_file_name = listFiles(properties.getProperty("downloadPath"));
+		//String session_downloadPath = properties.getProperty("downloadPath");
+		String[][] paths = read_excel_data.exceldataread("paths");
+		
+		List<String> get_xml_file_name = listFiles(paths[4][Cap]);
 		
 		for(int i=0;i<get_xml_file_name.size();i++){
 				if(get_xml_file_name.get(i).contains(".xml")){
-						xml_file_name = get_xml_file_name.get(i);
+					@SuppressWarnings("unused")
+					String	xml_file_name = get_xml_file_name.get(i);
 				}
 				else
 				{
@@ -103,13 +108,6 @@ public class CharlesFunctions extends Drivers{
 					String apk_file_name = get_xml_file_name.get(i);
 				}
 		}
-				
-		String concat_session_file_path = session_downloadPath.concat(xml_file_name);
-				
-		System.out.println("XML File Name : "+concat_session_file_path);
-		properties.setProperty("xmlFilePath", concat_session_file_path);
-		FileOutputStream xml_override = new FileOutputStream(properties.getProperty("dataFilePath"));		
-		properties.store(xml_override, "override the session xml file");
 		/* --- End XML File Location and Saved into Properties File After Downloading  --- */
 		Thread.sleep(2000);
 		driver.close();

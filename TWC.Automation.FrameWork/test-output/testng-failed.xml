@@ -5,7 +5,8 @@
     <classes>
       <class name="twc.Automation.SmokeTestCases.somkeTestCases">
         <methods>
-          <include name="Verify_TestMode_BBCall"/>
+          <include name="Clean_App_Launch"/>
+          <include name="Verify_CXTG_Values"/>
           <include name="Before_Test"/>
         </methods>
       </class> <!-- twc.Automation.SmokeTestCases.somkeTestCases -->

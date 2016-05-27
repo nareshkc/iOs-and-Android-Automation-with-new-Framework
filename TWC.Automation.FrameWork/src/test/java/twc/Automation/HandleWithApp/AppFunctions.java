@@ -17,19 +17,23 @@ public class AppFunctions extends Drivers{
 	
 	static int startY;
 	static int endY;
-	public static void Pull_To_Refresh(){
+	public static void Pull_To_Refresh(String excel_sheet_name) throws Exception{
 		
+		DeviceStatus device_status = new DeviceStatus();
+		int Cap = device_status.Device_Status();
+		
+		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
 		System.out.println("Pull the screen to REFRESH is Start");
 		
 		WebDriverWait wait = new WebDriverWait(Ad, 10);
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("com.weather.Weather:id/temperature")));
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.id(exceldata[1][Cap])));
 
 		//Temperature element
-		MobileElement temp = (MobileElement) Ad.findElementById("com.weather.Weather:id/temperature");
+		MobileElement temp = (MobileElement) Ad.findElementById(exceldata[1][Cap]);
 		System.out.println("Temp : "+temp.getText());
 
 		//HILO element
-		MobileElement hilo = (MobileElement) Ad.findElementById("com.weather.Weather:id/hilo");
+		MobileElement hilo = (MobileElement) Ad.findElementById(exceldata[18][Cap]);
 		System.out.println("hilo : "+hilo.getText());
 		TouchAction action = new TouchAction(Ad);
 		action.longPress(temp).moveTo(hilo).release().perform();
@@ -67,15 +71,23 @@ public class AppFunctions extends Drivers{
 	}
 	
 	
-	public static void verify_adpresent_onextendedHourly_page() throws InterruptedException{
+	public static void verify_adpresent_onextendedHourly_page(String excel_sheet_name) throws Exception{
 		
+		DeviceStatus device_status = new DeviceStatus();
+		int Cap = device_status.Device_Status();
+		
+		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
+		int swipe = Integer.parseInt(exceldata[2][Cap]);
 		System.out.println("===================================================");
-		Scroll_Upto_Feed_1();
+		for(int i=1;i<=swipe ;i++){
+			Swipe();
+			Thread.sleep(1000);
+		}
 		
 		WebDriverWait wait0 = new WebDriverWait(Ad, 10);
-		wait0.until(ExpectedConditions.presenceOfElementLocated(By.id("com.weather.Weather:id/hourly_title_textview")));
+		wait0.until(ExpectedConditions.presenceOfElementLocated(By.id(exceldata[4][Cap])));
 		
-		MobileElement hourly = (MobileElement) Ad.findElementById("com.weather.Weather:id/hourly_title_textview");
+		MobileElement hourly = (MobileElement) Ad.findElementById(exceldata[4][Cap]);
 		
 		int MAX_SWIPES = 10;
 		
@@ -83,7 +95,7 @@ public class AppFunctions extends Drivers{
 			
 			if (hourly != null && hourly.isDisplayed()) {
 				System.out.println("Hourly module is displayed on the screen");
-				Ad.findElementById("com.weather.Weather:id/hourly_title_textview").click();
+				Ad.findElementById(exceldata[4][Cap]).click();
 				String extendhourly = Ad.findElementById("toolbar_title").getText(); //com.weather.Weather:id/toolbar_title
 				System.out.println("Text : "+extendhourly);
 				
@@ -93,9 +105,9 @@ public class AppFunctions extends Drivers{
 				}
 				
 				WebDriverWait wait = new WebDriverWait(Ad, 10);
-				wait.until(ExpectedConditions.presenceOfElementLocated(By.id("com.weather.Weather:id/ad_view_holder")));
+				wait.until(ExpectedConditions.presenceOfElementLocated(By.id(exceldata[7][Cap])));
 				
-				MobileElement extendeHourlyAd =(MobileElement) Ad.findElementById("com.weather.Weather:id/ad_view_holder");
+				MobileElement extendeHourlyAd =(MobileElement) Ad.findElementById(exceldata[7][Cap]);
 				
 				WebDriverWait wait1 = new WebDriverWait(Ad, 10);
 	
@@ -105,7 +117,7 @@ public class AppFunctions extends Drivers{
 					
 					System.out.println("Ad is present on Extended_Hourly page");
 					Thread.sleep(2000);
-					Ad.findElementByClassName("android.widget.ImageButton").click();
+					Ad.findElementByClassName(exceldata[5][Cap]).click();
 					break;
 				}
 	
@@ -119,11 +131,19 @@ public class AppFunctions extends Drivers{
 		System.out.println("===================================================");
 	}
 	
-	public static void verify_adpresent_onextendedTenday_page() throws Exception {
+	public static void verify_adpresent_onextendedTenday_page(String excel_sheet_name) throws Exception {
 		System.out.println("===================================================");
 		System.out.println("Searching for Daily module");
-		Scroll_Upto_Feed_1();Swipe();
+		DeviceStatus device_status = new DeviceStatus();
+		int Cap = device_status.Device_Status();
 		
+		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
+		int swipe = Integer.parseInt(exceldata[2][Cap]);
+		System.out.println("===================================================");
+		for(int i=1;i<=swipe ;i++){
+			Swipe();
+			Thread.sleep(1000);
+		}
 		
 		int MAX_SWIPES = 10;
 		
@@ -133,8 +153,8 @@ public class AppFunctions extends Drivers{
 
 			try {
 				WebDriverWait wait0 = new WebDriverWait(Ad, 10);
-				wait0.until(ExpectedConditions.visibilityOf(Ad.findElementById("com.weather.Weather:id/daily_more")));
-				tenday = (MobileElement) Ad.findElementById("com.weather.Weather:id/daily_more");
+				wait0.until(ExpectedConditions.visibilityOf(Ad.findElementById(exceldata[5][Cap])));
+				tenday = (MobileElement) Ad.findElementById(exceldata[5][Cap]);
 			} catch (Exception e) {
 				// System.out.println(e);
 			}
@@ -142,8 +162,8 @@ public class AppFunctions extends Drivers{
 			if (tenday != null && tenday.isDisplayed()) {
 				
 				System.out.println("Daily module is present and tap on 15Days button");
-				Ad.findElementById("com.weather.Weather:id/daily_more").click();
-				String extendDaily = Ad.findElementById("toolbar_title").getText(); 
+				Ad.findElementById(exceldata[5][Cap]).click();
+				String extendDaily = Ad.findElementById(exceldata[6][Cap]).getText(); 
 				
 				System.out.println("Text : "+extendDaily);
 				if(extendDaily.contains("Daily"))
@@ -151,7 +171,7 @@ public class AppFunctions extends Drivers{
 					System.out.println("On Extended Daily page");
 				}
 
-				MobileElement AdEle =(MobileElement) Ad.findElementById("com.weather.Weather:id/ad_view_holder");
+				MobileElement AdEle =(MobileElement) Ad.findElementById(exceldata[7][Cap]);
 				
 				WebDriverWait wait1 = new WebDriverWait(Ad, 10);
 				wait1.until(ExpectedConditions.visibilityOf(AdEle));
@@ -159,7 +179,7 @@ public class AppFunctions extends Drivers{
 				if (AdEle.isDisplayed()) {
 					System.out.println("Ad is present on Extended_Daily_page");
 					Thread.sleep(2000);
-					Ad.findElementByClassName("android.widget.ImageButton").click();
+					Ad.findElementByClassName(exceldata[10][Cap]).click();
 					break;
 				}
 				
@@ -172,10 +192,20 @@ public class AppFunctions extends Drivers{
 		System.out.println("===================================================");
 	}
 	
-	public static void verify_adpresent_onextendedMap_page() throws Exception {
+	public static void verify_adpresent_onextendedMap_page(String excel_sheet_name) throws Exception {
 		System.out.println("===================================================");
 		System.out.println("Searching for Radar & Maps Module");
-		Scroll_Upto_Feed_1();Swipe();Swipe();
+		DeviceStatus device_status = new DeviceStatus();
+		int Cap = device_status.Device_Status();
+		
+		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
+		int swipe = Integer.parseInt(exceldata[2][Cap]);
+		System.out.println("===================================================");
+		for(int i=1;i<=swipe ;i++){
+			Swipe();
+			Thread.sleep(1000);
+		}
+		
 		int MAX_SWIPES = 10;
 		
 		for (int i = 0; i< MAX_SWIPES; i++) {
@@ -185,8 +215,8 @@ public class AppFunctions extends Drivers{
 			try {
 				
 				WebDriverWait wait0 = new WebDriverWait(Ad, 10);
-				wait0.until(ExpectedConditions.visibilityOf(Ad.findElementByName("Radar & Maps")));
-				maps = (MobileElement) Ad.findElementByName("Radar & Maps");
+				wait0.until(ExpectedConditions.visibilityOf(Ad.findElementByName(exceldata[5][Cap])));
+				maps = (MobileElement) Ad.findElementByName(exceldata[5][Cap]);
 
 			} catch (Exception e) {
 				// System.out.println(e);
@@ -195,16 +225,16 @@ public class AppFunctions extends Drivers{
 			if (maps != null && maps.isDisplayed()) {
 				
 				System.out.println("Radar and Maps module is present on Map Image");
-				Ad.findElementByName("Radar & Maps").click();
+				Ad.findElementByName(exceldata[5][Cap]).click();
 				
-				MobileElement extendMaps = (MobileElement) Ad.findElementById("maps_play_pause");
+				MobileElement extendMaps = (MobileElement) Ad.findElementById(exceldata[6][Cap]);
 				
 				if(extendMaps.isDisplayed())
 				{
 					System.out.println("On Extended Maps page");
 				}
 
-				MobileElement AdEle =(MobileElement) Ad.findElementById("com.weather.Weather:id/ad_view_holder");
+				MobileElement AdEle =(MobileElement) Ad.findElementById(exceldata[7][Cap]);
 				
 				WebDriverWait wait1 = new WebDriverWait(Ad, 10);
 				wait1.until(ExpectedConditions.visibilityOf(AdEle));
@@ -212,7 +242,7 @@ public class AppFunctions extends Drivers{
 				if (AdEle.isDisplayed()) {
 					System.out.println("Ad is present on Extended Radar & Maps page");
 					Thread.sleep(2000);
-					Ad.findElementByClassName("android.widget.ImageButton").click();
+					Ad.findElementByClassName(exceldata[10][Cap]).click();
 					break;
 				}
 				
@@ -226,11 +256,21 @@ public class AppFunctions extends Drivers{
 	}
 	
 	
-	public static void verify_adpresent_onextendedNews_page() throws Exception
+	public static void verify_adpresent_onextendedNews_page(String excel_sheet_name) throws Exception
 	{
 		System.out.println("===================================================");
 		System.out.println("Searching for News module");
-		Scroll_Upto_Feed_1();Swipe();Swipe();Swipe();
+		DeviceStatus device_status = new DeviceStatus();
+		int Cap = device_status.Device_Status();
+		
+		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
+		int swipe = Integer.parseInt(exceldata[2][Cap]);
+		System.out.println("===================================================");
+		for(int i=1;i<=swipe ;i++){
+			Swipe();
+			Thread.sleep(1000);
+		}
+		
 		int MAX_SWIPES = 10;
 		
 		for (int i = 0; i<MAX_SWIPES; i++) {
@@ -239,8 +279,8 @@ public class AppFunctions extends Drivers{
 
 			try {
 				WebDriverWait wait0 = new WebDriverWait(Ad, 10);
-				wait0.until(ExpectedConditions.visibilityOf(Ad.findElementByName("News")));
-				news = (MobileElement) Ad.findElementByName("News");
+				wait0.until(ExpectedConditions.visibilityOf(Ad.findElementByName(exceldata[4][Cap])));
+				news = (MobileElement) Ad.findElementByName(exceldata[4][Cap]);
 				
 			} catch (Exception e) {
 				// System.out.println("Exception message :: "+e);	
@@ -249,15 +289,15 @@ public class AppFunctions extends Drivers{
 			if(news!=null && news.isDisplayed())
 			{  
 				System.out.println("News module is present and tap on News Image");
-				Ad.findElementById("com.weather.Weather:id/grid_item_1").click();
-				String extendNews = Ad.findElementById("toolbar_title").getText(); //com.weather.Weather:id/toolbar_title
+				Ad.findElementById(exceldata[5][Cap]).click();
+				String extendNews = Ad.findElementById(exceldata[6][Cap]).getText(); //com.weather.Weather:id/toolbar_title
 				System.out.println("Text : "+ extendNews);
 					
 				if(extendNews.contains("News"))
 					{
 						System.out.println("On Extended News page");
 					}
-				MobileElement AdEle =(MobileElement) Ad.findElementById("com.weather.Weather:id/ad_view_holder");
+				MobileElement AdEle =(MobileElement) Ad.findElementById(exceldata[7][Cap]);
 					
 				WebDriverWait wait1 = new WebDriverWait(Ad, 10);
 				wait1.until(ExpectedConditions.visibilityOf(AdEle));
@@ -265,7 +305,7 @@ public class AppFunctions extends Drivers{
 					{
 						System.out.println("Ad is present on Extended News page");
 						Thread.sleep(2000);
-						Ad.findElementByClassName("android.widget.ImageButton").click();
+						Ad.findElementByClassName(exceldata[10][Cap]).click();
 						break;
 					}
 					

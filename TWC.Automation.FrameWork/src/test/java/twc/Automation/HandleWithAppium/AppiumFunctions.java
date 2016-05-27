@@ -12,7 +12,6 @@ import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.ExecuteException;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-
 import twc.Automation.Driver.Drivers;
 import twc.Automation.ReadDataFromFile.read_excel_data;
 import twc.Automation.General.DeviceStatus;
@@ -27,12 +26,15 @@ public class AppiumFunctions extends Drivers{
         Runtime.getRuntime().exec(command1);
 	}
 	
-	public static void UnInstallApp() throws IOException{
+	public static void UnInstallApp() throws Exception{
 		
-		Drivers.property();
+		DeviceStatus device_status = new DeviceStatus();
+		int Cap = device_status.Device_Status();
+		
+		String[][] paths = read_excel_data.exceldataread("paths");
 		
 		System.out.println("Uninstall the APP and Installing");	
-		String[] uninstall ={"/bin/bash", "-c",  properties.getProperty("adbPath")+" uninstall com.weather.Weather"};
+		String[] uninstall ={"/bin/bash", "-c",  paths[15][Cap]+" uninstall com.weather.Weather"};
 		Runtime.getRuntime().exec(uninstall);
 		System.out.println("Uninstall completed");
 	}
@@ -49,11 +51,14 @@ public class AppiumFunctions extends Drivers{
         Thread.sleep(5000);
 	}
 	
-	public static void clearTWCLogs() throws InterruptedException, IOException{
+	public static void clearTWCLogs() throws Exception{
 		
-		Drivers.property();
+		DeviceStatus device_status = new DeviceStatus();
+		int Cap = device_status.Device_Status();
+		
+		String[][] paths = read_excel_data.exceldataread("paths");
 		System.out.println("Clear Logcat Logs for TWC App");	
-		String[] clearLogcatdata ={"/bin/bash", "-c",  properties.getProperty("adbPath")+" logcat -c"};
+		String[] clearLogcatdata ={"/bin/bash", "-c",  paths[15][Cap]+" logcat -c"};
 		Runtime.getRuntime().exec(clearLogcatdata);	
 		Thread.sleep(4000);
 	}
@@ -83,12 +88,16 @@ public class AppiumFunctions extends Drivers{
 		}
 	}
 	
-	public static void ReLaunchApp() throws InterruptedException, IOException{
+	public static void ReLaunchApp() throws Exception{
+		
+		DeviceStatus device_status = new DeviceStatus();
+		int Cap = device_status.Device_Status();
 		
 		clearTWCLogs();
 		
 		Drivers.property();
-		String adbPath = properties.getProperty("adbPath");
+		String[][] paths = read_excel_data.exceldataread("paths");
+		String adbPath = paths[15][Cap];
 		
 		String[] str ={"/bin/bash", "-c", adbPath+" adb shell pm disable com.weather.Weather"};
 		Runtime.getRuntime().exec(str);
@@ -104,27 +113,12 @@ public class AppiumFunctions extends Drivers{
 	@SuppressWarnings("rawtypes")
 	public static void LaunchApp() throws InterruptedException, IOException{
 			
-			Drivers.property();
-			
-			try {
-				killADB();
-			} catch (IOException e1) {
-				System.out.println("Unable To Kill The ADB");
-			}
-			
-//			try {
-//				UnInstallApp();
-//			} catch (IOException e1) {
-//				System.out.println("Unable To Un Install The APP");
-//			}
-			
-			
+			killADB();
 			AppiumServerStop();
 			AppiumServerStart();
 			
 			DeviceStatus device_status = new DeviceStatus();
 			int Cap = device_status.Device_Status();
-			
 			
 			try {
 				

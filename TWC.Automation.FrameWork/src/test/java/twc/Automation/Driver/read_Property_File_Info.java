@@ -14,7 +14,7 @@ public class read_Property_File_Info {
 	public static void property() throws IOException
 	
 	{
-		String dataFilePath="/Users/monocept/Documents/workspace_luna/TWC.Automation.FrameWork/Project.Properties";
+		String dataFilePath="/Users/monocept/Documents/workspace_luna/TWC.Automation.FrameWork/DataFile.Properties";
 		
 		File file = new File(dataFilePath);
 		try {
