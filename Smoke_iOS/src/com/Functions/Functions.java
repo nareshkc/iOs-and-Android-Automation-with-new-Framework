@@ -99,24 +99,24 @@ public class Functions extends Driver{
 		Runtime.getRuntime().exec(command);  
 		//System.out.println("Appium server stop");  
 	} 
-	
+
 	//Appium Autostart
 	public static void Appium_Autostart() throws IOException, Exception{
-						//Auto start Appium
-						Start_Stop_AppiumServer appiumStart = new Start_Stop_AppiumServer();
-						System.out.println("Stopping the appium server");
-						appiumStart.stopAppiumServer();
-						System.out.println("Appium server is stopped");
-						//Thread.sleep(10000);
-						System.out.println("Starting the appium server");
-						appiumStart.startAppiumServer();
-						System.out.println("Appium server is started and running");
+		//Auto start Appium
+		Start_Stop_AppiumServer appiumStart = new Start_Stop_AppiumServer();
+		System.out.println("Stopping the appium server");
+		appiumStart.stopAppiumServer();
+		System.out.println("Appium server is stopped");
+		//Thread.sleep(10000);
+		System.out.println("Starting the appium server");
+		appiumStart.startAppiumServer();
+		System.out.println("Appium server is started and running");
 	}
-	
+
 	//Decide connected device
 	public static void capabilities() throws Exception {
 
-	
+
 
 		//Read Device Platform
 		readExcelValues.excelValues("Device");
@@ -154,6 +154,7 @@ public class Functions extends Driver{
 		//Relaunch the app
 		Ad.launchApp();
 		System.out.println("App launched successfully");
+		Thread.sleep(2000);
 	}
 	//Assert Equlist
 	public static boolean equalLists(List<String> segmentJsonArray, List<String> container2) {
@@ -350,21 +351,21 @@ public class Functions extends Driver{
 		}
 
 	}
-	
-	//Enter New addresses
-		public static void enternewAddress(String zip) throws Exception{
-			readExcelValues.excelValues("AddressPage");
-				TempEle=(MobileElement) Ad.findElementByClassName(readExcelValues.data[9][Cap]);
-				TempEle.click();
-				TempEle.sendKeys(zip);
-				//down Keyboad
-				Thread.sleep(2000);
-				Ad.findElementByName("Search").click();
-				//select first name in the list
-				Ad.findElementByXPath(readExcelValues.data[8][Cap]).click();
-				Thread.sleep(2000); 
 
-		}
+	//Enter New addresses
+	public static void enternewAddress(String zip) throws Exception{
+		readExcelValues.excelValues("AddressPage");
+		TempEle=(MobileElement) Ad.findElementByClassName(readExcelValues.data[9][Cap]);
+		TempEle.click();
+		TempEle.sendKeys(zip);
+		//down Keyboad
+		Thread.sleep(2000);
+		Ad.findElementByName("Search").click();
+		//select first name in the list
+		Ad.findElementByXPath(readExcelValues.data[8][Cap]).click();
+		Thread.sleep(2000); 
+
+	}
 	//Verify saved address list
 	public static void verifysavedAddresses() throws Exception{
 		readExcelValues.excelValues("AddressPage");
@@ -394,10 +395,15 @@ public class Functions extends Driver{
 	//Select multiple saved address one by one using addresscount value
 	public static void selectsavedAddresses(int addresscount) throws Exception{
 
-		readExcelValues.excelValues("AddressPage");
+
 		if(Addresseslist.size()>2){
+			pubads.clear();
 			for(int addresslist=1;addresslist<=addresscount;addresslist++){
 
+				Functions.delete_folder();
+				Functions.clear_session();
+
+				readExcelValues.excelValues("AddressPage");
 				int Count =addresslist+2; 
 				//int TempEle = addresslist+1;
 				String xyz = readExcelValues.data[4][Cap];
@@ -410,19 +416,20 @@ public class Functions extends Driver{
 				String SavedAddress=SelectAddress.getText();
 				System.out.println("Selected saved Address is  - "+SavedAddress);
 				SelectAddress.click();
-				//				Count=Count-1;
-				//				//int TempEle = addresslist+1;
-				//				String TempEle = readExcelValues.data[7][Cap];
-				//				//System.out.println("String xyz is "+xyz);
-				//				String[] AddresSplit =TempEle.split("Count");
-				//				TempEle=AddresSplit[0]+Count+AddresSplit[1];
-				//				Ad.findElementByXPath(TempEle).click();
+
+				//Functions.charles_Stop();
+
+
+				Functions.downloadXMLFile();
+				Functions.readXML();
+				Functions.verifyPubadCalwithselectedAddress("cxtg");
 
 				if(addresscount>1 && addresslist!=addresscount){
 					navigatetoAddressPage();
 				}else{
 					System.out.println("");
 				}
+
 
 			}
 		}
@@ -595,6 +602,7 @@ public class Functions extends Driver{
 								firstParamValue = s[1].toString();
 								System.out.println(splitPubvalues[i]  +" Param value is :" + firstParamValue);
 								pubadvalues.add(firstParamValue);
+								Thread.sleep(1000);
 								System.out.println("all first Param value is :" + pubadvalues);
 							}else if(s[0].equals("cxtg"))
 							{
@@ -632,38 +640,68 @@ public class Functions extends Driver{
 		}
 	}
 	//Verify pubad call from XML File
-	public static void verifyPubadCal(int wchichPubad,String sheetName) throws Exception{
+	public static void verifyPubadCalwithselectedAddress(String sheetName) throws Exception{
 		readExcelValues.excelValues(sheetName);
 		//Get Pubad call from 
-		for(int pubadlist=1;pubadlist<=wchichPubad;pubadlist++){
 
-			if(sb.toString().contains(readExcelValues.data[17][Cap])){
-				System.out.println("bb ad call is pressent");
-				if(pubadlist==1){
-					pubadcal = sb.toString().substring(sb.toString().lastIndexOf(readExcelValues.data[17][Cap]));
-					//System.out.println("pubad call is :"+pubadcal);
-				}else
-				{
-					pubadcal = sb.toString().substring(sb.toString().lastIndexOf(readExcelValues.data[17][Cap]));
-				}
-				pubreq1 = pubadcal.toString().substring(pubadcal.toString().indexOf(readExcelValues.data[7][Cap]));
 
-				pubreq1= pubreq1.toString().replaceAll(readExcelValues.data[8][Cap], "=");
-				pubreq1= pubreq1.toString().replaceAll(readExcelValues.data[9][Cap], "&");
-				pubreq1= pubreq1.toString().replaceAll(readExcelValues.data[10][Cap], ",");
-				int sizeparam = readExcelValues.data[14][Cap].length();
-				pubreq1 = pubreq1.substring(pubreq1.indexOf(readExcelValues.data[14][Cap])+sizeparam,pubreq1.indexOf(readExcelValues.data[15][Cap]));
-				System.out.println("feed call zip is "+ pubreq1.toString());
-				pubads.add(pubreq1.toString());
-				System.out.println("feed call zip is "+ pubads);
+		if(sb.toString().contains(readExcelValues.data[17][Cap])){
+			System.out.println("bb ad call is pressent");
 
-			}
-			else{
-				System.out.println("bb ad call is not pressent");
-				Assert.fail("bb ad call is not pressent");
-			}
+			pubadcal = sb.toString().substring(sb.toString().lastIndexOf(readExcelValues.data[17][Cap]));
+			//System.out.println("pubad call is :"+pubadcal);
+
+			pubreq1 = pubadcal.toString().substring(pubadcal.toString().indexOf(readExcelValues.data[7][Cap]));
+
+			pubreq1= pubreq1.toString().replaceAll(readExcelValues.data[8][Cap], "=");
+			pubreq1= pubreq1.toString().replaceAll(readExcelValues.data[9][Cap], "&");
+			pubreq1= pubreq1.toString().replaceAll(readExcelValues.data[10][Cap], ",");
+			int sizeparam = readExcelValues.data[14][Cap].length();
+			pubreq1 = pubreq1.substring(pubreq1.indexOf(readExcelValues.data[14][Cap])+sizeparam,pubreq1.indexOf(readExcelValues.data[15][Cap]));
+			//System.out.println("feed call zip is "+ pubreq1.toString());
+			pubads.add(pubreq1.toString());
+			System.out.println("feed call zip is "+ pubads);
 
 		}
+		else{
+			System.out.println("bb ad call is not pressent");
+			Assert.fail("bb ad call is not pressent");
+		}
+
+
+		verifyParamsFromPubadCal(sheetName);
+	}
+
+	//Verify pubad call from XML File
+	public static void verifyPubadCal(String sheetName) throws Exception{
+		readExcelValues.excelValues(sheetName);
+		//Get Pubad call from 
+		pubads.clear();
+
+		if(sb.toString().contains(readExcelValues.data[17][Cap])){
+			System.out.println("bb ad call is pressent");
+
+			pubadcal = sb.toString().substring(sb.toString().lastIndexOf(readExcelValues.data[17][Cap]));
+			//System.out.println("pubad call is :"+pubadcal);
+
+			pubreq1 = pubadcal.toString().substring(pubadcal.toString().indexOf(readExcelValues.data[7][Cap]));
+
+			pubreq1= pubreq1.toString().replaceAll(readExcelValues.data[8][Cap], "=");
+			pubreq1= pubreq1.toString().replaceAll(readExcelValues.data[9][Cap], "&");
+			pubreq1= pubreq1.toString().replaceAll(readExcelValues.data[10][Cap], ",");
+			int sizeparam = readExcelValues.data[14][Cap].length();
+			pubreq1 = pubreq1.substring(pubreq1.indexOf(readExcelValues.data[14][Cap])+sizeparam,pubreq1.indexOf(readExcelValues.data[15][Cap]));
+			//System.out.println("feed call zip is "+ pubreq1.toString());
+			pubads.add(pubreq1.toString());
+			System.out.println("feed call zip is "+ pubads);
+
+		}
+		else{
+			System.out.println("bb ad call is not pressent");
+			Assert.fail("bb ad call is not pressent");
+		}
+
+
 		verifyParamsFromPubadCal(sheetName);
 	}
 
@@ -702,7 +740,9 @@ public class Functions extends Driver{
 	//	}
 
 	//Verify API call from XML File
-	public static void verifyAPICal(int whichAPI,String SheetName) throws Exception{
+	public static void verifyAPICal(String SheetName) throws Exception{
+
+		//readXML();
 		readExcelValues.excelValues(SheetName);
 		//Get Pubad call from 
 		//for(int APIlist=1;APIlist<=whichAPI;APIlist++){
@@ -783,10 +823,11 @@ public class Functions extends Driver{
 		readExcelValues.excelValues(sheetName);
 		String fgeoActual=null;
 		String Pubadparmascount = readExcelValues.data[16][Cap];
-
+		String pubparam[] = Pubadparmascount.split(",");
+		System.out.println("Size of Pub param is :"+pubparam.length);
 		if(req.toString().contains(readExcelValues.data[11][Cap])){
 			System.out.println("req :"+req.toString());
-			if(req.toString().contains("false")||req.toString().contains("Mnl")||req.toString().contains("")){
+			if(req.toString().contains("false")||req.toString().contains("Mnl")||req.toString().contains("[]")){
 				fgeoActual="nl";
 			}else{
 
@@ -826,6 +867,7 @@ public class Functions extends Driver{
 			for(String Factualkey : Factualarrays){
 				Factualkey=Factualkey.toString().replaceAll("^\"|\"$", "");	
 				Factualkey=Factualkey.toString().replace(" ", "");
+
 				//Fgeo Comparison
 				if(fgeoActual.toString().contains(Factualkey.toString())){
 					System.out.println("Values are matched --"+firstParamValue +"--"+Factualkey);
@@ -850,33 +892,43 @@ public class Functions extends Driver{
 					Faudval =Faudval.replaceAll("}","");
 					String[] faudgroup = Faudval.toString().split(",");
 					for(String Faudval1:faudgroup){
-						System.out.println("Faudval1 :"+Faudval1);
+						//System.out.println("Faudval1 :"+Faudval1);
 						String[]faudval = Faudval1.split(":");
 						String faudvalues =faudval[1].replaceFirst("^\"|\"$","");
 						faudvalues =faudvalues.replaceAll("^\"|\"$","");
 						faudlist.add(faudvalues);
 
 						System.out.println("faudlist :"+faudlist);
-						System.out.println("container::"+container);
-						String faudValues = faudlist.toString().replace("[", "").replace("]", "");		
+						//System.out.println("container::"+container);
+								
 					}
 				}
 			}else{
 				faudlist.add("nl");
 			}
+			String faudValues = faudlist.toString().replace("[", "").replace("]", "");
 			//faued values split from Pubads
 			String Expected = container.toString().replace("[", "").replace("]", "");
-			Expected = Expected.toString().replaceAll("\"", "");	
+			//Expected = Expected.toString().replaceAll("\"", "");	
 			System.out.println("Expected vales are :"+Expected.toString());
+			System.out.println("faudValu vales are :"+faudValues.toString());
+			//Fgeo Comparison
+			String[] Faudlarrays = seg.toString().split(",");
+			for(String Faudlkey : Faudlarrays){
+				Faudlkey=Faudlkey.toString().replaceAll("^\"|\"$", "");	
+				Faudlkey=Faudlkey.toString().replace(" ", "");
 
+				//Fgeo Comparison
+				if(faudValues.toString().contains(Faudlkey.toString())){
+					System.out.println("Values are matched --"+seg +"--"+Faudlkey);
 
-			boolean flag = equalLists(faudlist, container);
-			String Res = String.valueOf(flag);
-			System.out.println("Trigger call Result is :" + Res.toString());
-
-			System.out.println(flag);
-			Assert.assertTrue(flag);
-			//break;
+				}else
+				{
+					System.out.println("Values are not matched for :"+ Faudlkey);
+					Assert.fail();
+				}
+			}
+		
 		}
 	}
 
@@ -1202,4 +1254,5 @@ public class Functions extends Driver{
 			Assert.fail("Thirdparty Beacons are not present");
 		}
 	}
+
 }

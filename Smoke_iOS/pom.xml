@@ -19,6 +19,15 @@
   
    <dependencies>
   
+  
+  <!-- http://mvnrepository.com/artifact/net.sourceforge.jexcelapi/jxl -->
+<dependency>
+    <groupId>net.sourceforge.jexcelapi</groupId>
+    <artifactId>jxl</artifactId>
+    <version>2.6.12</version>
+</dependency>
+  
+  
   <!-- Extents dependency -->
   <dependency>
 	<groupId>com.relevantcodes</groupId>

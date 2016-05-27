@@ -1,137 +1,149 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="10" passed="10">
+<testng-results skipped="0" failed="0" total="11" passed="11">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="914091" started-at="2016-05-25T17:37:19Z" finished-at="2016-05-25T17:52:33Z">
+  <suite name="Default suite" duration-ms="884276" started-at="2016-05-27T13:23:38Z" finished-at="2016-05-27T13:38:23Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="914091" started-at="2016-05-25T17:37:19Z" finished-at="2016-05-25T17:52:33Z">
+    <test name="Default test" duration-ms="884276" started-at="2016-05-27T13:23:38Z" finished-at="2016-05-27T13:38:23Z">
       <class name="com.Functions.Smoke_Run">
-        <test-method status="PASS" signature="beforeTest()[pri:0, instance:com.Functions.Smoke_Run@60f82f98]" name="beforeTest" is-config="true" duration-ms="183344" started-at="2016-05-25T23:07:19Z" finished-at="2016-05-25T23:10:22Z">
+        <test-method status="PASS" signature="beforeTest()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="beforeTest" is-config="true" duration-ms="139836" started-at="2016-05-27T18:53:39Z" finished-at="2016-05-27T18:55:58Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeTest -->
-        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.Functions.Smoke_Run@60f82f98]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2016-05-25T23:10:22Z" finished-at="2016-05-25T23:10:22Z">
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="beforeMethod" is-config="true" duration-ms="1" started-at="2016-05-27T18:55:58Z" finished-at="2016-05-27T18:55:58Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeMethod -->
-        <test-method status="PASS" signature="pullto_refresh()[pri:0, instance:com.Functions.Smoke_Run@60f82f98]" name="pullto_refresh" duration-ms="23847" started-at="2016-05-25T23:10:22Z" finished-at="2016-05-25T23:10:46Z">
+        <test-method status="PASS" signature="pullto_refresh()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="pullto_refresh" duration-ms="22715" started-at="2016-05-27T18:55:58Z" finished-at="2016-05-27T18:56:21Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- pullto_refresh -->
-        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.Functions.Smoke_Run@60f82f98]" name="afterMethod" is-config="true" duration-ms="1" started-at="2016-05-25T23:10:46Z" finished-at="2016-05-25T23:10:46Z">
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="afterMethod" is-config="true" duration-ms="0" started-at="2016-05-27T18:56:21Z" finished-at="2016-05-27T18:56:21Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterMethod -->
-        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.Functions.Smoke_Run@60f82f98]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2016-05-25T23:10:46Z" finished-at="2016-05-25T23:10:46Z">
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="beforeMethod" is-config="true" duration-ms="1" started-at="2016-05-27T18:56:21Z" finished-at="2016-05-27T18:56:21Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeMethod -->
-        <test-method status="PASS" signature="cleanlaunch()[pri:1, instance:com.Functions.Smoke_Run@60f82f98]" name="cleanlaunch" duration-ms="95613" started-at="2016-05-25T23:10:46Z" finished-at="2016-05-25T23:12:21Z">
+        <test-method status="PASS" signature="cleanlaunch()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="cleanlaunch" duration-ms="75361" started-at="2016-05-27T18:56:21Z" finished-at="2016-05-27T18:57:36Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- cleanlaunch -->
-        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.Functions.Smoke_Run@60f82f98]" name="afterMethod" is-config="true" duration-ms="0" started-at="2016-05-25T23:12:21Z" finished-at="2016-05-25T23:12:21Z">
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="afterMethod" is-config="true" duration-ms="0" started-at="2016-05-27T18:57:36Z" finished-at="2016-05-27T18:57:36Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterMethod -->
-        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.Functions.Smoke_Run@60f82f98]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2016-05-25T23:12:21Z" finished-at="2016-05-25T23:12:21Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- beforeMethod -->
-        <test-method status="PASS" signature="WFXTriggers_cxtg()[pri:2, instance:com.Functions.Smoke_Run@60f82f98]" name="WFXTriggers_cxtg" duration-ms="238361" started-at="2016-05-25T23:12:21Z" finished-at="2016-05-25T23:16:20Z">
+        <test-method status="PASS" signature="WFXTriggers_cxtg()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="WFXTriggers_cxtg" duration-ms="214720" started-at="2016-05-27T18:57:36Z" finished-at="2016-05-27T19:01:11Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- WFXTriggers_cxtg -->
-        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.Functions.Smoke_Run@60f82f98]" name="afterMethod" is-config="true" duration-ms="0" started-at="2016-05-25T23:16:20Z" finished-at="2016-05-25T23:16:20Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- afterMethod -->
-        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.Functions.Smoke_Run@60f82f98]" name="beforeMethod" is-config="true" duration-ms="1" started-at="2016-05-25T23:16:20Z" finished-at="2016-05-25T23:16:20Z">
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2016-05-27T18:57:36Z" finished-at="2016-05-27T18:57:36Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeMethod -->
-        <test-method status="PASS" signature="WFXTriggers_Factuals()[pri:3, instance:com.Functions.Smoke_Run@60f82f98]" name="WFXTriggers_Factuals" duration-ms="96" started-at="2016-05-25T23:16:20Z" finished-at="2016-05-25T23:16:20Z">
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="afterMethod" is-config="true" duration-ms="1" started-at="2016-05-27T19:01:11Z" finished-at="2016-05-27T19:01:11Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterMethod -->
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2016-05-27T19:01:11Z" finished-at="2016-05-27T19:01:11Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="WFXTriggers_Factuals()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="WFXTriggers_Factuals" duration-ms="44689" started-at="2016-05-27T19:01:11Z" finished-at="2016-05-27T19:01:56Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- WFXTriggers_Factuals -->
-        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.Functions.Smoke_Run@60f82f98]" name="afterMethod" is-config="true" duration-ms="0" started-at="2016-05-25T23:16:20Z" finished-at="2016-05-25T23:16:20Z">
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="afterMethod" is-config="true" duration-ms="1" started-at="2016-05-27T19:01:56Z" finished-at="2016-05-27T19:01:56Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterMethod -->
-        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.Functions.Smoke_Run@60f82f98]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2016-05-25T23:16:20Z" finished-at="2016-05-25T23:16:20Z">
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2016-05-27T19:01:56Z" finished-at="2016-05-27T19:01:56Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeMethod -->
-        <test-method status="PASS" signature="ad_crwd()[pri:4, instance:com.Functions.Smoke_Run@60f82f98]" name="ad_crwd" duration-ms="73" started-at="2016-05-25T23:16:20Z" finished-at="2016-05-25T23:16:20Z">
+        <test-method status="PASS" signature="ad_crwd()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="ad_crwd" duration-ms="204" started-at="2016-05-27T19:01:56Z" finished-at="2016-05-27T19:01:56Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- ad_crwd -->
-        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.Functions.Smoke_Run@60f82f98]" name="afterMethod" is-config="true" duration-ms="1" started-at="2016-05-25T23:16:20Z" finished-at="2016-05-25T23:16:20Z">
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="afterMethod" is-config="true" duration-ms="0" started-at="2016-05-27T19:01:56Z" finished-at="2016-05-27T19:01:56Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterMethod -->
-        <test-method status="PASS" signature="extenedHourlyPage_ads()[pri:5, instance:com.Functions.Smoke_Run@60f82f98]" name="extenedHourlyPage_ads" duration-ms="79455" started-at="2016-05-25T23:16:20Z" finished-at="2016-05-25T23:17:39Z">
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="beforeMethod" is-config="true" duration-ms="1" started-at="2016-05-27T19:01:56Z" finished-at="2016-05-27T19:01:56Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="extenedHourlyPage_ads()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="extenedHourlyPage_ads" duration-ms="72233" started-at="2016-05-27T19:01:56Z" finished-at="2016-05-27T19:03:08Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- extenedHourlyPage_ads -->
-        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.Functions.Smoke_Run@60f82f98]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2016-05-25T23:16:20Z" finished-at="2016-05-25T23:16:20Z">
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="beforeMethod" is-config="true" duration-ms="1" started-at="2016-05-27T19:03:08Z" finished-at="2016-05-27T19:03:08Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeMethod -->
-        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.Functions.Smoke_Run@60f82f98]" name="afterMethod" is-config="true" duration-ms="0" started-at="2016-05-25T23:17:39Z" finished-at="2016-05-25T23:17:39Z">
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="afterMethod" is-config="true" duration-ms="0" started-at="2016-05-27T19:03:08Z" finished-at="2016-05-27T19:03:08Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterMethod -->
-        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.Functions.Smoke_Run@60f82f98]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2016-05-25T23:17:39Z" finished-at="2016-05-25T23:17:39Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- beforeMethod -->
-        <test-method status="PASS" signature="extenedDailyPage_ads()[pri:6, instance:com.Functions.Smoke_Run@60f82f98]" name="extenedDailyPage_ads" duration-ms="44589" started-at="2016-05-25T23:17:39Z" finished-at="2016-05-25T23:18:24Z">
+        <test-method status="PASS" signature="extenedDailyPage_ads()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="extenedDailyPage_ads" duration-ms="45732" started-at="2016-05-27T19:03:08Z" finished-at="2016-05-27T19:03:54Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- extenedDailyPage_ads -->
-        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.Functions.Smoke_Run@60f82f98]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2016-05-25T23:18:24Z" finished-at="2016-05-25T23:18:24Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- beforeMethod -->
-        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.Functions.Smoke_Run@60f82f98]" name="afterMethod" is-config="true" duration-ms="0" started-at="2016-05-25T23:18:24Z" finished-at="2016-05-25T23:18:24Z">
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="afterMethod" is-config="true" duration-ms="1" started-at="2016-05-27T19:03:54Z" finished-at="2016-05-27T19:03:54Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterMethod -->
-        <test-method status="PASS" signature="extenedMapPage_ads()[pri:7, instance:com.Functions.Smoke_Run@60f82f98]" name="extenedMapPage_ads" duration-ms="43460" started-at="2016-05-25T23:18:24Z" finished-at="2016-05-25T23:19:08Z">
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2016-05-27T19:03:54Z" finished-at="2016-05-27T19:03:54Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="extenedMapPage_ads()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="extenedMapPage_ads" duration-ms="42101" started-at="2016-05-27T19:03:54Z" finished-at="2016-05-27T19:04:36Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- extenedMapPage_ads -->
-        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.Functions.Smoke_Run@60f82f98]" name="afterMethod" is-config="true" duration-ms="0" started-at="2016-05-25T23:19:08Z" finished-at="2016-05-25T23:19:08Z">
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="afterMethod" is-config="true" duration-ms="0" started-at="2016-05-27T19:04:36Z" finished-at="2016-05-27T19:04:36Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterMethod -->
-        <test-method status="PASS" signature="extenedNewPage_ads()[pri:8, instance:com.Functions.Smoke_Run@60f82f98]" name="extenedNewPage_ads" duration-ms="78973" started-at="2016-05-25T23:19:08Z" finished-at="2016-05-25T23:20:27Z">
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="beforeMethod" is-config="true" duration-ms="1" started-at="2016-05-27T19:04:36Z" finished-at="2016-05-27T19:04:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="extenedNewPage_ads()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="extenedNewPage_ads" duration-ms="87571" started-at="2016-05-27T19:04:36Z" finished-at="2016-05-27T19:06:04Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- extenedNewPage_ads -->
-        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.Functions.Smoke_Run@60f82f98]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2016-05-25T23:19:08Z" finished-at="2016-05-25T23:19:08Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- beforeMethod -->
-        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.Functions.Smoke_Run@60f82f98]" name="afterMethod" is-config="true" duration-ms="0" started-at="2016-05-25T23:20:27Z" finished-at="2016-05-25T23:20:27Z">
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="afterMethod" is-config="true" duration-ms="1" started-at="2016-05-27T19:06:04Z" finished-at="2016-05-27T19:06:04Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterMethod -->
-        <test-method status="PASS" signature="setto_TestMode()[pri:9, instance:com.Functions.Smoke_Run@60f82f98]" name="setto_TestMode" duration-ms="126247" started-at="2016-05-25T23:20:27Z" finished-at="2016-05-25T23:22:33Z">
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2016-05-27T19:06:04Z" finished-at="2016-05-27T19:06:04Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="setto_TestMode()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="setto_TestMode" duration-ms="138849" started-at="2016-05-27T19:06:04Z" finished-at="2016-05-27T19:08:23Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setto_TestMode -->
-        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.Functions.Smoke_Run@60f82f98]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2016-05-25T23:20:27Z" finished-at="2016-05-25T23:20:27Z">
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2016-05-27T19:08:23Z" finished-at="2016-05-27T19:08:23Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeMethod -->
-        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.Functions.Smoke_Run@60f82f98]" name="afterMethod" is-config="true" duration-ms="1" started-at="2016-05-25T23:22:33Z" finished-at="2016-05-25T23:22:33Z">
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="afterMethod" is-config="true" duration-ms="0" started-at="2016-05-27T19:08:23Z" finished-at="2016-05-27T19:08:23Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterMethod -->
-        <test-method status="PASS" signature="afterTest()[pri:0, instance:com.Functions.Smoke_Run@60f82f98]" name="afterTest" is-config="true" duration-ms="0" started-at="2016-05-25T23:22:33Z" finished-at="2016-05-25T23:22:33Z">
+        <test-method status="PASS" signature="ThirdParty_beacons()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="ThirdParty_beacons" duration-ms="80" started-at="2016-05-27T19:08:23Z" finished-at="2016-05-27T19:08:23Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- ThirdParty_beacons -->
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="afterMethod" is-config="true" duration-ms="0" started-at="2016-05-27T19:08:23Z" finished-at="2016-05-27T19:08:23Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterMethod -->
+        <test-method status="PASS" signature="afterTest()[pri:0, instance:com.Functions.Smoke_Run@2812cbfa]" name="afterTest" is-config="true" duration-ms="109" started-at="2016-05-27T19:08:23Z" finished-at="2016-05-27T19:08:23Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterTest -->

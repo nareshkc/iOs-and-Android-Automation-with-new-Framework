@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
+<suite name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
       <class name="com.Functions.Smoke_Run">
         <methods>
-          <include name="pullto_refresh"/>
-          <include name="WFXTriggers_cxtg"/>
           <include name="extenedNewPage_ads"/>
+          <include name="afterTest"/>
           <include name="setto_TestMode"/>
-          <include name="extenedDailyPage_ads"/>
+          <include name="ThirdParty_beacons"/>
           <include name="beforeTest"/>
-          <include name="cleanlaunch"/>
-          <include name="extenedHourlyPage_ads"/>
-          <include name="ad_crwd"/>
-          <include name="extenedMapPage_ads"/>
-          <include name="WFXTriggers_Factuals"/>
+          <include name="afterMethod"/>
+          <include name="beforeMethod"/>
         </methods>
       </class> <!-- com.Functions.Smoke_Run -->
     </classes>
