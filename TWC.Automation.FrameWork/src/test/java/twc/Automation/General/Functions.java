@@ -202,7 +202,7 @@ public class Functions extends Drivers{
 		
 		
 		String pubad_cust_params_data = required_info.toString();
-		System.out.println(pubad_cust_params_data);
+		
 		String[] pubadvalue = pubad_cust_params_data.split(exceldata[13][Cap]);
 		
 			for(String pubadkey:pubadvalue){

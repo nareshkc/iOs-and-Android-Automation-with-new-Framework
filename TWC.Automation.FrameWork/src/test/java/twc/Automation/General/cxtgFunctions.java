@@ -104,10 +104,10 @@ public class cxtgFunctions extends Drivers{
 	}
 	
 	/* --- Start CXTG Validation For Both PubAds as well as Triggers Response  --- */
-	public static void validateCXTGResultsFromPubadAndTriggerCalls() throws Exception{
+	public static void validateCXTGResultsFromPubadAndTriggerCalls(String excel_sheet_name) throws Exception{
 		
 		System.out.println("Start Verify CXTG Results From PubAds And Trigger Calls");
-		HashMap<String, String> pubad_res = pub_ads_validate();
+		HashMap<String, String> pubad_res = pub_ads_validate(excel_sheet_name);
 		Iterator<String> keySetIterator = pubad_res.keySet().iterator(); 
 		List<String> cxtg_not_match = new ArrayList<String>();
 		
@@ -118,7 +118,7 @@ public class cxtgFunctions extends Drivers{
 			
 			String key = keySetIterator.next();
 			
-			Map<String, String> wfxtrigger_res = wfxtriggers_validate(key);
+			Map<String, String> wfxtrigger_res = wfxtriggers_validate(key,excel_sheet_name);
 			System.out.println("For Location  : " + key);
 			System.out.println("PubAd CXTG Values : " + pubad_res.get(key));
 			System.out.println("Trigger CXTG Values : " + wfxtrigger_res.get("cxtg"));
@@ -145,7 +145,7 @@ public class cxtgFunctions extends Drivers{
 	}/* --- End CXTG Validation For Both PubAds as well as Triggers Response  --- */
 	
 	/* --- Start Getting the PubAds CXTG Values based on ZIP Code  --- */
-	public static HashMap<String, String> pub_ads_validate() throws Exception{
+	public static HashMap<String, String> pub_ads_validate(String excel_sheet_name) throws Exception{
 		
 		
 		String zip = null;
@@ -167,6 +167,11 @@ public class cxtgFunctions extends Drivers{
 			}
 		}
 		
+		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
+		
+		String validateValues = exceldata[16][Cap];
+		String[] validate_Values = validateValues.split(",");
+		
 		HashMap<String, String> zcs_array_list = new HashMap<String, String>();
 		/* --- Start Try Cache Method  --- */
 		try {
@@ -187,14 +192,14 @@ public class cxtgFunctions extends Drivers{
 
 					Element eElement = (Element) nNode;
 					/* --- Start In XML Host Value Equals to  pubads.g.doubleclick.net --- */
-					if(eElement.getAttribute("host").equals("pubads.g.doubleclick.net")){
+					if(eElement.getAttribute("host").equals(exceldata[6][Cap])){
 						
 						String request = eElement.getElementsByTagName("first-line").item(0).getTextContent();
 						String decoderstring = URLDecoder.decode(request, "UTF-8");
 						
 						String decoderstring_sub = decoderstring.substring(16);
 						//System.out.println(decoderstring_sub);
-						if(decoderstring_sub.contains("iu=/7646/app_android_us/display/bb") && decoderstring_sub.contains("cxtg")){
+						if(decoderstring_sub.contains(exceldata[17][Cap]) && decoderstring_sub.contains(validate_Values[1])){
 						
 						String[] arrayval = decoderstring_sub.split("&");
 						/* --- Start For Loop for Split With & Symbol --- */
@@ -202,13 +207,13 @@ public class cxtgFunctions extends Drivers{
 							
 							String[] key = keys.split("=");
 								/* --- Start If Key pair contains ZIP Value --- */
-								if (key[0].equals("zip")) {
+								if (key[0].equals(validate_Values[0])) {
 									zip = key[1];
 								}
 								/* --- End If Key pair contains ZIP Value --- */
 								
 								/* --- Start If cxtg ---*/
-								if (key[0].equals("cxtg")) {
+								if (key[0].equals(validate_Values[1])) {
 										cxtg_val = key[1];
 										
 										/* --- Start If cxtg not equals to nl --- */
@@ -236,41 +241,61 @@ public class cxtgFunctions extends Drivers{
 	}/* --- End Getting the PubAds CXTG Values based on ZIP Code  --- */
 	
 	/* --- Start Getting the CXTG Values From triggers.wfxtriggers.com based on ZIP Code  --- */
-	public static Map<String, String> wfxtriggers_validate(String zipValFrompubAd) throws Exception{
+	public static Map<String, String> wfxtriggers_validate(String zipValFrompubAd,String excel_sheet_name) throws Exception{
 		
 		String zip = null;
 		String cxtg_val = null;
 		Map<String , String> wfxtriggers_values = new HashMap<String, String>();
 		String wxtgValues="";
 		
-		read_xml_data_into_buffer xml_data_into_buffer = new read_xml_data_into_buffer();
-		String buffer_data = xml_data_into_buffer.read_xml_file_into_buffer_string();
+		DeviceStatus device_status = new DeviceStatus();
+		int Cap = device_status.Device_Status();
+		
+		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
+		
+		String jsonValues = exceldata[11][Cap];
+		String[] json_Values = jsonValues.split(",");
+		
+		String validateValues = exceldata[16][Cap];
+		String[] validate_Values = validateValues.split(",");
+		//read_xml_data_into_buffer xml_data_into_buffer = new read_xml_data_into_buffer();
+		//String buffer_data = xml_data_into_buffer.read_xml_file_into_buffer_string();
 		/* --- Start JSON Parser for wfxtg Values --- */
 		try {
-			wxtgValues = buffer_data.substring(buffer_data.lastIndexOf("{\"wfxtg\":{\"current\":"));
-			wxtgValues = wxtgValues.substring(wxtgValues.indexOf("{\"wfxtg\":{\"current\":"), wxtgValues.indexOf("}]}]}}")+6);
+			
+			read_xml_data_into_buffer xml_data_into_buffer = new read_xml_data_into_buffer();
+			String sb = xml_data_into_buffer.read_xml_file_into_buffer_string();
+			
+			String Read_API_Call_Data = sb.toString().substring(sb.toString().lastIndexOf(exceldata[2][Cap]));
+			String required_info = Read_API_Call_Data.toString().substring(Read_API_Call_Data.toString().indexOf(exceldata[3][Cap]));
+			
+			String expected_data = required_info.toString().substring(required_info.indexOf(exceldata[4][Cap])+7,required_info.indexOf(exceldata[5][Cap]));
+			wxtgValues = expected_data.toString();
+			
+			//wxtgValues = buffer_data.substring(buffer_data.lastIndexOf("{\"wfxtg\":{\"current\":"));
+			//wxtgValues = wxtgValues.substring(wxtgValues.indexOf("{\"wfxtg\":{\"current\":"), wxtgValues.indexOf("}]}]}}")+6);
 			
 			JSONParser parser = new JSONParser();
 			Object obj = parser.parse(wxtgValues);
 			JSONObject jsonObject = (JSONObject) obj;
-			JSONObject wfxtgval = (JSONObject) jsonObject.get("wfxtg");
-			JSONArray scatterSegsVal = (JSONArray) wfxtgval.get("scatterSegs"); 
+			JSONObject wfxtgval = (JSONObject) jsonObject.get(json_Values[0]);
+			JSONArray scatterSegsVal = (JSONArray) wfxtgval.get(json_Values[1]); 
 			/* --- Start For Loop Main JSON Parser --- */
 			for(int i=0;i< scatterSegsVal.size();i++){
 				
 				JSONObject zcsVal = (JSONObject) scatterSegsVal.get(i);
 				/* --- Start Key Pair Contains ZCS --- */
-				if(zcsVal.containsKey("zcs")){
-					JSONArray jsonArray = (JSONArray) zcsVal.get("zcs");
+				if(zcsVal.containsKey(exceldata[12][Cap])){
+					JSONArray jsonArray = (JSONArray) zcsVal.get(exceldata[12][Cap]);
 					/* --- Start ZCS contains multipul ZIP Values --- */
 					for(int j=0;j< jsonArray.size();j++){
 						JSONObject zipval = (JSONObject) jsonArray.get(j);
 						/* --- Start Key Pair Contains ZIP --- */
-						if(zipval.containsKey("zip")){
-							zip = zipval.get("zip").toString();
+						if(zipval.containsKey(validate_Values[0])){
+							zip = zipval.get(validate_Values[0]).toString();
 							/* --- Start ZIP Equals to Pubads ZIP --- */
 							if(zipValFrompubAd.equals(zip)){
-								cxtg_val = zipval.get("cxtg").toString();
+								cxtg_val = zipval.get(validate_Values[1]).toString();
 								break;
 							}/* --- Start ZIP Equals to Pubads ZIP --- */
 							
@@ -282,7 +307,7 @@ public class cxtgFunctions extends Drivers{
 
 			}/* --- End For Loop Main JSON Parser --- */
 			/* --- End JSON Parser for wfxtg Values --- */
-			wfxtriggers_values.put("cxtg", cxtg_val.substring(1, cxtg_val.length()-1));
+			wfxtriggers_values.put(validate_Values[1], cxtg_val.substring(1, cxtg_val.length()-1));
 		} catch (Exception e) {
 			System.out.println(wxtgValues + " triggers.wfxtriggers.com call has not generated.");
 //			break;

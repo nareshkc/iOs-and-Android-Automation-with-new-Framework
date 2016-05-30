@@ -43,11 +43,11 @@ public class AppFunctions extends Drivers{
 	
 	public static void Swipe(){
 		Dimension dimensions = Ad.manage().window().getSize();
-		Double startY1 = dimensions.getHeight() * 0.9;  
+		Double startY1 = dimensions.getHeight() * 0.7;  
 		startY = startY1.intValue();
 		Double endY1 = (double) (dimensions.getHeight()/40);  //  dimensions.getHeight()  0.2;  == 512.0
 		endY = endY1.intValue();
-		Ad.swipe(0, startY, 0, endY, 2000);
+		Ad.swipe(0, startY, 0, endY,2000);
 	}
 	
 	public static void Scroll_Upto_Feed_1(){
@@ -323,7 +323,12 @@ public class AppFunctions extends Drivers{
 	{
 		
 		System.out.println("===================================================");
-		Swipe();Swipe();Swipe();Swipe();Swipe();Swipe();Swipe();Swipe();Swipe();
+		
+		for(int i=1;i<=12 ;i++){
+			Swipe();
+			Thread.sleep(1000);
+		}
+		
 			
 		MobileElement skiSlopes = (MobileElement) Ad.findElementById("com.weather.Weather:id/ski_module_header");
 

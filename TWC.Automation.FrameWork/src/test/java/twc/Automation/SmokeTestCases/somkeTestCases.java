@@ -13,16 +13,9 @@ import twc.Automation.General.Functions;
 
 public class somkeTestCases extends Drivers{
 	
-	/* Factual Call Test Case */
-	@Test(priority=0)
-	public void Factual_Test_Case_Using_Charles() throws Exception{
-		CharlesFunctions.openCharlesBrowser();
-		AppiumFunctions.LaunchApp();
-		CharlesFunctions.StopExportSessionXMLFile();
-		Functions.validate_API_Call_With_PubAds_Call("location");
-	}
+
 	/* Pull To Refresh Test Case */
-	@Test(priority=1)
+	@Test(priority=0)
 	public void PulltoRefresh_Test_Case_Using_Charles() throws Exception{
 		CharlesFunctions.openCharlesBrowser();
 		AppiumFunctions.LaunchApp();
@@ -30,40 +23,8 @@ public class somkeTestCases extends Drivers{
 		CharlesFunctions.StopExportSessionXMLFile();
 		Functions.bb_call_validation("pulltorefresh");
 	}
-	/* Lotame Call Test Case */
-	@Test(priority=2)
-	public void Lotame_Test_Case_Using_Charles() throws Exception{
-		CharlesFunctions.openCharlesBrowser();
-		AppiumFunctions.LaunchApp();
-		CharlesFunctions.StopExportSessionXMLFile();
-		Functions.validate_API_Call_With_PubAds_Call("ad");
-	}
-	/* Hourly Module Extended Page Ad Test Case */
-	@Test(priority=3)
-	public void Verify_Ad_Present_On_HourlyExtended_page() throws Exception {
-		AppiumFunctions.LaunchApp();
-		AppFunctions.verify_adpresent_onextendedHourly_page("Hourly");
-	}
-	/* Daily Module Extended Page Ad Test Case */
-	@Test(priority=4)
-	public void Verify_Ad_Present_On_DailyExtended_page() throws Exception {
-		AppiumFunctions.LaunchApp();
-		AppFunctions.verify_adpresent_onextendedTenday_page("Daily");
-	}
-	/* RADAR And MAPS Module Extended Page Ad Test Case */
-	@Test(priority=5)
-	public void Verify_Ad_Present_On_MapsExtended_page() throws Exception {
-		AppiumFunctions.LaunchApp();
-		AppFunctions.verify_adpresent_onextendedMap_page("Map");
-	}
-	/* News Module Extended Page Ad Test Case */
-	@Test(priority=6)
-	public void Verify_Ad_Present_On_NewsExtended_page() throws Exception {
-		AppiumFunctions.LaunchApp();
-		AppFunctions.verify_adpresent_onextendedNews_page("News");
-	}
 	/* Clean Launch  Test Case */
-	@Test(priority=7)
+	@Test(priority=1)
 	public void Clean_App_Launch() throws Exception{
 		AppiumFunctions.UnInstallApp();
 		CharlesFunctions.openCharlesBrowser();
@@ -73,16 +34,60 @@ public class somkeTestCases extends Drivers{
 		Functions.clean_App_Launch("clt");
 	}
 	/* CXTG  Values Test Case */
-	@Test(priority=8)
+	@Test(priority=2)
 	public void Verify_CXTG_Values() throws Exception{
+		AppiumFunctions.UnInstallApp();
 		CharlesFunctions.openCharlesBrowser();
 		AppiumFunctions.LaunchApp();
 		loginModule.login();
 		cxtgFunctions.verifySavedAddressList();
 		CharlesFunctions.StopExportSessionXMLFile();
-		cxtgFunctions.validateCXTGResultsFromPubadAndTriggerCalls();
+		cxtgFunctions.validateCXTGResultsFromPubadAndTriggerCalls("cxtg");
+		
 	}
-	/* Test Mode BB Call Test Case */
+	/* Factual Call Test Case */
+	@Test(priority=3)
+	public void Factual_Test_Case_Using_Charles() throws Exception{
+//		CharlesFunctions.openCharlesBrowser();
+//		AppiumFunctions.LaunchApp();
+//		CharlesFunctions.StopExportSessionXMLFile();
+		Functions.validate_API_Call_With_PubAds_Call("location");
+	}
+	/* Lotame Call Test Case */
+	@Test(priority=4)
+	public void Lotame_Test_Case_Using_Charles() throws Exception{
+//		CharlesFunctions.openCharlesBrowser();
+//		AppiumFunctions.LaunchApp();
+//		CharlesFunctions.StopExportSessionXMLFile();
+		Functions.validate_API_Call_With_PubAds_Call("ad");
+	}
+	/* Hourly Module Extended Page Ad Test Case */
+	@Test(priority=5)
+	public void Verify_Ad_Present_On_HourlyExtended_page() throws Exception {
+		AppiumFunctions.LaunchApp();
+		AppFunctions.verify_adpresent_onextendedHourly_page("Hourly");
+	}
+	/* Daily Module Extended Page Ad Test Case */
+	@Test(priority=6)
+	public void Verify_Ad_Present_On_DailyExtended_page() throws Exception {
+		//AppiumFunctions.LaunchApp();
+		AppFunctions.verify_adpresent_onextendedTenday_page("Daily");
+	}
+	/* RADAR And MAPS Module Extended Page Ad Test Case */
+	@Test(priority=7)
+	public void Verify_Ad_Present_On_MapsExtended_page() throws Exception {
+		//AppiumFunctions.LaunchApp();
+		AppFunctions.verify_adpresent_onextendedMap_page("Map");
+	}
+	/* News Module Extended Page Ad Test Case */
+	@Test(priority=8)
+	public void Verify_Ad_Present_On_NewsExtended_page() throws Exception {
+		//AppiumFunctions.LaunchApp();
+		AppFunctions.verify_adpresent_onextendedNews_page("News");
+	}
+
+
+//	/* Test Mode BB Call Test Case */
 //	@Test(priority=9)
 //	public void Verify_TestMode_BBCall() throws Exception{
 //		CharlesFunctions.openCharlesBrowser();
@@ -96,6 +101,7 @@ public class somkeTestCases extends Drivers{
 	public void Before_Test() throws Exception{
 		CharlesFunctions.charlesOpen();
 		AppiumFunctions.UnInstallApp();
+		//AppiumFunctions.LaunchApp();
 	}
 
 }

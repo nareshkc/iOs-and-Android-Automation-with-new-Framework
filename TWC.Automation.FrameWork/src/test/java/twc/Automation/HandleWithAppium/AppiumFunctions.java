@@ -37,6 +37,7 @@ public class AppiumFunctions extends Drivers{
 		String[] uninstall ={"/bin/bash", "-c",  paths[15][Cap]+" uninstall com.weather.Weather"};
 		Runtime.getRuntime().exec(uninstall);
 		System.out.println("Uninstall completed");
+		Thread.sleep(5000);
 	}
 	
 	public static void AppiumServerStop() throws InterruptedException{
@@ -139,7 +140,7 @@ public class AppiumFunctions extends Drivers{
 				}
 				/* ---End Android Device Capabilities --- */
 				Ad.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-				System.out.println("Capabilities have launched");
+				System.out.println("Capabilities have been launched");
 				Thread.sleep(5000);
 			} catch (Exception e) {
 				System.out.println("Unable To Launch The Appium Capabilities");
