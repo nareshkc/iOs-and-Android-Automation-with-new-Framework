@@ -7,8 +7,21 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>TWC.Automation.FrameWork</name>
+ <!-- <name>TWC.Automation.FrameWork</name> --> 
+ 
+ <name>somkeTestCases</name>
+ 
+ 
   <url>http://maven.apache.org</url>
+  
+  
+  
+  <!--  <groupId>com.weather</groupId>
+  <artifactId>videoads</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>videoads</name> -->
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -64,9 +77,52 @@
     <artifactId>poi</artifactId>
     <version>3.9</version>
 	</dependency>
+	
+	<dependency>
+			<groupId>io.appium</groupId>
+			<artifactId>java-client</artifactId>
+			<version>3.2.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.seleniumhq.selenium</groupId>
+					<artifactId>selenium-java</artifactId>
+				</exclusion>
+			</exclusions>
 
+		</dependency>
+	
   </dependencies>
+	<build>
+		<pluginManagement>
+			<plugins>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+
+					<configuration>
+						<version>3.3</version>
+
+					</configuration>
+				</plugin>
+
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.6</version>
+					<configuration>
+
+						<suiteXmlFiles>
+						<suiteXmlFile>testng.xml</suiteXmlFile>
+						<!--  	<suiteXmlFile>${suiteXmlFile}</suiteXmlFile> -->
+						</suiteXmlFiles>
+
+						<testFailureIgnore>true</testFailureIgnore>
+					</configuration>
+				</plugin>
+
+			</plugins>
+		</pluginManagement>
+	</build>
 </project>
-
-    Status API Training Shop Blog About 
-
