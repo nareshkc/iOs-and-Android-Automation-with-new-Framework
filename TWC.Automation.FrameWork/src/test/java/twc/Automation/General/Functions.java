@@ -18,8 +18,6 @@ public class Functions extends Drivers{
 	
 	public static void validate_API_Call_With_PubAds_Call(String excel_sheet_name) throws Exception{
 		
-		System.out.println("===================================================");
-		
 		String apicall_results=null;
 		String pubadscall_results=null;
 		
@@ -81,8 +79,6 @@ public class Functions extends Drivers{
 				}
 			}
 		}
-		
-		System.out.println("===================================================");
 	}
 	public static Map<String , String>  read_API_Call_Data(String excel_sheet_name) throws Exception{
 		DeviceStatus device_status = new DeviceStatus();
@@ -223,7 +219,7 @@ public class Functions extends Drivers{
 		DeviceStatus device_status = new DeviceStatus();
 		int Cap = device_status.Device_Status();
 		
-		System.out.println("===================================================");
+		
 		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
 		read_xml_data_into_buffer xml_data_into_buffer = new read_xml_data_into_buffer();
 		String sb = xml_data_into_buffer.read_xml_file_into_buffer_string();
@@ -262,13 +258,9 @@ public class Functions extends Drivers{
 
 			}
 		}
-		System.out.println("===================================================");
-		
 	}
 	
-	
 	public static void bb_call_validation(String excel_sheet_name) throws Exception{
-		System.out.println("===================================================");
 		
 		DeviceStatus device_status = new DeviceStatus();
 		int Cap = device_status.Device_Status();
@@ -277,12 +269,13 @@ public class Functions extends Drivers{
 		read_xml_data_into_buffer xml_data_into_buffer = new read_xml_data_into_buffer();
 		String sb = xml_data_into_buffer.read_xml_file_into_buffer_string();
 		
-		String Read_API_Call_Data = sb.toString().substring(sb.toString().lastIndexOf(exceldata[2][Cap]));
-		String required_info = Read_API_Call_Data.toString().substring(Read_API_Call_Data.toString().indexOf(exceldata[3][Cap]));
+		String Read_API_Call_Data = sb.toString().substring(sb.toString().lastIndexOf(exceldata[17][Cap]));
+		String required_info = Read_API_Call_Data.toString().substring(Read_API_Call_Data.toString().indexOf(exceldata[17][Cap]));
 		
-		String expected_data = required_info.toString().substring(required_info.indexOf(exceldata[4][Cap])+7,required_info.indexOf(exceldata[5][Cap]));
+		String expected_data = required_info.toString().substring(required_info.indexOf(exceldata[14][Cap]),required_info.indexOf(exceldata[15][Cap]));
 		String expectedValues = expected_data.toString();
 		
+		//System.out.println(expectedValues);
 		if(expectedValues.contains(exceldata[17][Cap])){
 			System.out.println("BB Call generated");
 		}
@@ -290,49 +283,47 @@ public class Functions extends Drivers{
 			System.out.println("BB Call not generated");
 			Assert.fail("BB Call not generated ");
 		}
-		System.out.println("===================================================");
 	}
 	
-	public static void verify_bb_call_in_Test_Mode(String excel_sheet_name) throws Exception{
+	@SuppressWarnings("unchecked")
+	public static void thirdParty_beacons_validation(String excel_sheet_name) throws Exception{
 		DeviceStatus device_status = new DeviceStatus();
 		int Cap = device_status.Device_Status();
 		
-		System.out.println("===================================================");
 		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
+		
 		read_xml_data_into_buffer xml_data_into_buffer = new read_xml_data_into_buffer();
 		String sb = xml_data_into_buffer.read_xml_file_into_buffer_string();
 		
-		String creativeid = null;
-		String creativeid_val = null;
-		String thirdPartyBeacon = null;
-		String thirdPartyBeacon_val = null;
 		String Read_API_Call_Data = sb.toString().substring(sb.toString().lastIndexOf(exceldata[2][Cap]));
-		
-		
-		String expected_data = Read_API_Call_Data.toString().substring(Read_API_Call_Data.indexOf(exceldata[4][Cap])+7,Read_API_Call_Data.indexOf(exceldata[5][Cap]));
+		String required_info = Read_API_Call_Data.toString().substring(Read_API_Call_Data.toString().indexOf(exceldata[2][Cap]));
+		String expected_data = required_info.toString().substring(required_info.indexOf(exceldata[2][Cap]),required_info.indexOf(exceldata[3][Cap]));
 		String expectedValues = expected_data.toString();
-		expectedValues = expectedValues.replace("thirdPartyBeacon", "&thirdPartyBeacon");
-		String[] creativeId = expectedValues.split("&");
-		expectedValues = creativeId[0].replace("imageUrlSm", "&imageUrlSm");
-		String[] creative_Id = expectedValues.split("&");
-		String[] exp_creative_Id= creative_Id[0].split(": ");
-		creativeid = exp_creative_Id[0];
-		creativeid_val = exp_creative_Id[1];
 		
-		expectedValues = creativeId[1].replace("thirdPartySurvey", "&thirdPartySurvey");
-		String[] thirdParty_Beacon = expectedValues.split("&");
+		@SuppressWarnings("rawtypes")
+		Map map = new HashMap();
+		String[] keypairs = expectedValues.split(exceldata[4][Cap]);
 		
-		String[] exp_thirdPartyBeacon= thirdParty_Beacon[0].split(": ");
-		thirdPartyBeacon =exp_thirdPartyBeacon[0];
-		thirdPartyBeacon_val =exp_thirdPartyBeacon[1];
-		if(!creativeid.isEmpty() && !thirdPartyBeacon.isEmpty()){
-			System.out.println("ID Value :::"+creativeid_val);
-			System.out.println("thirdPartyBeacon Value :::"+thirdPartyBeacon_val);
-		}else{
-			System.out.println("CreativeId, thirdPartyBeacon values should not be empty");
-			Assert.fail("CreativeId, thirdPartyBeacon values should not be empty");
+		for (String keyvalue : keypairs)
+		{
+		    String[] key_value = keyvalue.split(exceldata[5][Cap]);
+		    map.put(key_value[0], key_value[1]);
 		}
-		System.out.println("===================================================");
+		
+		if(!empty(map.get(exceldata[6][Cap])) && !empty(map.get(exceldata[7][Cap])) && !empty(map.get(exceldata[8][Cap]))){
+			System.out.println(exceldata[6][Cap]+" Value is "+map.get(exceldata[6][Cap]));
+			System.out.println(exceldata[7][Cap]+" Value is "+map.get(exceldata[7][Cap]));
+			System.out.println(exceldata[8][Cap]+" Value is "+map.get(exceldata[8][Cap]));
+		}
+		else{
+			System.out.println(exceldata[1][Cap] +" not available.");
+			Assert.fail(exceldata[1][Cap] +" not available.");
+		}
+		
+	}
+	private static boolean empty(Object object) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

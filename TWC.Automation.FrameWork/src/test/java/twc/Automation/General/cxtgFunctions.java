@@ -93,7 +93,7 @@ public class cxtgFunctions extends Drivers{
 				}
 			}/* --- End For Loop For Location Click --- */
 			
-			Thread.sleep(10000);
+			Thread.sleep(8000);
 			
 			WebDriverWait wait12 = new WebDriverWait(Ad, 10);
 			wait12.until(ExpectedConditions.presenceOfElementLocated(By.xpath(parts[0]+1+parts[1])));

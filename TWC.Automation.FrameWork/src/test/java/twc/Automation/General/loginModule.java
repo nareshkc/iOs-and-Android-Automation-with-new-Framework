@@ -93,9 +93,6 @@ public class loginModule extends Drivers {
 				
 				String[] str1 ={"/bin/bash", "-c", adbPath+" adb shell pm enable com.weather.Weather"};
 				Runtime.getRuntime().exec(str1);
-				
-				Ad.closeApp();
-				Ad.launchApp();
 			}
 		}
 		

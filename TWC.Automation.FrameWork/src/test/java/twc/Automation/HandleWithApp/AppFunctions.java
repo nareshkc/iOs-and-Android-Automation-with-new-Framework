@@ -1,5 +1,7 @@
 package twc.Automation.HandleWithApp;
 
+import java.util.List;
+
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 
@@ -7,7 +9,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
 import twc.Automation.Driver.Drivers;
 import twc.Automation.General.DeviceStatus;
@@ -41,6 +42,11 @@ public class AppFunctions extends Drivers{
 		System.out.println("Pull the screen to REFRESH is done");
 	}
 	
+	public static void Kill_Launch_App(){
+
+		Ad.closeApp();
+		Ad.launchApp();
+	}
 	public static void Swipe(){
 		Dimension dimensions = Ad.manage().window().getSize();
 		Double startY1 = dimensions.getHeight() * 0.7;  
@@ -78,20 +84,30 @@ public class AppFunctions extends Drivers{
 		
 		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
 		int swipe = Integer.parseInt(exceldata[2][Cap]);
-		System.out.println("===================================================");
+		
 		for(int i=1;i<=swipe ;i++){
 			Swipe();
 			Thread.sleep(1000);
 		}
 		
-		WebDriverWait wait0 = new WebDriverWait(Ad, 10);
-		wait0.until(ExpectedConditions.presenceOfElementLocated(By.id(exceldata[4][Cap])));
-		
-		MobileElement hourly = (MobileElement) Ad.findElementById(exceldata[4][Cap]);
+//		WebDriverWait wait0 = new WebDriverWait(Ad, 10);
+//		wait0.until(ExpectedConditions.presenceOfElementLocated(By.id(exceldata[4][Cap])));
+//		
+//		MobileElement hourly = (MobileElement) Ad.findElementById(exceldata[4][Cap]);
 		
 		int MAX_SWIPES = 10;
 		
 		for (int i = 0; i < MAX_SWIPES; i++) {
+			
+			MobileElement hourly = null;
+
+			try {
+				WebDriverWait wait0 = new WebDriverWait(Ad, 10);
+				wait0.until(ExpectedConditions.presenceOfElementLocated(By.id(exceldata[4][Cap])));
+				hourly = (MobileElement) Ad.findElementById(exceldata[4][Cap]);
+			} catch (Exception e) {
+				// System.out.println(e);
+			}
 			
 			if (hourly != null && hourly.isDisplayed()) {
 				System.out.println("Hourly module is displayed on the screen");
@@ -128,18 +144,17 @@ public class AppFunctions extends Drivers{
 	
 			}
 		}
-		System.out.println("===================================================");
 	}
 	
 	public static void verify_adpresent_onextendedTenday_page(String excel_sheet_name) throws Exception {
-		System.out.println("===================================================");
+		
 		System.out.println("Searching for Daily module");
 		DeviceStatus device_status = new DeviceStatus();
 		int Cap = device_status.Device_Status();
 		
 		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
 		int swipe = Integer.parseInt(exceldata[2][Cap]);
-		System.out.println("===================================================");
+		
 		for(int i=1;i<=swipe ;i++){
 			Swipe();
 			Thread.sleep(1000);
@@ -189,18 +204,17 @@ public class AppFunctions extends Drivers{
 				Swipe();
 			}
 		}
-		System.out.println("===================================================");
 	}
 	
 	public static void verify_adpresent_onextendedMap_page(String excel_sheet_name) throws Exception {
-		System.out.println("===================================================");
+		
 		System.out.println("Searching for Radar & Maps Module");
 		DeviceStatus device_status = new DeviceStatus();
 		int Cap = device_status.Device_Status();
 		
 		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
 		int swipe = Integer.parseInt(exceldata[2][Cap]);
-		System.out.println("===================================================");
+		
 		for(int i=1;i<=swipe ;i++){
 			Swipe();
 			Thread.sleep(1000);
@@ -252,20 +266,18 @@ public class AppFunctions extends Drivers{
 				Swipe();
 			}
 		}
-		System.out.println("===================================================");
 	}
 	
 	
 	public static void verify_adpresent_onextendedNews_page(String excel_sheet_name) throws Exception
 	{
-		System.out.println("===================================================");
 		System.out.println("Searching for News module");
 		DeviceStatus device_status = new DeviceStatus();
 		int Cap = device_status.Device_Status();
 		
 		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
 		int swipe = Integer.parseInt(exceldata[2][Cap]);
-		System.out.println("===================================================");
+		
 		for(int i=1;i<=swipe ;i++){
 			Swipe();
 			Thread.sleep(1000);
@@ -316,20 +328,16 @@ public class AppFunctions extends Drivers{
 			   Swipe();
 			}
 		}
-		System.out.println("===================================================");
 	}
 	
 	public static void CleanLaunch_launch() throws Exception
 	{
-		
-		System.out.println("===================================================");
 		
 		for(int i=1;i<=12 ;i++){
 			Swipe();
 			Thread.sleep(1000);
 		}
 		
-			
 		MobileElement skiSlopes = (MobileElement) Ad.findElementById("com.weather.Weather:id/ski_module_header");
 
 		if (skiSlopes!=null && skiSlopes.isDisplayed()) {
@@ -341,57 +349,100 @@ public class AppFunctions extends Drivers{
 				System.out.println("Ski module is NOT present,scrolling down");
 				Swipe();
 		}
-		
-		//System.out.println("===================================================");
 	}
 	
-	public static void Change_to_Test_Mode() throws Exception{
+	public static void Change_to_Test_Mode(String excel_sheet_name) throws Exception{
 		
-		String setting_menu = "android.widget.ImageButton";
+		DeviceStatus device_status = new DeviceStatus();
+		int Cap = device_status.Device_Status();
+		
+		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
 		
 		WebDriverWait wait = new WebDriverWait(Ad, 10);
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.className(setting_menu)));
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.className(exceldata[2][Cap])));
 		// Clicking on Menu Options
-		MobileElement menu = (MobileElement) Ad.findElement(By.className(setting_menu));
+		MobileElement menu = (MobileElement) Ad.findElement(By.className(exceldata[2][Cap]));
 		menu.click();
-		Ad.findElementByName("Settings").click();
-		MobileElement aboutThisAPP = (MobileElement) Ad.findElementByName("About this app");
+		Ad.findElementByName(exceldata[5][Cap]).click();
+		MobileElement aboutThisAPP = (MobileElement) Ad.findElementByName(exceldata[6][Cap]);
 		aboutThisAPP.click();
 		
 			for (int i=1; i<=8; i++){
-				Ad.findElementById("com.weather.Weather:id/about_version").click();
+				Ad.findElementById(exceldata[18][Cap]).click();
 			}
-				Ad.findElementByName("TEST MODE SETTINGS").click();
-				Ad.findElementByName("Ads").click();
-				Ad.findElementByName("Test").click();
+				Ad.findElementByName(exceldata[19][Cap]).click();
+				Ad.findElementByName(exceldata[20][Cap]).click();
+				Ad.findElementByName(exceldata[16][Cap]).click();
 				System.out.println("Changed to Test Mode");
 				Thread.sleep(1000);
 				Ad.closeApp();
 				Ad.launchApp();
-		
-		verifySavedTestLocationList();
 	}
-	public static void verifySavedTestLocationList() throws Exception{
+	public static void verifyBBCallLocationFromListInTestMode(String excel_sheet_name) throws Exception{
 		
 		DeviceStatus device_status = new DeviceStatus();
 		int Cap = device_status.Device_Status();
+		
+		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
 			/* --- Start For Android Device --- */
 			if(Cap == 2){
-			String[][] addressdata = read_excel_data.exceldataread("CheckAddress");
-			
-			WebDriverWait wait4 = new WebDriverWait(Ad, 10);
-			wait4.until(ExpectedConditions.presenceOfElementLocated(By.id(addressdata[4][Cap])));
-			
-			//Root Location Element
-			String location = Ad.findElementById(addressdata[4][Cap]).getText();
-			if(location.contains("New York")){
-				System.out.println("Location "+location);
-			}
-			else{
-				System.out.println("Spoof Need to Change to New York Location");
-				Assert.fail("Spoof Need to Change to New York Location");
-			}
-			
+				String[][] addressdata = read_excel_data.exceldataread("CheckAddress");
+				
+				WebDriverWait wait4 = new WebDriverWait(Ad, 10);
+				wait4.until(ExpectedConditions.presenceOfElementLocated(By.id(addressdata[4][Cap])));
+				
+				//Root Location Element
+				Ad.findElementById(addressdata[4][Cap]).click();
+				
+				WebDriverWait wait5 = new WebDriverWait(Ad, 20);
+				wait5.until(ExpectedConditions.presenceOfElementLocated(By.id(addressdata[6][Cap])));
+				
+				//List Location Element
+				@SuppressWarnings("unchecked")
+				List<MobileElement> loclist = Ad.findElements(By.id(addressdata[6][Cap]));
+				
+				String firsteleXpath = addressdata[5][Cap];
+				String[] parts = firsteleXpath.split("Count");
+				/* --- Start For Loop For Location Click --- */
+				for(int i=2;i<= loclist.size();i++){
+					
+					String element = null;
+					
+					try {
+						
+						element = parts[0]+i+parts[1];
+								   
+						MobileElement ele = (MobileElement) Ad.findElementByXPath(element);
+						System.out.println("For This Location ====>"+ele.getText());
+						String location = ele.getText();
+						
+						if(location.contains(exceldata[21][Cap])){
+							System.out.println("Location "+location);
+							Thread.sleep(8000);
+							
+							WebDriverWait wait12 = new WebDriverWait(Ad, 10);
+							wait12.until(ExpectedConditions.presenceOfElementLocated(By.xpath(parts[0]+1+parts[1])));
+							
+							Ad.findElementByXPath(parts[0]+1+parts[1]).click();
+							break;
+						}
+						else
+						{
+							
+						WebDriverWait wait9 = new WebDriverWait(Ad, 20);
+						wait9.until(ExpectedConditions.presenceOfElementLocated(By.xpath(element)));
+						
+						Ad.findElementByXPath(element).click();
+						
+						WebDriverWait wait10 = new WebDriverWait(Ad, 20);
+						wait10.until(ExpectedConditions.presenceOfElementLocated(By.id(addressdata[4][Cap])));
+						
+						Ad.findElementById(addressdata[4][Cap]).click();
+						}
+					} catch (Exception e) {
+						System.out.println(exceldata[21][Cap]+" is not found in the location list. So need to set the Location for Test Mode");
+					}
+				}
 		}/* --- End For Android Device --- */
 		
 	}
