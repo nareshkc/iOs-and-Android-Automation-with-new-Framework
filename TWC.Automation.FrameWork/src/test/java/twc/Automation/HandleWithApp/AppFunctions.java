@@ -338,15 +338,15 @@ public class AppFunctions extends Drivers{
 			Thread.sleep(1000);
 		}
 		
-		MobileElement skiSlopes = (MobileElement) Ad.findElementById("com.weather.Weather:id/ski_module_header");
+		MobileElement skiSlopes = (MobileElement) Ad.findElementById("com.weather.Weather:id/news_title");
 
 		if (skiSlopes!=null && skiSlopes.isDisplayed()) {
 				
-				 System.out.println("Ski module is present");
+				 System.out.println("Stop En of Page");
 				 Swipe();
 		} 
 		else {
-				System.out.println("Ski module is NOT present,scrolling down");
+				System.out.println("News module is NOT present,scrolling down");
 				Swipe();
 		}
 	}
