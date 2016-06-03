@@ -39,7 +39,7 @@ public class cxtgFunctions extends Drivers{
 		int Cap = device_status.Device_Status();
 			/* --- Start For Android Device --- */
 			if(Cap == 2){
-			String[][] addressdata = read_excel_data.exceldataread("CheckAddress");
+			String[][] addressdata = read_excel_data.exceldataread("AddressPage");
 			
 			WebDriverWait wait4 = new WebDriverWait(Ad, 10);
 			wait4.until(ExpectedConditions.presenceOfElementLocated(By.id(addressdata[4][Cap])));
@@ -154,7 +154,7 @@ public class cxtgFunctions extends Drivers{
 		DeviceStatus device_status = new DeviceStatus();
 		int Cap = device_status.Device_Status();
 		
-		String[][] paths = read_excel_data.exceldataread("paths");
+		String[][] paths = read_excel_data.exceldataread("Paths");
 		String xml_file_path=null;
 		File folder = new File(paths[4][Cap]);
 		File[] listOfFiles = folder.listFiles();

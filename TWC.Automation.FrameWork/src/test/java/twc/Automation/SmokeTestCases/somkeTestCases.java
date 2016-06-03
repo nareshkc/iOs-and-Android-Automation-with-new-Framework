@@ -20,9 +20,9 @@ public class somkeTestCases extends Drivers{
 		System.out.println("================= Pull To Refresh Test Case Started =========================");
 		CharlesFunctions.openCharlesBrowser();
 		AppiumFunctions.LaunchApp();
-		AppFunctions.Pull_To_Refresh("pulltorefresh");
+		AppFunctions.Pull_To_Refresh("Pulltorefresh");
 		CharlesFunctions.StopExportSessionXMLFile();
-		Functions.bb_call_validation("pulltorefresh");
+		Functions.bb_call_validation("Pulltorefresh");
 		System.out.println("================= Pull To Refresh Test Case  End =========================");
 	}
 	/* Clean Launch  Test Case */
@@ -32,9 +32,9 @@ public class somkeTestCases extends Drivers{
 		AppiumFunctions.UnInstallApp();
 		CharlesFunctions.openCharlesBrowser();
 		AppiumFunctions.LaunchApp();
-		AppFunctions.CleanLaunch_launch();
+		AppFunctions.CleanLaunch_launch("General");
 		CharlesFunctions.StopExportSessionXMLFile();
-		Functions.clean_App_Launch("clt");
+		Functions.clean_App_Launch("CleanLaunch");
 		System.out.println("================= Clean App Launch Test Case End =========================");
 	}
 	/* CXTG  Values Test Case */
@@ -48,7 +48,7 @@ public class somkeTestCases extends Drivers{
 		AppFunctions.Kill_Launch_App();
 		cxtgFunctions.verifySavedAddressList();
 		CharlesFunctions.StopExportSessionXMLFile();
-		cxtgFunctions.validateCXTGResultsFromPubadAndTriggerCalls("cxtg");
+		cxtgFunctions.validateCXTGResultsFromPubadAndTriggerCalls("WFXTrigger");
 		System.out.println("================= CXTG Values Test Case End =========================");
 		
 	}
@@ -59,7 +59,7 @@ public class somkeTestCases extends Drivers{
 //		CharlesFunctions.openCharlesBrowser();
 //		AppiumFunctions.LaunchApp();
 //		CharlesFunctions.StopExportSessionXMLFile();
-		Functions.validate_API_Call_With_PubAds_Call("location");
+		Functions.validate_API_Call_With_PubAds_Call("LocationWFX");
 		System.out.println("================= Factual Call Test Case End =========================");
 	}
 	/* Lotame Call Test Case */
@@ -69,7 +69,7 @@ public class somkeTestCases extends Drivers{
 //		CharlesFunctions.openCharlesBrowser();
 //		AppiumFunctions.LaunchApp();
 //		CharlesFunctions.StopExportSessionXMLFile();
-		Functions.validate_API_Call_With_PubAds_Call("ad");
+		Functions.validate_API_Call_With_PubAds_Call("Lotame");
 		System.out.println("================= Lotame Call Test Case End =========================");
 	}
 	/* Hourly Module Extended Page Ad Test Case */
@@ -124,6 +124,17 @@ public class somkeTestCases extends Drivers{
 		System.out.println("================= ThirdpartyBecon Test Case Started =========================");
 		Functions.thirdParty_beacons_validation("ThirdpartyBecon");
 		System.out.println("================= ThirdpartyBecon Test Case End =========================");
+	}
+	
+	@Test(priority=11)
+	public void Verify_PreLoad_PubAd_Call() throws Exception{
+		System.out.println("================= PreLoad BB Call Test Case Started =========================");
+		CharlesFunctions.openCharlesBrowser();
+		AppiumFunctions.LaunchApp();
+		AppFunctions.verify_Vedio_Module_Click_On_Forecast_Video("PreRollVideo");
+		CharlesFunctions.StopExportSessionXMLFile();
+		Functions.bb_call_validation("PreRollVideo");
+		System.out.println("================= PreLoad BB Call Test Case End =========================");
 	}
 	
 	@BeforeTest

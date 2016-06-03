@@ -15,7 +15,7 @@ public class read_xml_data_into_buffer{
 		DeviceStatus device_status = new DeviceStatus();
 		int Cap = device_status.Device_Status();
 		
-		String[][] paths = read_excel_data.exceldataread("paths");
+		String[][] paths = read_excel_data.exceldataread("Paths");
 		String xml_file_path=null;
 		File folder = new File(paths[4][Cap]);
 		File[] listOfFiles = folder.listFiles();

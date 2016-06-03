@@ -275,7 +275,7 @@ public class Functions extends Drivers{
 		String expected_data = required_info.toString().substring(required_info.indexOf(exceldata[14][Cap]),required_info.indexOf(exceldata[15][Cap]));
 		String expectedValues = expected_data.toString();
 		
-		//System.out.println(expectedValues);
+		System.out.println("BB Call Value is : "+expectedValues);
 		if(expectedValues.contains(exceldata[17][Cap])){
 			System.out.println("BB Call generated");
 		}

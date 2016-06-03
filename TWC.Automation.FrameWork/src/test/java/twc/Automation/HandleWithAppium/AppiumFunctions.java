@@ -31,7 +31,7 @@ public class AppiumFunctions extends Drivers{
 		DeviceStatus device_status = new DeviceStatus();
 		int Cap = device_status.Device_Status();
 		
-		String[][] paths = read_excel_data.exceldataread("paths");
+		String[][] paths = read_excel_data.exceldataread("Paths");
 		
 		System.out.println("Uninstall the APP and Installing");	
 		String[] uninstall ={"/bin/bash", "-c",  paths[15][Cap]+" uninstall com.weather.Weather"};
@@ -57,7 +57,7 @@ public class AppiumFunctions extends Drivers{
 		DeviceStatus device_status = new DeviceStatus();
 		int Cap = device_status.Device_Status();
 		
-		String[][] paths = read_excel_data.exceldataread("paths");
+		String[][] paths = read_excel_data.exceldataread("Paths");
 		System.out.println("Clear Logcat Logs for TWC App");	
 		String[] clearLogcatdata ={"/bin/bash", "-c",  paths[15][Cap]+" logcat -c"};
 		Runtime.getRuntime().exec(clearLogcatdata);	
@@ -97,7 +97,7 @@ public class AppiumFunctions extends Drivers{
 		clearTWCLogs();
 		
 		Drivers.property();
-		String[][] paths = read_excel_data.exceldataread("paths");
+		String[][] paths = read_excel_data.exceldataread("Paths");
 		String adbPath = paths[15][Cap];
 		
 		String[] str ={"/bin/bash", "-c", adbPath+" adb shell pm disable com.weather.Weather"};

@@ -32,7 +32,7 @@ public class CharlesFunctions extends Drivers{
 		int Cap = device_status.Device_Status();
 		
 		String[][] charlesdata = read_excel_data.exceldataread("Charlesdeatils");
-		String[][] paths = read_excel_data.exceldataread("paths");
+		String[][] paths = read_excel_data.exceldataread("Paths");
 		
 		//String downloadPath = properties.getProperty("downloadPath");
 		

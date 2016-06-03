@@ -78,7 +78,7 @@ public class AppFunctions extends Drivers{
 	
 	
 	public static void verify_adpresent_onextendedHourly_page(String excel_sheet_name) throws Exception{
-		
+		System.out.println("Searching for Hourly module");
 		DeviceStatus device_status = new DeviceStatus();
 		int Cap = device_status.Device_Status();
 		
@@ -89,11 +89,6 @@ public class AppFunctions extends Drivers{
 			Swipe();
 			Thread.sleep(1000);
 		}
-		
-//		WebDriverWait wait0 = new WebDriverWait(Ad, 10);
-//		wait0.until(ExpectedConditions.presenceOfElementLocated(By.id(exceldata[4][Cap])));
-//		
-//		MobileElement hourly = (MobileElement) Ad.findElementById(exceldata[4][Cap]);
 		
 		int MAX_SWIPES = 10;
 		
@@ -330,14 +325,32 @@ public class AppFunctions extends Drivers{
 		}
 	}
 	
-	public static void CleanLaunch_launch() throws Exception
+	public static void CleanLaunch_launch(String excel_sheet_name) throws Exception
 	{
+		DeviceStatus device_status = new DeviceStatus();
+		int Cap = device_status.Device_Status();
+		
+		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
 		
 		for(int i=1;i<=12 ;i++){
 			Swipe();
 			Thread.sleep(1000);
 		}
 		
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+		MobileElement skiSlopes = (MobileElement) Ad.findElementById(exceldata[1][Cap]);
+
+		if (skiSlopes!=null && skiSlopes.isDisplayed()) {
+				
+				 System.out.println("Last module is present");
+				 Swipe();
+		} 
+		else {
+				System.out.println("Last module is NOT present,scrolling down");
+=======
+>>>>>>> Stashed changes
 		MobileElement skiSlopes = (MobileElement) Ad.findElementById("com.weather.Weather:id/news_title");
 
 		if (skiSlopes!=null && skiSlopes.isDisplayed()) {
@@ -347,6 +360,10 @@ public class AppFunctions extends Drivers{
 		} 
 		else {
 				System.out.println("News module is NOT present,scrolling down");
+<<<<<<< Updated upstream
+=======
+>>>>>>> origin/master
+>>>>>>> Stashed changes
 				Swipe();
 		}
 	}
@@ -386,7 +403,7 @@ public class AppFunctions extends Drivers{
 		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
 			/* --- Start For Android Device --- */
 			if(Cap == 2){
-				String[][] addressdata = read_excel_data.exceldataread("CheckAddress");
+				String[][] addressdata = read_excel_data.exceldataread("AddressPage");
 				
 				WebDriverWait wait4 = new WebDriverWait(Ad, 10);
 				wait4.until(ExpectedConditions.presenceOfElementLocated(By.id(addressdata[4][Cap])));
@@ -444,6 +461,50 @@ public class AppFunctions extends Drivers{
 					}
 				}
 		}/* --- End For Android Device --- */
-		
 	}
+	
+	public static void verify_Vedio_Module_Click_On_Forecast_Video(String excel_sheet_name) throws Exception{
+		
+	System.out.println("Searching for Video module");
+	DeviceStatus device_status = new DeviceStatus();
+	int Cap = device_status.Device_Status();
+	
+	String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
+	int swipe = Integer.parseInt(exceldata[2][Cap]);
+	
+	for(int i=1;i<=swipe ;i++){
+		Swipe();
+		Thread.sleep(1000);
+	}
+	
+	int MAX_SWIPES = 10;
+	
+		for (int i = 0; i<MAX_SWIPES; i++) {
+	
+			MobileElement video = null;
+	
+			try {
+				WebDriverWait wait0 = new WebDriverWait(Ad, 10);
+				wait0.until(ExpectedConditions.visibilityOf(Ad.findElementById(exceldata[5][Cap])));
+				video = (MobileElement) Ad.findElementById(exceldata[5][Cap]);
+				
+			} catch (Exception e) {
+				// System.out.println("Exception message :: "+e);	
+			}
+	
+			if(video!=null && video.isDisplayed())
+			{  
+				System.out.println("Video module is present ");
+				Ad.findElementById(exceldata[5][Cap]).click();
+				Thread.sleep(2000);
+				Ad.findElementByClassName(exceldata[6][Cap]).click();
+				break;
+			}else
+			{
+	           System.out.println("Video module is NOT present and scrolling down");
+			   Swipe();
+			}
+		}
+	}
+	
 }
