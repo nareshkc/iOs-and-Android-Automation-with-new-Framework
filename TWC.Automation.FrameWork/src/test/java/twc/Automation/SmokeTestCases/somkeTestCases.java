@@ -1,5 +1,6 @@
 package twc.Automation.SmokeTestCases;
 
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -18,7 +19,6 @@ public class somkeTestCases extends Drivers{
 	@Test(priority=0)
 	public void PulltoRefresh_Test_Case_Using_Charles() throws Exception{
 		System.out.println("================= Pull To Refresh Test Case Started =========================");
-		CharlesFunctions.openCharlesBrowser();
 		AppiumFunctions.LaunchApp();
 		AppFunctions.Pull_To_Refresh("Pulltorefresh");
 		CharlesFunctions.StopExportSessionXMLFile();
@@ -30,7 +30,7 @@ public class somkeTestCases extends Drivers{
 	public void Clean_App_Launch() throws Exception{
 		System.out.println("================= Clean App Launch Test Case Started =========================");
 		AppiumFunctions.UnInstallApp();
-		CharlesFunctions.openCharlesBrowser();
+		CharlesFunctions.startSessionBrowserData();
 		AppiumFunctions.LaunchApp();
 		AppFunctions.CleanLaunch_launch("General");
 		CharlesFunctions.StopExportSessionXMLFile();
@@ -42,7 +42,7 @@ public class somkeTestCases extends Drivers{
 	public void Verify_CXTG_Values() throws Exception{
 		System.out.println("================= CXTG Values Test Case Started =========================");
 		AppiumFunctions.UnInstallApp();
-		CharlesFunctions.openCharlesBrowser();
+		CharlesFunctions.startSessionBrowserData();
 		AppiumFunctions.LaunchApp();
 		loginModule.login();
 		AppFunctions.Kill_Launch_App();
@@ -76,7 +76,7 @@ public class somkeTestCases extends Drivers{
 	@Test(priority=5)
 	public void Verify_Ad_Present_On_HourlyExtended_page() throws Exception {
 		System.out.println("================= Hourly Module Test Case Started =========================");
-		AppiumFunctions.LaunchApp();
+		//AppiumFunctions.LaunchApp();
 		AppFunctions.verify_adpresent_onextendedHourly_page("Hourly");
 		System.out.println("================= Hourly Module Test Case End =========================");
 	}
@@ -109,7 +109,7 @@ public class somkeTestCases extends Drivers{
 	@Test(priority=9)
 	public void Verify_TestMode_BBCall() throws Exception{
 		System.out.println("================= Verify BB Call In Test Mode Test Case Started =========================");
-		CharlesFunctions.openCharlesBrowser();
+		CharlesFunctions.startSessionBrowserData();
 		AppiumFunctions.LaunchApp();
 		loginModule.login();
 		AppFunctions.Change_to_Test_Mode("TestMode");
@@ -129,7 +129,7 @@ public class somkeTestCases extends Drivers{
 	@Test(priority=11)
 	public void Verify_PreLoad_PubAd_Call() throws Exception{
 		System.out.println("================= PreLoad BB Call Test Case Started =========================");
-		CharlesFunctions.openCharlesBrowser();
+		CharlesFunctions.startSessionBrowserData();
 		AppiumFunctions.LaunchApp();
 		AppFunctions.verify_Vedio_Module_Click_On_Forecast_Video("PreRollVideo");
 		CharlesFunctions.StopExportSessionXMLFile();
@@ -141,6 +141,12 @@ public class somkeTestCases extends Drivers{
 	public void Before_Test() throws Exception{
 		CharlesFunctions.charlesOpen();
 		AppiumFunctions.UnInstallApp();
+		CharlesFunctions.openCharlesBrowser();
+		
+	}
+	@AfterTest
+	public void After_Test() throws Exception{
+		CharlesFunctions.BrowserClosed();
 		
 	}
 }
