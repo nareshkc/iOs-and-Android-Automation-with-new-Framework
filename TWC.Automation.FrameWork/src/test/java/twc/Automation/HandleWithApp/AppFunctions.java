@@ -76,78 +76,17 @@ public class AppFunctions extends Drivers{
 		
 	}
 	
-	
-	public static void verify_adpresent_onextendedHourly_page(String excel_sheet_name) throws Exception{
-		System.out.println("Searching for Hourly module");
+	public static void verify_adpresent_onextended_page(String excel_sheet_name) throws Exception{
+		
+		
+		
 		DeviceStatus device_status = new DeviceStatus();
 		int Cap = device_status.Device_Status();
 		
 		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
-		int swipe = Integer.parseInt(exceldata[2][Cap]);
 		
-		for(int i=1;i<=swipe ;i++){
-			Swipe();
-			Thread.sleep(1000);
-		}
+		System.out.println("Searching for "+exceldata[1][Cap]+" module");
 		
-		int MAX_SWIPES = 10;
-		
-		for (int i = 0; i < MAX_SWIPES; i++) {
-			
-			MobileElement hourly = null;
-
-			try {
-				WebDriverWait wait0 = new WebDriverWait(Ad, 10);
-				wait0.until(ExpectedConditions.presenceOfElementLocated(By.id(exceldata[4][Cap])));
-				hourly = (MobileElement) Ad.findElementById(exceldata[4][Cap]);
-			} catch (Exception e) {
-				// System.out.println(e);
-			}
-			
-			if (hourly != null && hourly.isDisplayed()) {
-				System.out.println("Hourly module is displayed on the screen");
-				Ad.findElementById(exceldata[4][Cap]).click();
-				String extendhourly = Ad.findElementById("toolbar_title").getText(); //com.weather.Weather:id/toolbar_title
-				System.out.println("Text : "+extendhourly);
-				
-				if(extendhourly.contains("Hourly"))
-				{
-					System.out.println("On Extended Hourly page");
-				}
-				
-				WebDriverWait wait = new WebDriverWait(Ad, 10);
-				wait.until(ExpectedConditions.presenceOfElementLocated(By.id(exceldata[7][Cap])));
-				
-				MobileElement extendeHourlyAd =(MobileElement) Ad.findElementById(exceldata[7][Cap]);
-				
-				WebDriverWait wait1 = new WebDriverWait(Ad, 10);
-	
-				wait1.until(ExpectedConditions.visibilityOf(extendeHourlyAd));
-				
-				if (extendeHourlyAd.isDisplayed()) {
-					
-					System.out.println("Ad is present on Extended_Hourly page");
-					Thread.sleep(2000);
-					Ad.findElementByClassName(exceldata[5][Cap]).click();
-					break;
-				}
-	
-			} 
-			else {
-				System.out.println("Hourly module is not present and scrolling down");
-				Swipe();
-	
-			}
-		}
-	}
-	
-	public static void verify_adpresent_onextendedTenday_page(String excel_sheet_name) throws Exception {
-		
-		System.out.println("Searching for Daily module");
-		DeviceStatus device_status = new DeviceStatus();
-		int Cap = device_status.Device_Status();
-		
-		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
 		int swipe = Integer.parseInt(exceldata[2][Cap]);
 		
 		for(int i=1;i<=swipe ;i++){
@@ -159,27 +98,42 @@ public class AppFunctions extends Drivers{
 		
 		for (int i = 0; i < MAX_SWIPES; i++) {
 
-			MobileElement tenday = null;
+			MobileElement module = null;
 
 			try {
+				
 				WebDriverWait wait0 = new WebDriverWait(Ad, 10);
 				wait0.until(ExpectedConditions.visibilityOf(Ad.findElementById(exceldata[5][Cap])));
-				tenday = (MobileElement) Ad.findElementById(exceldata[5][Cap]);
+				module = (MobileElement) Ad.findElementById(exceldata[5][Cap]);
+				
+				
 			} catch (Exception e) {
 				// System.out.println(e);
 			}
 		
-			if (tenday != null && tenday.isDisplayed()) {
+			if (module != null && module.isDisplayed()) {
 				
-				System.out.println("Daily module is present and tap on 15Days button");
+				System.out.println( exceldata[1][Cap] + " module is present on page");
 				Ad.findElementById(exceldata[5][Cap]).click();
-				String extendDaily = Ad.findElementById(exceldata[6][Cap]).getText(); 
 				
-				System.out.println("Text : "+extendDaily);
-				if(extendDaily.contains("Daily"))
-				{
-					System.out.println("On Extended Daily page");
+				if(excel_sheet_name.equals("Map")){
+					
+					MobileElement extendModule = (MobileElement) Ad.findElementById(exceldata[6][Cap]);
+					if(extendModule.isDisplayed())
+					{
+						System.out.println("On Extended "+exceldata[1][Cap]+" page");
+					}
 				}
+				else{
+					
+					String extendModuleText = Ad.findElementById(exceldata[6][Cap]).getText();
+					System.out.println("Text : "+extendModuleText);
+					if(extendModuleText.contains(exceldata[1][Cap]))
+					{
+						System.out.println("On Extended "+exceldata[1][Cap]+" page");
+					}
+				}
+				
 
 				MobileElement AdEle =(MobileElement) Ad.findElementById(exceldata[7][Cap]);
 				
@@ -187,7 +141,7 @@ public class AppFunctions extends Drivers{
 				wait1.until(ExpectedConditions.visibilityOf(AdEle));
 
 				if (AdEle.isDisplayed()) {
-					System.out.println("Ad is present on Extended_Daily_page");
+					System.out.println("Ad is present on Extended page");
 					Thread.sleep(2000);
 					Ad.findElementByClassName(exceldata[10][Cap]).click();
 					break;
@@ -195,132 +149,8 @@ public class AppFunctions extends Drivers{
 				
 
 			} else {
-				System.out.println("Daily module is not present and scrolling down");
+				System.out.println(exceldata[1][Cap] + " module is not present and scrolling down");
 				Swipe();
-			}
-		}
-	}
-	
-	public static void verify_adpresent_onextendedMap_page(String excel_sheet_name) throws Exception {
-		
-		System.out.println("Searching for Radar & Maps Module");
-		DeviceStatus device_status = new DeviceStatus();
-		int Cap = device_status.Device_Status();
-		
-		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
-		int swipe = Integer.parseInt(exceldata[2][Cap]);
-		
-		for(int i=1;i<=swipe ;i++){
-			Swipe();
-			Thread.sleep(1000);
-		}
-		
-		int MAX_SWIPES = 10;
-		
-		for (int i = 0; i< MAX_SWIPES; i++) {
-			
-			MobileElement maps = null;
-
-			try {
-				
-				WebDriverWait wait0 = new WebDriverWait(Ad, 10);
-				wait0.until(ExpectedConditions.visibilityOf(Ad.findElementByName(exceldata[5][Cap])));
-				maps = (MobileElement) Ad.findElementByName(exceldata[5][Cap]);
-
-			} catch (Exception e) {
-				// System.out.println(e);
-			}
-			
-			if (maps != null && maps.isDisplayed()) {
-				
-				System.out.println("Radar and Maps module is present on Map Image");
-				Ad.findElementByName(exceldata[5][Cap]).click();
-				
-				MobileElement extendMaps = (MobileElement) Ad.findElementById(exceldata[6][Cap]);
-				
-				if(extendMaps.isDisplayed())
-				{
-					System.out.println("On Extended Maps page");
-				}
-
-				MobileElement AdEle =(MobileElement) Ad.findElementById(exceldata[7][Cap]);
-				
-				WebDriverWait wait1 = new WebDriverWait(Ad, 10);
-				wait1.until(ExpectedConditions.visibilityOf(AdEle));
-
-				if (AdEle.isDisplayed()) {
-					System.out.println("Ad is present on Extended Radar & Maps page");
-					Thread.sleep(2000);
-					Ad.findElementByClassName(exceldata[10][Cap]).click();
-					break;
-				}
-				
-
-			} else {
-				System.out.println("Radar & Maps module is NOT present and scrolling down");
-				Swipe();
-			}
-		}
-	}
-	
-	
-	public static void verify_adpresent_onextendedNews_page(String excel_sheet_name) throws Exception
-	{
-		System.out.println("Searching for News module");
-		DeviceStatus device_status = new DeviceStatus();
-		int Cap = device_status.Device_Status();
-		
-		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
-		int swipe = Integer.parseInt(exceldata[2][Cap]);
-		
-		for(int i=1;i<=swipe ;i++){
-			Swipe();
-			Thread.sleep(1000);
-		}
-		
-		int MAX_SWIPES = 10;
-		
-		for (int i = 0; i<MAX_SWIPES; i++) {
-
-			MobileElement news = null;
-
-			try {
-				WebDriverWait wait0 = new WebDriverWait(Ad, 10);
-				wait0.until(ExpectedConditions.visibilityOf(Ad.findElementByName(exceldata[4][Cap])));
-				news = (MobileElement) Ad.findElementByName(exceldata[4][Cap]);
-				
-			} catch (Exception e) {
-				// System.out.println("Exception message :: "+e);	
-			}
-
-			if(news!=null && news.isDisplayed())
-			{  
-				System.out.println("News module is present and tap on News Image");
-				Ad.findElementById(exceldata[5][Cap]).click();
-				String extendNews = Ad.findElementById(exceldata[6][Cap]).getText(); //com.weather.Weather:id/toolbar_title
-				System.out.println("Text : "+ extendNews);
-					
-				if(extendNews.contains("News"))
-					{
-						System.out.println("On Extended News page");
-					}
-				MobileElement AdEle =(MobileElement) Ad.findElementById(exceldata[7][Cap]);
-					
-				WebDriverWait wait1 = new WebDriverWait(Ad, 10);
-				wait1.until(ExpectedConditions.visibilityOf(AdEle));
-					if(AdEle.isDisplayed())
-					{
-						System.out.println("Ad is present on Extended News page");
-						Thread.sleep(2000);
-						Ad.findElementByClassName(exceldata[10][Cap]).click();
-						break;
-					}
-					
-
-			}else
-			{
-               System.out.println("News module is NOT present and scrolling down");
-			   Swipe();
 			}
 		}
 	}
@@ -334,7 +164,7 @@ public class AppFunctions extends Drivers{
 		
 		for(int i=1;i<=12 ;i++){
 			Swipe();
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 		}
 		
 		MobileElement skiSlopes = (MobileElement) Ad.findElementById(exceldata[1][Cap]);

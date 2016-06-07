@@ -19,6 +19,7 @@ public class somkeTestCases extends Drivers{
 	@Test(priority=0)
 	public void PulltoRefresh_Test_Case_Using_Charles() throws Exception{
 		System.out.println("================= Pull To Refresh Test Case Started =========================");
+		CharlesFunctions.startSessionBrowserData();
 		AppiumFunctions.LaunchApp();
 		AppFunctions.Pull_To_Refresh("Pulltorefresh");
 		CharlesFunctions.StopExportSessionXMLFile();
@@ -77,7 +78,7 @@ public class somkeTestCases extends Drivers{
 	public void Verify_Ad_Present_On_HourlyExtended_page() throws Exception {
 		System.out.println("================= Hourly Module Test Case Started =========================");
 		//AppiumFunctions.LaunchApp();
-		AppFunctions.verify_adpresent_onextendedHourly_page("Hourly");
+		AppFunctions.verify_adpresent_onextended_page("Hourly");
 		System.out.println("================= Hourly Module Test Case End =========================");
 	}
 	/* Daily Module Extended Page Ad Test Case */
@@ -85,7 +86,7 @@ public class somkeTestCases extends Drivers{
 	public void Verify_Ad_Present_On_DailyExtended_page() throws Exception {
 		System.out.println("================= Daily Module Test Case Started =========================");
 		//AppiumFunctions.LaunchApp();
-		AppFunctions.verify_adpresent_onextendedTenday_page("Daily");
+		AppFunctions.verify_adpresent_onextended_page("Daily");
 		System.out.println("================= Daily Module Test Case End =========================");
 	}
 	/* RADAR And MAPS Module Extended Page Ad Test Case */
@@ -93,7 +94,7 @@ public class somkeTestCases extends Drivers{
 	public void Verify_Ad_Present_On_MapsExtended_page() throws Exception {
 		System.out.println("================= MAP Module Test Case Started =========================");
 		//AppiumFunctions.LaunchApp();
-		AppFunctions.verify_adpresent_onextendedMap_page("Map");
+		AppFunctions.verify_adpresent_onextended_page("Map");
 		System.out.println("================= MAP Module Test Case End =========================");
 	}
 	/* News Module Extended Page Ad Test Case */
@@ -101,7 +102,7 @@ public class somkeTestCases extends Drivers{
 	public void Verify_Ad_Present_On_NewsExtended_page() throws Exception {
 		System.out.println("================= NEWS Module Test Case Started =========================");
 		//AppiumFunctions.LaunchApp();
-		AppFunctions.verify_adpresent_onextendedNews_page("News");
+		AppFunctions.verify_adpresent_onextended_page("News");
 		System.out.println("================= NEWS Module Test Case End =========================");
 	}
 

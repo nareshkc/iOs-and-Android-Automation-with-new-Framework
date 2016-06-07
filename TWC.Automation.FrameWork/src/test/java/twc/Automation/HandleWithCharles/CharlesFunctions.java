@@ -64,13 +64,13 @@ public class CharlesFunctions extends Drivers{
 		Thread.sleep(1000);
 		driver.findElement(By.linkText(charlesdata[1][0])).click();
 		Thread.sleep(1000);
-		driver.findElement(By.linkText(charlesdata[2][0])).click();
-		Thread.sleep(1000);
-		driver.findElement(By.linkText(charlesdata[3][0])).click();
-		Thread.sleep(1000);
-		driver.findElement(By.linkText(charlesdata[4][0])).click();
-		Thread.sleep(1000);
-		driver.findElement(By.linkText(charlesdata[5][0])).click();
+//		driver.findElement(By.linkText(charlesdata[2][0])).click();
+//		Thread.sleep(1000);
+//		driver.findElement(By.linkText(charlesdata[3][0])).click();
+//		Thread.sleep(1000);
+//		driver.findElement(By.linkText(charlesdata[4][0])).click();
+//		Thread.sleep(1000);
+//		driver.findElement(By.linkText(charlesdata[5][0])).click();
 	}
 	
 	public static void startSessionBrowserData() throws Exception{
@@ -102,7 +102,7 @@ public class CharlesFunctions extends Drivers{
 		driver.findElement(By.linkText(charlesdata[5][0])).click();
 	}
 	
-public static void BrowserClosed() throws Exception{
+	public static void BrowserClosed() throws Exception{
 		Thread.sleep(1000);
 		driver.close();
 	}
