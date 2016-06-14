@@ -45,7 +45,7 @@ public class appiumnew extends Driver{
 //		System.out.println("Appium server is started and running");
 		
 		//Read Device Platform
-		readExcelValues.excelValues("Device");
+		readExcelValues.excelValues("Smoke","Device");
         int Cap =1;
         
         if(readExcelValues.data[1][1].equals("Android")){
@@ -54,7 +54,7 @@ public class appiumnew extends Driver{
         {
         	Cap=Cap;
         }
-        readExcelValues.excelValues("Capabilities");
+        readExcelValues.excelValues("Smoke","Capabilities");
 
 		//Capabilities for IOS and Android Based on Selected on Device Selection
 		

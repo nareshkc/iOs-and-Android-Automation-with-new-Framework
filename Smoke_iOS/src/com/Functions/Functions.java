@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.exec.CommandLine;
+import org.apache.commons.exec.DefaultExecuteResultHandler;
+import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -24,6 +26,7 @@ import org.json.simple.parser.JSONParser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -38,6 +41,8 @@ import com.Appium.Start_Stop_AppiumServer;
 import com.Genaral.Driver;
 import com.Genaral.readExcelValues;
 import com.relevantcodes.extentreports.LogStatus;
+import com.weather.excel.ExcelData;
+import com.weather.excel.WriteResultintoExcel;
 
 
 public class Functions extends Driver{
@@ -49,52 +54,53 @@ public class Functions extends Driver{
 	static MobileElement TempEle =null;
 	static MobileElement Settings =null;
 	static MobileElement SelectAddress =null;
-	static StringBuffer sb = new StringBuffer("");
+	public static StringBuffer sb = new StringBuffer("");
 	public static String req =null;
 	static String pubreq=null; 
-	static String pubreq1 = null;
+	public static String pubreq1 = null;
 	static List<String> container=null;
 	static String SecondParamValue =null;
-	static String firstParamValue =null;
+	public static String firstParamValue =null;
 	static String zipCode = null;
 	static String[] splitPubvalues = null;
 	static String pubadcal=null;
 	public static String seg = null;
+	public static String Xpth =null;
+	public static String VerifypubadValues=null;
 	//	public static ArrayList<String> firstParamValue = new ArrayList<String>();
 	public static ArrayList<String> pubads = new ArrayList<String>();
 	public static ArrayList<String> pubadvalues = new ArrayList<String>();
 	public static ArrayList<String> fgeolist = new ArrayList<String>();
 	public static ArrayList<String> faudlist = new ArrayList<String>();
 	public static ArrayList<String> cxtgcontainer = new ArrayList<String>();
+	public static ArrayList<String> wfxtgcontainer = new ArrayList<String>();
 	//Appium Start
-	public void startAppiumServer() throws IOException, InterruptedException { 
-
-		CommandLine command = new CommandLine("/Applications/Appium.app/Contents/Resources/node/bin/node");
-		command.addArgument("/Applications/Appium.app/Contents/Resources/node_modules/appium/bin/appium.js", false);
+	public static void startAppiumServer() throws Exception { 
+		readExcelValues.excelValues("Smoke","Appium");
+		CommandLine command = new CommandLine(readExcelValues.data[1][Cap]);
+		command.addArgument(readExcelValues.data[2][Cap], false);
 		command.addArgument("--address", false);
-		command.addArgument("127.0.0.1");
+		command.addArgument(readExcelValues.data[3][Cap]);
 		command.addArgument("--port", false);
-		command.addArgument("4723");
-		//command.addArgument("--no-reset", false);
-		command.addArgument("--log-level", false);
+		command.addArgument(readExcelValues.data[4][Cap]);
+		command.addArgument("--no-reset", true);
+		command.addArgument("--log-level", true);
 		command.addArgument("error");
-		//command.addArgument("--log");
-		//command.addArgument("/Users/aparna/Documents/sys11.log");
+		//		command.addArgument("--log");
+		//		command.addArgument("/Users/aparna/Documents/sys11.log");
 
 
-		//		DefaultExecuteResultHandler resultHandler = new DefaultExecuteResultHandler();
-		//		DefaultExecutor executor = new DefaultExecutor();
-		//		executor.setExitValue(1);
-		//		executor.execute(command, resultHandler);
-
-		String[] str ={"/bin/bash", "-c", "/Applications/Appium.app/Contents/Resources/node_modules/appium/bin/appium.js --address 127.0.0.1 --chromedriver-port 9517 --bootstrap-port 4721 --no-reset --local-timezone"};
-		Process p = Runtime.getRuntime().exec(str);
+		DefaultExecuteResultHandler resultHandler = new DefaultExecuteResultHandler();
+		DefaultExecutor executor = new DefaultExecutor();
+		executor.setExitValue(1);
+		executor.execute(command, resultHandler);
 		Thread.sleep(20000);
+
 
 	} 
 
 	//Stop Appium Server
-	public  void stopAppiumServer() throws IOException {  
+	public static  void stopAppiumServer() throws IOException {  
 		String[] command ={"/usr/bin/killall","-KILL","node"};  
 		Runtime.getRuntime().exec(command);  
 		//System.out.println("Appium server stop");  
@@ -105,22 +111,18 @@ public class Functions extends Driver{
 		//Auto start Appium
 		Start_Stop_AppiumServer appiumStart = new Start_Stop_AppiumServer();
 		System.out.println("Stopping the appium server");
-		appiumStart.stopAppiumServer();
+		stopAppiumServer();
 		System.out.println("Appium server is stopped");
 		//Thread.sleep(10000);
 		System.out.println("Starting the appium server");
-		appiumStart.startAppiumServer();
+		startAppiumServer();
 		System.out.println("Appium server is started and running");
 	}
 
 	//Decide connected device
 	public static void capabilities() throws Exception {
-
-
-
 		//Read Device Platform
-		readExcelValues.excelValues("Device");
-
+		readExcelValues.excelValues("Smoke","Device");
 
 		if(readExcelValues.data[1][1].equals("Android")){
 			Cap = Cap+1;
@@ -177,7 +179,7 @@ public class Functions extends Driver{
 	//launch the app
 	public static void launchtheApp() throws Exception{	
 
-		readExcelValues.excelValues("Capabilities");
+		readExcelValues.excelValues("Smoke","Capabilities");
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 
 		//Capabilities for IOS and Android Based on Selected on Device Selection
@@ -194,20 +196,24 @@ public class Functions extends Driver{
 		capabilities.setCapability(readExcelValues.data[13][0], readExcelValues.data[13][Cap]);
 		capabilities.setCapability(readExcelValues.data[14][0], readExcelValues.data[14][Cap]);
 		capabilities.setCapability(readExcelValues.data[16][0],readExcelValues.data[16][Cap]);
-
+		capabilities.setCapability("--session-override",true);
 		System.out.println("Reading capabilities done");
 		//Wait time for Execution of node.js
-		Thread.sleep(20000);
+		Thread.sleep(70000);
 
 		Ad = new IOSDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 		Ad.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
+		try{
+			Ad.findElementByName("close_button").click();
+		}catch(Exception e){
 
+		}
 	}
 
 	//Verifi User Loggedin
 	public static void verifyuserloggedIn() throws Exception{	
-		readExcelValues.excelValues("Login");
+		readExcelValues.excelValues("Smoke","Login");
 
 		//		Settings =(MobileElement) Ad.findElementByXPath(readExcelValues.data[1][Cap]);
 		//		Settings.click();
@@ -225,7 +231,7 @@ public class Functions extends Driver{
 	//Login
 	public static void logIn() throws Exception{	
 
-		readExcelValues.excelValues("Login");
+		readExcelValues.excelValues("Smoke","Login");
 
 		Settings =(MobileElement) Ad.findElementByXPath(readExcelValues.data[1][Cap]);
 		//		Settings.click();
@@ -248,9 +254,14 @@ public class Functions extends Driver{
 			Ad.findElementByName(readExcelValues.data[8][Cap]).click();
 			Ad.findElementByName(readExcelValues.data[7][Cap]).click();
 			System.out.println("User logged in successfully");
-			Thread.sleep(8000);
+			Thread.sleep(7000);
+
+			WebDriverWait wait = new WebDriverWait(Ad,10);
+			wait.until(ExpectedConditions.visibilityOf(Settings));
+
 
 			Settings.click();
+
 			Thread.sleep(3000);
 			System.out.println("User on CC page");
 		}
@@ -273,9 +284,26 @@ public class Functions extends Driver{
 		System.out.println("App launched successfully");
 	}
 
+	public static void uninstall_installApp() throws Exception{
+		readExcelValues.excelValues("Smoke","Paths");
+
+		if(Ad.isAppInstalled(readExcelValues.data[10][Cap])){
+			System.out.println("App installed in the device and trying to uninstall");
+			Ad.removeApp(readExcelValues.data[10][Cap]);
+			System.out.println("App was uninstalled succesfully and trying to install");
+			Ad.installApp(readExcelValues.data[14][Cap]);
+			System.out.println("App was installed Successfully");
+		}else{
+			System.out.println("App was not ther in the device, installing the appa");
+			Ad.installApp(readExcelValues.data[14][Cap]);
+			System.out.println("App was installed Successfully");
+			Thread.sleep(5000);
+			Ad.launchApp();
+		}
+	}
 	//Uninstall the app
 	public static void uninstallApp() throws Exception{
-		readExcelValues.excelValues("Paths");
+		readExcelValues.excelValues("Smoke","Paths");
 		Thread.sleep(3000);
 		String line = "";
 		String allLine = "";
@@ -301,17 +329,17 @@ public class Functions extends Driver{
 
 	//install the app
 	public static void installApp() throws Exception{
-		readExcelValues.excelValues("Paths");
+		readExcelValues.excelValues("Smoke","Paths");
 		String[] str ={"/bin/bash", "-c", readExcelValues.data[12][Cap]+" " +readExcelValues.data[14][Cap]};
 		Process p = Runtime.getRuntime().exec(str);
 
-		Thread.sleep(30000);
+		Thread.sleep(50000);
 		System.out.println("App was installed in the device successfully");
 	}
 
 	//navigatetoSettingPage or manage locations
 	public static void navigatetoSettingPage() throws Exception{
-		readExcelValues.excelValues("Login");
+		readExcelValues.excelValues("Smoke","Login");
 		MobileElement Settings =null;
 		Settings =(MobileElement) Ad.findElementByXPath(readExcelValues.data[1][Cap]);
 		Settings.click();
@@ -319,9 +347,9 @@ public class Functions extends Driver{
 
 	//navigatetoSettingPage or manage locations
 	public static void navigatetoAddressPage() throws Exception{
-		readExcelValues.excelValues("AddressPage");
+		readExcelValues.excelValues("Smoke","AddressPage");
 		MobileElement addressPage =null;
-		addressPage =(MobileElement) Ad.findElementByXPath(readExcelValues.data[1][Cap]);
+		addressPage =(MobileElement) Ad.findElementByName(readExcelValues.data[1][Cap]);
 		addressPage.click();
 		MobileElement Address =(MobileElement) Ad.findElementByXPath(readExcelValues.data[2][Cap]);
 		Addresseslist = Address.findElementsByClassName(readExcelValues.data[3][Cap]);
@@ -331,7 +359,7 @@ public class Functions extends Driver{
 
 	//Add New addresses
 	public static void addnewAddress(String zip) throws Exception{
-		readExcelValues.excelValues("AddressPage");
+		readExcelValues.excelValues("Smoke","AddressPage");
 		MobileElement Address =(MobileElement) Ad.findElementByXPath(readExcelValues.data[2][Cap]);
 		Addresseslist = Address.findElementsByClassName(readExcelValues.data[3][Cap]);
 		if(Addresseslist.size()<=10){
@@ -354,8 +382,20 @@ public class Functions extends Driver{
 
 	//Enter New addresses
 	public static void enternewAddress(String zip) throws Exception{
-		readExcelValues.excelValues("AddressPage");
-		TempEle=(MobileElement) Ad.findElementByClassName(readExcelValues.data[9][Cap]);
+		readExcelValues.excelValues("Smoke","AddressPage");
+		try{
+			TempEle=(MobileElement) Ad.findElementByClassName(readExcelValues.data[9][Cap]);
+			if(!TempEle.isDisplayed()){
+				Ad.findElementByName(readExcelValues.data[1][Cap]).click();
+				TempEle=(MobileElement) Ad.findElementByClassName(readExcelValues.data[9][Cap]);
+			}else{
+				System.out.println("User on Address select page");	
+			}
+		}catch(Exception e){
+			Ad.findElementByName(readExcelValues.data[1][Cap]).click();
+			TempEle=(MobileElement) Ad.findElementByClassName(readExcelValues.data[9][Cap]);
+
+		}
 		TempEle.click();
 		TempEle.sendKeys(zip);
 		//down Keyboad
@@ -368,7 +408,7 @@ public class Functions extends Driver{
 	}
 	//Verify saved address list
 	public static void verifysavedAddresses() throws Exception{
-		readExcelValues.excelValues("AddressPage");
+		readExcelValues.excelValues("Smoke","AddressPage");
 		int savedlistcount =Addresseslist.size()-2;
 		System.out.println("Saved address list count is :"+savedlistcount);
 		if(Addresseslist.size()>2){
@@ -403,7 +443,7 @@ public class Functions extends Driver{
 				Functions.delete_folder();
 				Functions.clear_session();
 
-				readExcelValues.excelValues("AddressPage");
+				readExcelValues.excelValues("Smoke","AddressPage");
 				int Count =addresslist+2; 
 				//int TempEle = addresslist+1;
 				String xyz = readExcelValues.data[4][Cap];
@@ -422,7 +462,7 @@ public class Functions extends Driver{
 
 				Functions.downloadXMLFile();
 				Functions.readXML();
-				Functions.verifyPubadCalwithselectedAddress("cxtg");
+				Functions.verifyPubadCalwithselectedAddress("Smoke","WFXTrigger");
 
 				if(addresscount>1 && addresslist!=addresscount){
 					navigatetoAddressPage();
@@ -437,7 +477,7 @@ public class Functions extends Driver{
 	}
 
 	public static void delete_folder() throws Exception{
-		readExcelValues.excelValues("Paths");
+		readExcelValues.excelValues("Smoke","Paths");
 
 
 		String downloadPath = readExcelValues.data[4][Cap];
@@ -464,7 +504,7 @@ public class Functions extends Driver{
 		Thread.sleep(10000);
 
 		delete_folder();
-		//		readExcelValues.excelValues("Paths");
+		//		readExcelValues.excelValues("Smoke","Paths");
 		//
 		//
 		String downloadPath = readExcelValues.data[4][Cap];
@@ -497,7 +537,7 @@ public class Functions extends Driver{
 		//driver.get("http://mohantestengg:123456@control.charles");
 		driver.get(readExcelValues.data[9][1]);
 
-		readExcelValues.excelValues("Charlesdeatils");
+		readExcelValues.excelValues("Smoke","Charlesdeatils");
 		Thread.sleep(1000);
 		driver.findElement(By.linkText(readExcelValues.data[1][0])).click();
 		Thread.sleep(1000);
@@ -514,7 +554,7 @@ public class Functions extends Driver{
 	}
 	//Open Charles controller for Stop
 	public static void clear_session() throws Exception{
-		readExcelValues.excelValues("Charlesdeatils");
+		readExcelValues.excelValues("Smoke","Charlesdeatils");
 		Thread.sleep(1000);
 		driver.findElement(By.linkText(readExcelValues.data[2][0])).click();
 		Thread.sleep(1000);
@@ -523,7 +563,7 @@ public class Functions extends Driver{
 
 	//Open Charles controller for Stop
 	public static void charles_Stop() throws Exception{
-		readExcelValues.excelValues("Charlesdeatils");
+		readExcelValues.excelValues("Smoke","Charlesdeatils");
 		Thread.sleep(1000);
 		//driver.findElement(By.linkText(readExcelValues.data[6][0])).click();
 		Thread.sleep(1000);
@@ -534,7 +574,7 @@ public class Functions extends Driver{
 
 	//Download XML file
 	public static void downloadXMLFile() throws Exception{
-		readExcelValues.excelValues("Charlesdeatils");
+		readExcelValues.excelValues("Smoke","Charlesdeatils");
 		Thread.sleep(1000);
 		driver.findElement(By.linkText(readExcelValues.data[7][0])).click();
 		Thread.sleep(2000);
@@ -547,7 +587,7 @@ public class Functions extends Driver{
 	//Read XML File
 	public static void readXML() throws Exception{
 
-		readExcelValues.excelValues("Paths");
+		readExcelValues.excelValues("Smoke","Paths");
 
 		//Read the file name from the folder
 		File folder = new File(readExcelValues.data[4][Cap]);
@@ -583,10 +623,10 @@ public class Functions extends Driver{
 
 
 	//Verify single Param Value from pubad call from XML File
-	public static void verifyParamsFromPubadCal(String sheetName) throws Exception{
+	public static void verifyParamsFromPubadCal(String Excelname,String sheetName) throws Exception{
 		//container=null;
-		readExcelValues.excelValues(sheetName);
-		String VerifypubadValues =readExcelValues.data[16][Cap];
+		readExcelValues.excelValues(Excelname,sheetName);
+		VerifypubadValues =readExcelValues.data[16][Cap];
 		System.out.println("Pubad values are -"+VerifypubadValues);
 		for(String pubreq2:pubads){
 			String str[] = pubreq2.split("&");
@@ -611,7 +651,16 @@ public class Functions extends Driver{
 								System.out.println("seg is :"+seg);
 								seg=seg.replaceAll(",",", ");
 								cxtgcontainer.add(seg);
-								System.out.println("Container is:" + cxtgcontainer);
+								System.out.println("CXTG Container is:" + cxtgcontainer);
+
+							}else if(s[0].equals("wfxtg"))
+							{
+
+								seg = s[1].toString();
+								System.out.println("seg is :"+seg);
+								seg=seg.replaceAll(",",", ");
+								wfxtgcontainer.add(seg);
+								System.out.println("WFXTG Container is:" + wfxtgcontainer);
 
 							}else
 							{
@@ -640,8 +689,8 @@ public class Functions extends Driver{
 		}
 	}
 	//Verify pubad call from XML File
-	public static void verifyPubadCalwithselectedAddress(String sheetName) throws Exception{
-		readExcelValues.excelValues(sheetName);
+	public static void verifyPubadCalwithselectedAddress(String Excelname,String sheetName) throws Exception{
+		readExcelValues.excelValues(Excelname,sheetName);
 		//Get Pubad call from 
 
 
@@ -669,29 +718,42 @@ public class Functions extends Driver{
 		}
 
 
-		verifyParamsFromPubadCal(sheetName);
+		verifyParamsFromPubadCal(Excelname,sheetName);
 	}
 
 	//Verify pubad call from XML File
-	public static void verifyPubadCal(String sheetName) throws Exception{
-		readExcelValues.excelValues(sheetName);
+	public static void verifyPubadCal(String Excelname, String sheetName) throws Exception{
+		readExcelValues.excelValues(Excelname,sheetName);
 		//Get Pubad call from 
 		pubads.clear();
 
-		if(sb.toString().contains(readExcelValues.data[17][Cap])){
-			System.out.println("bb ad call is pressent");
+		if(Functions.sb.toString().contains(readExcelValues.data[17][Cap])){
+			System.out.println("ad call is pressent");
 
 			pubadcal = sb.toString().substring(sb.toString().lastIndexOf(readExcelValues.data[17][Cap]));
 			//System.out.println("pubad call is :"+pubadcal);
 
 			pubreq1 = pubadcal.toString().substring(pubadcal.toString().indexOf(readExcelValues.data[7][Cap]));
 
-			pubreq1= pubreq1.toString().replaceAll(readExcelValues.data[8][Cap], "=");
-			pubreq1= pubreq1.toString().replaceAll(readExcelValues.data[9][Cap], "&");
-			pubreq1= pubreq1.toString().replaceAll(readExcelValues.data[10][Cap], ",");
+			if(pubreq1.contains(readExcelValues.data[8][Cap]) || pubreq1.contains(readExcelValues.data[9][Cap])||pubreq1.contains(readExcelValues.data[10][Cap])){
+				pubreq1= pubreq1.toString().replaceAll(readExcelValues.data[8][Cap], "=");
+				pubreq1= pubreq1.toString().replaceAll(readExcelValues.data[9][Cap], "&");
+				pubreq1= pubreq1.toString().replaceAll(readExcelValues.data[10][Cap], ",");
+			}else{
+				System.out.println("not a ad call");
+			}
 			int sizeparam = readExcelValues.data[14][Cap].length();
 			pubreq1 = pubreq1.substring(pubreq1.indexOf(readExcelValues.data[14][Cap])+sizeparam,pubreq1.indexOf(readExcelValues.data[15][Cap]));
 			//System.out.println("feed call zip is "+ pubreq1.toString());
+			if(Excelname=="Smoke"){
+				pubreq1=pubreq1.toString();
+			}else{
+				pubreq1=pubreq1.replaceAll("^\"|\"$","");
+				pubreq1=pubreq1.replaceAll("\"","");
+				pubreq1=pubreq1.replaceAll(",","&");
+				pubreq1=pubreq1.replaceAll(":","=");
+			}
+
 			pubads.add(pubreq1.toString());
 			System.out.println("feed call zip is "+ pubads);
 
@@ -702,7 +764,7 @@ public class Functions extends Driver{
 		}
 
 
-		verifyParamsFromPubadCal(sheetName);
+		verifyParamsFromPubadCal(Excelname,sheetName);
 	}
 
 	//	//Verify single Param Value from pubad call from XML File
@@ -743,7 +805,7 @@ public class Functions extends Driver{
 	public static void verifyAPICal(String SheetName) throws Exception{
 
 		//readXML();
-		readExcelValues.excelValues(SheetName);
+		readExcelValues.excelValues("Smoke",SheetName);
 		//Get Pubad call from 
 		//for(int APIlist=1;APIlist<=whichAPI;APIlist++){
 		String ApiCall = sb.toString().substring(sb.toString().lastIndexOf(readExcelValues.data[2][Cap]));
@@ -754,9 +816,32 @@ public class Functions extends Driver{
 		//}
 	}
 
+	//Verify WFXTG From Api
+	public static void verify_wfxtg(String sheetName) throws Exception{
+		readExcelValues.excelValues("Smoke",sheetName);
+
+		String WfxTrigeer = req.toString().substring(req.indexOf("current"),req.indexOf("scatterSegs"));
+		WfxTrigeer = WfxTrigeer.replaceAll("^\"|:\"$","");
+		System.out.println("WfxTrigeer is :"+WfxTrigeer.toString());
+		String [] wfxcontainer = wfxtgcontainer.toString().split(",");
+		for(String wfxcontainerkey : wfxcontainer ){
+			if(WfxTrigeer.toString().contains(wfxcontainerkey.toString())){
+				System.out.println("Values are matched with : "+wfxcontainerkey.toString()+"----"+WfxTrigeer.toString());
+			}else if(wfxcontainerkey.equals("nl")){
+				System.out.println("Values are matched with : "+wfxcontainerkey.toString()+"----"+WfxTrigeer.toString());
+			}else{
+				System.out.println("Values are not matched with : "+wfxcontainerkey.toString()+"----"+WfxTrigeer.toString());
+			}
+
+		}
+
+	}
+
+
+
 	//Verify API call from XML File
 	public static void readwfxTriggers(String sheetName) throws Exception{
-		readExcelValues.excelValues(sheetName);
+		readExcelValues.excelValues("Smoke",sheetName);
 
 		String Content = "";
 		// Json file
@@ -820,7 +905,7 @@ public class Functions extends Driver{
 
 	//Read Location.wfxtriggers API
 	public static void readlocation_wfxTriggers(String sheetName) throws Exception{
-		readExcelValues.excelValues(sheetName);
+		readExcelValues.excelValues("Smoke",sheetName);
 		String fgeoActual=null;
 		String Pubadparmascount = readExcelValues.data[16][Cap];
 		String pubparam[] = Pubadparmascount.split(",");
@@ -875,7 +960,7 @@ public class Functions extends Driver{
 				}else
 				{
 					System.out.println("Values are not matched for :"+ Factualkey);
-					Assert.fail();
+					Assert.fail("Values are not matched for :"+ Factualkey);
 				}
 			}
 		}
@@ -900,7 +985,7 @@ public class Functions extends Driver{
 
 						System.out.println("faudlist :"+faudlist);
 						//System.out.println("container::"+container);
-								
+
 					}
 				}
 			}else{
@@ -928,14 +1013,14 @@ public class Functions extends Driver{
 					Assert.fail();
 				}
 			}
-		
+
 		}
 	}
 
 
 	//Pull to refresh
 	public static void pulltorefresh() throws Exception{
-		readExcelValues.excelValues("pulltorefresh");
+		readExcelValues.excelValues("Smoke","pulltorefresh");
 		//pull to refresh
 		MobileElement el = (MobileElement) Ad.findElementByXPath(readExcelValues.data[1][Cap]);
 		//MobileElement el1 = (MobileElement) Ad.findElementByXPath("//UIAApplication[1]/UIAWindow[1]/UIACollectionView[1]/UIACollectionCell[1]/UIACollectionView[1]/UIACollectionCell[1]/UIAStaticText[3]");
@@ -956,15 +1041,53 @@ public class Functions extends Driver{
 
 	//Move to selected page
 	public static void Verify_selectedPages(String Pagename) throws Exception{
-		readExcelValues.excelValues(Pagename);
+
+		readExcelValues.excelValues("Smoke",Pagename);
+		Functions.verify_neednavBack(Pagename);
 		String Counts =readExcelValues.data[2][Cap].toString();
 		int Count =Integer.parseInt(Counts);
-		String elemntType = readExcelValues.data[3][Cap].toString();
+		int x;
+		Xpth = readExcelValues.data[4][Cap].toString();
+		if(Pagename=="Hurricane(MainPage)"){
+			x=3;
+			String[]xpt = Xpth.split("xpath");
+			String xp=null;
+			int xpath;
+			WebElement Hurricane = null;
+			for(int i = 10; i<=13;i++){
+				Xpth=xpt[0]+i+xpt[1];
+				Hurricane = Ad.findElementByXPath(Xpth);
+				String HurricaneText = Hurricane.getText();
+				System.out.println("HurricaneText"+HurricaneText);
+				try{
+					if(HurricaneText.toString().contains("Trop")||HurricaneText.toString().contains("HURRICANE CENTRAL")){
+						if(Hurricane.isDisplayed()){
+							break;
+						}
+						i=i-1;
+						Functions.scroll_Down();
+					}
+					else{
+						Functions.scroll_Down();
+					}
+				}catch(Exception e){
+					System.out.println("News Extended option not found still on search");
+				}
+			}
+
+
+
+		}else{
+			x=3;
+		}
+
+		String elemntType = readExcelValues.data[x][Cap].toString();
 		if(readExcelValues.data[4][Cap].contains("NEWS")){
 			for(int i =1;i<=Count;i++){
 				try{
 					if(Ad.findElement(By.name(readExcelValues.data[4][Cap])).isDisplayed()){
 						System.out.println("News element found");
+
 					}
 					break;
 				} catch (Exception e) {
@@ -983,7 +1106,7 @@ public class Functions extends Driver{
 					scroll_Down();
 				}
 			}else if(elemntType.contains("xpath")){
-				if(Ad.findElement(By.xpath(readExcelValues.data[4][Cap])).isDisplayed()){
+				if(Ad.findElement(By.xpath(Xpth)).isDisplayed()){
 					System.out.println(readExcelValues.data[1][Cap]+"page is displayed");
 					break;
 				}else{
@@ -996,23 +1119,104 @@ public class Functions extends Driver{
 				}else{
 					scroll_Down();
 				}
+			}else if(elemntType.contains("css")){
+				if(Ad.findElement(By.cssSelector("//input[contains(@name, '"+readExcelValues.data[4][Cap]+"')]")).isDisplayed()){
+					System.out.println(readExcelValues.data[1][Cap] + " page is displayed");
+					break;
+				}else{
+					scroll_Down();
+				}
 				break;
 
-
 			}
+
 		}
+	}
+
+	//Get attribute
+	public static void get_attribute(){
+
 	}
 
 	//Navigate to selected exteneded page
 	public static void Navigate_extendedPages(String Pagename) throws Exception{
-		readExcelValues.excelValues(Pagename);
+		readExcelValues.excelValues("Smoke",Pagename);
+		String Xpth = readExcelValues.data[5][Cap].toString();
+
+		int x;
+		if(Pagename=="PreRollVideo"){
+			x=18;
+
+			String[]xpt = Xpth.split("xpath");
+			String xp=null;
+			int xpath;
+			//Xpth=xpt[0]+xpath+xpt[1];
+			try{
+				xpath=2;
+				Xpth=xpt[0]+xpath+xpt[1];
+				if(Ad.findElementByXPath(Xpth).isDisplayed()){
+					System.out.println("Video's page is present");
+				}
 
 
-		String ElemntType = readExcelValues.data[10][Cap].toString();
+			}catch(Exception e){
+				xpath=3;
+				Xpth=xpt[0]+xpath+xpt[1];
+				if(Ad.findElementByXPath(Xpth).isDisplayed()){
+					System.out.println("Video's page is present");
+				}
+			}
+		}else if(Pagename=="News"){
+			x=18;
+			String[]xpt = Xpth.split("xpath");
+			String xp=null;
+			int xpath;
+
+			for(int i = 13; i<=16;i++){
+				Xpth=xpt[0]+i+xpt[1];
+				try{
+					if(Ad.findElementByXPath(Xpth).isDisplayed()){
+						break;
+					}
+				}catch(Exception e){
+					System.out.println("News Extended option not found still on search");
+				}
+			}
+
+
+
+		}else if(Pagename=="Hurricane(MainPage)"){
+			x=13;
+			String[]xpt = Xpth.split("xpath");
+			String xp=null;
+			int xpath;
+
+			for(int i = 10; i<=13;i++){
+				Xpth=xpt[0]+i+xpt[1];
+				try{
+					if(Ad.findElementByXPath(Xpth).isDisplayed()){
+						break;
+					}
+				}catch(Exception e){
+					System.out.println("News Extended option not found still on search");
+				}
+			}
+
+			//			Functions.Xpth=Xpth.toString();
+
+		}else{
+			x=10;
+		}
+
+
+
+		String ElemntType = readExcelValues.data[x][Cap].toString();
 		if(ElemntType.contains("name")){
 			Ad.findElementByName(readExcelValues.data[5][Cap]).click();
 		}else if(ElemntType.contains("xpath")){
-			Ad.findElementByXPath(readExcelValues.data[5][Cap]).click();
+
+			Ad.findElementByXPath(Xpth).click();
+
 		}else if(ElemntType.contains("classname")){
 			Ad.findElementByClassName(readExcelValues.data[5][Cap]).click();
 		}else{
@@ -1020,14 +1224,46 @@ public class Functions extends Driver{
 			Assert.fail();
 		}
 
+		if(x==18){
+			try{
+				String originalContext = Ad.getContext();
+				System.out.println("Context is :"+originalContext.toString());
 
+				//Ad.context("NATIVE_APP");
+				//Ad.context("WebView");
+				Ad.findElement(By.name("video messagecard close")).click();
+				Ad.findElementByName(readExcelValues.data[6][Cap]).click();
+				if(ElemntType.contains("name")){
+					Ad.findElementByName(readExcelValues.data[5][Cap]).click();
+				}else if(ElemntType.contains("xpath")){
+					Ad.findElementByXPath(Xpth).click();
+				}else if(ElemntType.contains("classname")){
+					Ad.findElementByClassName(readExcelValues.data[5][Cap]).click();
+				}else{
+					System.out.println("User Still on Home page element not fount");
+					Assert.fail();
+				}
+			}catch(Exception e){
+				System.out.println("User on Videos page and continue");
+			}
+
+		}
+
+		//Verify the  user on Extended page or not
+		Functions.Verify_Extenedpage(Pagename);
+
+	}
+
+	//Verify User on Extened page
+	public static void  Verify_Extenedpage(String Pagename) throws Exception{
+		readExcelValues.excelValues("Smoke",Pagename);
 		//Verify the  user on Extended page or not
 		String navElemntType = readExcelValues.data[3][Cap].toString();
 		if(navElemntType.contains("name")){
 			if(Ad.findElementByName(readExcelValues.data[6][Cap]).isDisplayed()){
 				System.out.println("User Navigate to Selected "+readExcelValues.data[1][Cap] +" page");
 			}else{
-
+				System.out.println("User Still on Home page");
 			}
 		}else if(navElemntType.contains("xpath")){
 			if(Ad.findElementByXPath(readExcelValues.data[6][Cap]).isDisplayed()){
@@ -1042,50 +1278,160 @@ public class Functions extends Driver{
 				System.out.println("User Still on Home page");
 			}
 
-
-
 		}
+	}
 
+	//Verify If User need to navigate back from extened page
+	public static void verify_neednavBack(String Pagename) throws Exception{
+		readExcelValues.excelValues("Smoke",Pagename);
+		try{
+			if(Ad.findElementByName(readExcelValues.data[6][Cap]).isDisplayed()){
+				if(readExcelValues.data[12][Cap].toString().contains("Yes"))
+				{
+					navBack_fromExtendedPage(Pagename);
+					navBack_fromExtendedPage(Pagename);
+				}else{
+
+					//System.out.println("User Navigate to Selected "+readExcelValues.data[1][Cap] +" page");
+					navBack_fromExtendedPage(Pagename);
+
+				}
+			}
+		}catch(Exception e){
+			System.out.println("User on Main page");
+		}
+	}
+
+	//Navigate to SubModule page
+	public static void Navigate_Submodule(String Pagename) throws Exception{
+		readExcelValues.excelValues("Smoke",Pagename);
+		String navElemntType = readExcelValues.data[3][Cap].toString();
+		if(navElemntType.contains("xpath")){
+			if(Ad.findElementByName(readExcelValues.data[4][Cap]).isDisplayed()){
+				System.out.println("User Navigate to Selected "+readExcelValues.data[1][Cap] +" page");
+				//Navigate to Submodule page
+				Ad.findElementByXPath(readExcelValues.data[5][Cap]).click();
+				//Functions.Verify_Extenedpage(Pagename);
+
+			}else{
+				System.out.println("User Still on Extened page");
+			}
+		}
 	}
 
 	//Move to selected page
 	public static void Verify_Adpresenton_extendedPages(String Pagename) throws Exception{
-		readExcelValues.excelValues(Pagename);
-		WebDriverWait wait = new WebDriverWait(Ad, 4);
-		wait.until(ExpectedConditions.visibilityOf(Ad.findElementByXPath(readExcelValues.data[7][Cap])));
-		MobileElement AdEle = (MobileElement) Ad.findElementByXPath(readExcelValues.data[7][Cap]);
-		String xVal=readExcelValues.data[8][Cap].toString().trim();
-		System.out.println("xVal is :"+xVal.trim());
-		int x= Integer.parseInt(xVal);
-		String yVal=readExcelValues.data[9][Cap].toString().trim();
-		int y= Integer.parseInt(yVal.toString());
-
-
-		if(AdEle.isDisplayed())
-		{
-			Dimension ActualSize = AdEle.getSize();
-			System.out.println("Size of the ad is ::"+ActualSize);
-			System.out.println("Height  of the ad is ::"+ActualSize.getHeight());
-			System.out.println("Width of the ad is ::"+ActualSize.getWidth());
-			if(ActualSize.getHeight() == y && ActualSize.getWidth()==x){
-
-				System.out.println("Ad present on Extended"+ Pagename +"page");
-				System.out.println("Ad sizes are matched");
-				//				ATUReports.add("Ad is displayed on Extended"+ Pagename +"page",false);
-				//				logger.log(LogStatus.PASS, "Ad is displayed on Extended 10 Days page");
-				Ad.findElementByName(readExcelValues.data[6][Cap]).click();
-
-			}else
-			{
-
-				System.out.println("Ad present but sizes are not matched");
-				Ad.findElementByName(readExcelValues.data[6][Cap]).click();
-				Assert.fail();
-			}
-			//Ad.findElementByName(readExcelValues.data[6][Cap]).click();
-			Thread.sleep(2000);
+		readExcelValues.excelValues("Smoke",Pagename);
+		String Adc = readExcelValues.data[11][Cap].toString();
+		int Adcount =Integer.parseInt(Adc);
+		String Adp = readExcelValues.data[7][Cap].toString();
+		String[] AdPath = null;
+		if(Adp.contains(",")){
+			AdPath = Adp.split(",");
 		}
 
+		String Adx = readExcelValues.data[8][Cap].toString();
+		String[]Adxvl=null;
+		String Ady = readExcelValues.data[9][Cap].toString();
+		String[]Adyvl=null;
+		if(Adx.contains(",")){
+			Adxvl = Adx.split(",");
+		}
+		if(Ady.contains(",")){
+			Adyvl = Ady.split(",");
+		}
+
+		//int AdxVal = Integer.parseInt(Adx);
+		int AdxVal;
+		int AdyVal;
+		int path ;
+		if(AdPath==null){
+			path =1;
+		}else
+		{
+			path = AdPath.length;
+		}
+
+		System.out.println("ADpatha is :"+path);
+		for(int ads =0;ads<=path-1;ads++){
+			if(path>1){
+				Adp = AdPath[ads].toString();
+				AdxVal = Integer.parseInt(Adxvl[ads]);
+				AdyVal = Integer.parseInt(Adyvl[ads]);
+			}else{
+				AdxVal = Integer.parseInt(Adx);
+				AdyVal = Integer.parseInt(Ady);
+			}
+			if(ads>0){
+				for(int i =1;i<=3;i++){
+
+					if(Ad.findElementByXPath(AdPath[ads].toString()).isDisplayed()){
+						//Ad.findElementByName("ADVERTISEMENT").isDisplayed()){
+						break;
+					}
+					scroll_Down();
+				}
+
+			}
+			//try{
+			WebDriverWait wait = new WebDriverWait(Ad, 4);
+			wait.until(ExpectedConditions.visibilityOf(Ad.findElementByXPath(Adp)));
+			MobileElement AdEle = (MobileElement) Ad.findElementByXPath(Adp);
+			//				String xVal=AdxVal.toString().trim();
+			//				System.out.println("xVal is :"+xVal.trim());
+			int x= AdxVal;
+			String yVal=readExcelValues.data[9][Cap].toString().trim();
+			int y= AdyVal;
+
+
+			if(AdEle.isDisplayed())
+			{
+				Dimension ActualSize = AdEle.getSize();
+				System.out.println("Size of the ad is ::"+ActualSize);
+				System.out.println("Height  of the ad is ::"+ActualSize.getHeight());
+				System.out.println("Width of the ad is ::"+ActualSize.getWidth());
+				if(ActualSize.getHeight() == y && ActualSize.getWidth()==x){
+
+					System.out.println("Ad present on Extended"+ Pagename +"page");
+					System.out.println("Ad sizes are matched");
+					//				ATUReports.add("Ad is displayed on Extended"+ Pagename +"page",false);
+					//				logger.log(LogStatus.PASS, "Ad is displayed on Extended 10 Days page");
+					//Ad.findElementByName(readExcelValues.data[6][Cap]).click();
+
+
+				}else
+				{
+
+					System.out.println("Ad present but sizes are not matched");
+					Ad.findElementByName(readExcelValues.data[6][Cap]).click();
+					Assert.fail();
+				}
+				//Ad.findElementByName(readExcelValues.data[6][Cap]).click();
+				Thread.sleep(2000);
+			}
+			//			}catch(Exception e){
+			//				navBack_fromExtendedPage(Pagename);
+			//
+			//			}
+		}
+		if(readExcelValues.data[12][Cap].toString().contains("No")){
+
+			navBack_fromExtendedPage(Pagename);
+		}else{
+			System.out.println("try to Navigate submodule");
+		}
+	}
+
+
+	//Navigate back to home page from Submodule
+	public static void navBackfrom_Submodule(String Pagename) throws Exception{
+		readExcelValues.excelValues("Smoke",Pagename);
+		if(readExcelValues.data[12][Cap].toString().contains("Yes")){
+			navBack_fromExtendedPage(Pagename);
+			navBack_fromExtendedPage(Pagename);
+		}else{
+			System.out.println("try to Navigate submodule");
+		}
 	}
 
 	//Close the app and launch the app
@@ -1094,11 +1440,37 @@ public class Functions extends Driver{
 		Ad.launchApp();
 	}
 
+	//Navigate Back from Extended page
+	public static void navBack_fromExtendedPage(String sheetName) throws Exception{
+		//Verify the  user on Extended page or not
+		readExcelValues.excelValues("Smoke",sheetName);
+		String navElemntType = readExcelValues.data[10][Cap].toString();
+		if(navElemntType.contains("name")){
+			if(Ad.findElementByName(readExcelValues.data[6][Cap]).isDisplayed()){
+				Ad.findElementByName(readExcelValues.data[6][Cap]).click();
+			}else{
+
+			}
+		}else if(navElemntType.contains("xpath")){
+			if(Ad.findElementByXPath(readExcelValues.data[6][Cap]).isDisplayed()){
+				Ad.findElementByName(readExcelValues.data[6][Cap]).click();
+			}else{
+				System.out.println("User Still on Home page");
+			}
+		}else if(navElemntType.contains("classname")){
+			if(Ad.findElementByClassName(readExcelValues.data[6][Cap]).isDisplayed()){
+			}else{
+				System.out.println("User Still on Home page");
+			}
+
+		}
+	}
+
 	//Verify Feed calls
 	public static void Verify_feedcals(String sheetName) throws Exception{
 		//Functions.downloadXMLFile();
 		readXML();
-		readExcelValues.excelValues(sheetName);
+		readExcelValues.excelValues("Smoke",sheetName);
 		String feedVal=readExcelValues.data[3][Cap].toString().trim();
 		System.out.println("xVal is :"+feedVal.trim());
 		int feedcount=Integer.parseInt(feedVal);
@@ -1122,20 +1494,55 @@ public class Functions extends Driver{
 				if(pubadcal.toString().contains(feedcall)){
 					System.out.println("Feed_"+Feed +"ad call is pressent");
 				}else{
-					System.out.println("Feed_"+Feed +"ad call is pressent");
-					Assert.fail();
+					System.out.println("Feed_"+Feed +"ad call is not pressent");
+					Assert.fail("Feed_"+Feed +"ad call is not pressent");
 				}
 			}
 
-
-			//			for(int scroll=1;scroll<=2;scroll++){
-			//				scrolldown();
-			//			}
 		}
 	}
+
+
+
+	//Verify pubad params call from XML File
+	public static void verifyPubadCal_params(String Excelname,int feedval,String sheetName) throws Exception{
+		readExcelValues.excelValues("Smoke",sheetName);
+		pubadcal=null;
+		pubreq1=null;
+		//Get Pubad call from 
+		pubads.clear();
+
+		if(sb.toString().contains(readExcelValues.data[17][Cap]+feedval)){
+			System.out.println("ad call is pressent");
+
+			pubadcal = sb.toString().substring(sb.toString().lastIndexOf(readExcelValues.data[17][Cap]+feedval));
+			//System.out.println("pubad call is :"+pubadcal);
+
+			pubreq1 = pubadcal.toString().substring(pubadcal.toString().indexOf(readExcelValues.data[7][Cap]));
+
+			pubreq1= pubreq1.toString().replaceAll(readExcelValues.data[8][Cap], "=");
+			pubreq1= pubreq1.toString().replaceAll(readExcelValues.data[9][Cap], "&");
+			pubreq1= pubreq1.toString().replaceAll(readExcelValues.data[10][Cap], ",");
+			int sizeparam = readExcelValues.data[14][Cap].length();
+			pubreq1 = pubreq1.substring(pubreq1.indexOf(readExcelValues.data[14][Cap])+sizeparam,pubreq1.indexOf(readExcelValues.data[15][Cap]));
+			//System.out.println("feed call zip is "+ pubreq1.toString());
+			pubads.add(pubreq1.toString());
+			System.out.println("feed call zip is "+ pubads);
+
+		}
+		else{
+			System.out.println("bb ad call is not pressent");
+			Assert.fail("bb ad call is not pressent");
+		}
+
+
+		verifyParamsFromPubadCal(Excelname,sheetName);
+	}
+
+
 	//Scroll app till end
 	public static void Scroll_end() throws Exception{
-		readExcelValues.excelValues("General");
+		readExcelValues.excelValues("Smoke","General");
 		for(int scrollend=1;scrollend<=12;scrollend++){
 			if(Ad.findElementByName(readExcelValues.data[1][Cap]).isDisplayed()){
 				System.out.println("User done scrolling");
@@ -1152,7 +1559,7 @@ public class Functions extends Driver{
 
 	public static void Setappinto_TestMode() throws Exception
 	{
-		readExcelValues.excelValues("TestMode");
+		readExcelValues.excelValues("Smoke","TestMode");
 
 		MobileElement el = null;
 		//Ad.findElementByXPath(readExcelValues.data[2][Cap]).click();
@@ -1183,12 +1590,15 @@ public class Functions extends Driver{
 		Ad.findElementByName(readExcelValues.data[19][Cap]).click();
 
 		Thread.sleep(3000);
-		Ad.closeApp();
-		Ad.launchApp();
-		//Functions.launchtheApp();
+		try{
+			Ad.closeApp();
+			Ad.launchApp();
+		}catch(Exception e){
+			Functions.launchtheApp();
+		}
 		//app set to Test mode
 
-		readExcelValues.excelValues("TestMode");
+		readExcelValues.excelValues("Smoke","TestMode");
 		Thread.sleep(5000);
 		try{
 			System.out.println("excel data :"+readExcelValues.data[1][Cap]);
@@ -1210,7 +1620,7 @@ public class Functions extends Driver{
 			//			Thread.sleep(2000);
 			//			//Ad.findElementByXPath("//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[1]/UIAStaticText[1]").click();
 			//			Thread.sleep(3000);    
-			Functions.enternewAddress(readExcelValues.data[21][Cap]);
+			//	Functions.enternewAddress(readExcelValues.data[21][Cap]);
 			System.out.println("Address entered and searched");
 		}catch (Exception e){
 			System.out.println("Address already presented");
@@ -1222,7 +1632,7 @@ public class Functions extends Driver{
 
 	//Verify Thirdparty Beacon
 	public static void thirdPart_Beacon() throws Exception{
-		readExcelValues.excelValues("ThirdpartyBecon");
+		readExcelValues.excelValues("Smoke","ThirdpartyBecon");
 		System.out.println("pubadcal :"+pubadcal);
 		if(pubadcal.contains(readExcelValues.data[1][Cap])){
 			String Pubcal=pubadcal.toString().substring(pubadcal.toString().indexOf(readExcelValues.data[2][Cap]),pubadcal.toString().indexOf(readExcelValues.data[3][Cap]));
@@ -1255,4 +1665,78 @@ public class Functions extends Driver{
 		}
 	}
 
+
+	//Verify Video ads
+	public static void Verify_videoads() throws Exception{
+		long start1 = System.currentTimeMillis();
+		System.out.println("Start Time :" + start1+" millisec");
+		MobileElement clickvideo = (MobileElement) Ad.findElementByXPath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]");
+		List<MobileElement> numberOfVideos = clickvideo.findElementsByClassName("UIATableCell");
+
+		System.out.println("Size is :"+numberOfVideos.size());
+		int x=2;
+		for(int n =1;n<=numberOfVideos.size();n++){
+			//Thread.sleep(5000);
+			try{
+				WebElement Learnmore = Ad.findElementByName("Learn More");
+				//Ad.findElementByXPath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell["+n+"]/UIAWebView[1]/UIAStaticText[1]");
+				//System.out.println(Ad.findElementByXPath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAWebView[1]/UIAStaticText[1]").getText());
+				//				WebDriverWait wait = new WebDriverWait(Ad, 10);
+				//				wait.until(ExpectedConditions.visibilityOf(Ad.findElementByXPath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAWebView[1]")));
+				//MobileElement WebView = (MobileElement) Ad.findElementByXPath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAWebView[1]");
+				//List<WebElement> listofAdelements = Learnmore.findElements(By.className("UIAStaticText"));
+				System.out.println("Learn More Present");
+
+				if(n==x){
+					scroll_Down();
+					x=x+n;
+				}
+
+			}catch(Exception e){
+				System.out.println("Learn more not displayed");
+			}
+
+		}
+
+	}
+
+	public static void Clear_Exceldata(String Pagename) throws Exception{
+		readExcelValues.excelValues("Cust_Param_Result",Pagename);
+
+		for(int feeds=1;feeds<=6;feeds++){
+
+			String[][] data1 = new String[10][10];
+			ExcelData er1 = new ExcelData();
+			data1 = er1.excelread("Cust_Param_Result",Pagename);
+
+			int Getresult1 = feeds*2;
+			//Change values for entering result into all the feeds
+			int ResultColumn_n1=7+Getresult1;
+			int ResultColumn_n2=8+Getresult1;
+
+			//Write results into Excel
+			WriteResultintoExcel wResult1 = new WriteResultintoExcel();
+			for(int testcase=1;testcase<=43;testcase++)
+			{
+				wResult1.enterResult("SMOKE", "n", "n", testcase, ResultColumn_n1, ResultColumn_n2);
+
+			}
+
+		}
+	}
+
+
+	//read DSX Call from Logs
+	public static void readDSX_call(String Pagename) throws Exception{
+		readExcelValues.excelValues("Cust_Param",Pagename);
+		Functions.verifyPubadCal("Cust_Param",Pagename);
+	}
+
+
+	public static void main(String[] args) throws Exception
+	{
+		Functions.readXML();
+		readExcelValues.excelValues("Cust_Param","readDSX(MOData)");
+		Functions.readDSX_call("readDSX(MOData)");
+	}
 }

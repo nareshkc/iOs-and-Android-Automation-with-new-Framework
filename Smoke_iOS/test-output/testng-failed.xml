@@ -5,13 +5,20 @@
     <classes>
       <class name="com.Functions.Smoke_Run">
         <methods>
-          <include name="extenedNewPage_ads"/>
-          <include name="afterTest"/>
+          <include name="WFXTriggers_cxtg"/>
+          <include name="extenedHourlyPage_ads"/>
+          <include name="extenedLSModule_ads"/>
+          <include name="extenedNewsPage_ads"/>
+          <include name="pullto_refresh"/>
           <include name="setto_TestMode"/>
-          <include name="ThirdParty_beacons"/>
+          <include name="extenedDailyPage_ads"/>
           <include name="beforeTest"/>
-          <include name="afterMethod"/>
-          <include name="beforeMethod"/>
+          <include name="extenedHurricane_ads"/>
+          <include name="cleanlaunch"/>
+          <include name="Verify_PrerollAd"/>
+          <include name="ad_crwd"/>
+          <include name="extenedMapPage_ads"/>
+          <include name="WFXTriggers_Factuals"/>
         </methods>
       </class> <!-- com.Functions.Smoke_Run -->
     </classes>

@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 
 
 
+
 import org.openqa.selenium.WebDriver;
 
 import com.relevantcodes.extentreports.ExtentReports;
@@ -21,7 +22,8 @@ public class Driver extends PropertyFile {
 	protected static AppiumDriver Ad ;
 	public static WebDriver driver = null;
 	protected static ExtentReports reporter;
-	protected static ExtentTest logger;
+	//protected static ExtentTest logger;
+	public static String Excel_Path =null;
 	public static ExtentReports getInstance() {
 		// TODO Auto-generated method stub
 		return null;

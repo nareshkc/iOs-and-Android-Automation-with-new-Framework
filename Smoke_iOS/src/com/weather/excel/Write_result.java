@@ -12,37 +12,38 @@ import org.apache.poi.ss.usermodel.Cell;
 
 import com.Genaral.Driver;
 
-
-
-
 public class Write_result extends Driver{
-	  public void WriteResult(String sheetName, String tmp_val, int i, int resultColIndex) {
+	public void WriteResult( String sheetName, String tmp_val, int i, int resultColIndex) {
+		String Path =null;
+		
+			Path =properties.getProperty("ExcelFilePath_CustParam_Result");
+		
 
-			try {
+		try {
 
-			    FileInputStream file = new FileInputStream(new File(properties.getProperty("ExcelFilePath")));
-			    HSSFWorkbook workbook = new HSSFWorkbook(file);
+			FileInputStream file = new FileInputStream(Path);
+			HSSFWorkbook workbook = new HSSFWorkbook(file);
 
-			    HSSFSheet sheet = workbook.getSheet(sheetName);
+			HSSFSheet sheet = workbook.getSheet(sheetName);
 
-			    Cell searchText3 = sheet.getRow(i).getCell(resultColIndex);
-			    searchText3.setCellValue(tmp_val);
+			Cell searchText3 = sheet.getRow(i).getCell(resultColIndex);
+			searchText3.setCellValue(tmp_val);
 
-//			    Cell searchText4 = sheet.getRow(rowIndex).getCell(valueColIndex);
-//			    searchText4.setCellValue(Val);
+			//			    Cell searchText4 = sheet.getRow(rowIndex).getCell(valueColIndex);
+			//			    searchText4.setCellValue(Val);
 
-			    file.close();
+			file.close();
 
-			    FileOutputStream outFile = new FileOutputStream(new File(properties.getProperty("ExcelFilePath")));
-			    workbook.write(outFile);
-			    outFile.close();
+			FileOutputStream outFile = new FileOutputStream(Path);
+			workbook.write(outFile);
+			outFile.close();
 
-			} catch (FileNotFoundException fnfe) {
-			    fnfe.printStackTrace();
-			} catch (IOException ioe) {
-			    ioe.printStackTrace();
-			}
-		    }
+		} catch (FileNotFoundException fnfe) {
+			fnfe.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
 
 
 

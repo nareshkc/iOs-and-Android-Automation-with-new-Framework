@@ -11,40 +11,38 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 
 import com.Genaral.Driver;
-
+import com.Genaral.PropertyFile;
 
 public class WriteResultintoExcel extends Driver {
 
-    public void enterResult(String sheetName,double time,int rowIndex,int TimeColIndex) {
+	public void enterResult(String sheetName, String Result, String Val, int rowIndex, int resultColIndex, int valueColIndex) {
+		String Path =null;
+		
+			Path =properties.getProperty("ExcelFilePath_CustParam_Result");
 
-	try {
+		try {
 
-	    FileInputStream file = new FileInputStream(new File(properties.getProperty("ExcelFilePath")));
-	    HSSFWorkbook workbook = new HSSFWorkbook(file);
+			FileInputStream file = new FileInputStream(Path);
+			HSSFWorkbook workbook = new HSSFWorkbook(file);
 
-	    HSSFSheet sheet = workbook.getSheet(sheetName);
+			HSSFSheet sheet = workbook.getSheet(sheetName);
 
-//	    Cell searchText3 = sheet.getRow(rowIndex).getCell(SizeColIndex);
-//	    searchText3.setCellValue(Adsize);
-//
-//	    Cell searchText4 = sheet.getRow(rowIndex).getCell(LocationColIndex);
-//	    searchText4.setCellValue(AdLocation);
-//	    
-	    Cell searchText2 = sheet.getRow(rowIndex).getCell(TimeColIndex);
-	    searchText2.setCellValue(time);
+			Cell searchText3 = sheet.getRow(rowIndex).getCell(resultColIndex);
+			searchText3.setCellValue(Result);
 
-	    file.close();
+			Cell searchText4 = sheet.getRow(rowIndex).getCell(valueColIndex);
+			searchText4.setCellValue(Val);
 
-	    FileOutputStream outFile = new FileOutputStream(new File(properties.getProperty("ExcelFilePath")));
-	    workbook.write(outFile);
-	    outFile.close();
+			file.close();
 
-	} catch (FileNotFoundException fnfe) {
-	    fnfe.printStackTrace();
-	} catch (IOException ioe) {
-	    ioe.printStackTrace();
+			FileOutputStream outFile = new FileOutputStream(Path);
+			workbook.write(outFile);
+			outFile.close();
+
+		} catch (FileNotFoundException fnfe) {
+			fnfe.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
 	}
-    }
-
-	
 }

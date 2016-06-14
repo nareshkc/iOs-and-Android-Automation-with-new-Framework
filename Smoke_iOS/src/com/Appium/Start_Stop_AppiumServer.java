@@ -18,12 +18,12 @@ public class Start_Stop_AppiumServer  {
 		command.addArgument("--address", false);
 		command.addArgument("127.0.0.1");
 		command.addArgument("--port", false);
-		command.addArgument("4722");
+		command.addArgument("4723");
 		//command.addArgument("--no-reset", false);
-		command.addArgument("--log-level", false);
+		command.addArgument("--log-level", true);
 		command.addArgument("error");
-		//command.addArgument("--log");
-		//command.addArgument("/Users/aparna/Documents/sys11.log");
+		command.addArgument("--log");
+		command.addArgument("/Users/aparna/Documents/sys113.log");
 
 		
 //		DefaultExecuteResultHandler resultHandler = new DefaultExecuteResultHandler();
