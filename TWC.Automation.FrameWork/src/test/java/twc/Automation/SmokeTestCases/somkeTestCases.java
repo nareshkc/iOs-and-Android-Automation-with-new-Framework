@@ -33,6 +33,7 @@ public class somkeTestCases extends Drivers{
 		AppiumFunctions.UnInstallApp();
 		CharlesFunctions.startSessionBrowserData();
 		AppiumFunctions.LaunchApp();
+		//AppFunctions.Kill_Launch_App();
 		AppFunctions.CleanLaunch_launch("General");
 		CharlesFunctions.StopExportSessionXMLFile();
 		Functions.clean_App_Launch("CleanLaunch");
@@ -137,7 +138,7 @@ public class somkeTestCases extends Drivers{
 		Functions.bb_call_validation("PreRollVideo");
 		System.out.println("================= PreLoad BB Call Test Case End =========================");
 	}
-	
+	 
 	@BeforeTest
 	public void Before_Test() throws Exception{
 		CharlesFunctions.charlesOpen();
