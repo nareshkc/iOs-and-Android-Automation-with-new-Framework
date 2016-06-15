@@ -40,7 +40,7 @@ public class somkeTestCases extends Drivers{
 		System.out.println("================= Clean App Launch Test Case End =========================");
 	}
 	/* CXTG  Values Test Case */
-	@Test(priority=2)
+	@Test(priority=4)
 	public void Verify_CXTG_Values() throws Exception{
 		System.out.println("================= CXTG Values Test Case Started =========================");
 		AppiumFunctions.UnInstallApp();
@@ -55,7 +55,7 @@ public class somkeTestCases extends Drivers{
 		
 	}
 	/* Factual Call Test Case */
-	@Test(priority=3)
+	@Test(priority=2)
 	public void Factual_Test_Case_Using_Charles() throws Exception{
 		System.out.println("================= Factual Call Test Case Started =========================");
 //		CharlesFunctions.openCharlesBrowser();
@@ -65,7 +65,7 @@ public class somkeTestCases extends Drivers{
 		System.out.println("================= Factual Call Test Case End =========================");
 	}
 	/* Lotame Call Test Case */
-	@Test(priority=4)
+	@Test(priority=3)
 	public void Lotame_Test_Case_Using_Charles() throws Exception{
 		System.out.println("================= Lotame Call Test Case Started =========================");
 //		CharlesFunctions.openCharlesBrowser();
