@@ -14,7 +14,7 @@ public class read_Property_File_Info {
 	public static void property() throws IOException
 	
 	{
-		String dataFilePath="/Users/vishal.pathania/Downloads/iOs-and-Android-Automation-with-new-Framework/TWC.Automation.FrameWork/DataFile.Properties";
+		String dataFilePath="/Users/vishal.pathania/.jenkins/workspace/Android_Smoke_Test_Cases/TWC.Automation.FrameWork/DataFile.Properties";
 		
 		File file = new File(dataFilePath);
 		try {
