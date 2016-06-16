@@ -290,6 +290,7 @@ public class Functions extends Drivers{
 		DeviceStatus device_status = new DeviceStatus();
 		int Cap = device_status.Device_Status();
 		
+		Thread.sleep(4000);
 		String[][] exceldata = read_excel_data.exceldataread(excel_sheet_name);
 		
 		read_xml_data_into_buffer xml_data_into_buffer = new read_xml_data_into_buffer();
