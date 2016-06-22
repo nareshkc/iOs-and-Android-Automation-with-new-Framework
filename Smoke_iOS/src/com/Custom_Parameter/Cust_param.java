@@ -197,12 +197,12 @@ public class Cust_param extends Driver {
 
 
 								//Write results into Excel
-								WriteResultintoExcel wResult = new WriteResultintoExcel();
+							//	WriteResultintoExcel wResult = new WriteResultintoExcel();
 
-								int Getresult = feed*2;
+							//	int Getresult = feed*2;
 								//Change values for entering result into all the feeds
-								int ResultColumn_1=7+Getresult;
-								int ResultColumn_2=8+Getresult;
+								//int ResultColumn_1=7+Getresult;
+								//int ResultColumn_2=8+Getresult;
 
 								//Validating Parameters 
 								System.out.println("Param_Val is::"+Param_val);
@@ -214,11 +214,11 @@ public class Cust_param extends Driver {
 										{
 											if (data[testcase][8].contains(ExactValue.toString())&&ExactValue!="") {
 												System.out.println("NO Values found for "+param);
-												wResult.enterResult("SMOKE", "Fail", ExactValue, testcase, ResultColumn_1, ResultColumn_2);
+									//			wResult.enterResult("SMOKE", "Fail", ExactValue, testcase, ResultColumn_1, ResultColumn_2);
 											}else if(data[testcase][7].contains(ExactValue)||data[testcase][5].contains("Fixed")){
 												System.out.println(param+" vales is :" + keys.contains(data[testcase][4].toString()));
 												System.out.println(keys);
-												wResult.enterResult("SMOKE", "Pass", ExactValue, testcase, ResultColumn_1, ResultColumn_2);
+										//		wResult.enterResult("SMOKE", "Pass", ExactValue, testcase, ResultColumn_1, ResultColumn_2);
 											}
 
 											break;
@@ -230,24 +230,24 @@ public class Cust_param extends Driver {
 											System.out.println("Exact Value is "+ ExactValue + " Data in Excel " + data[testcase][8]+" Size is : "+ExactValue.length());
 											if (data[testcase][8].contains(ExactValue)&&(ExactValue.length() !=data[testcase][6].length())&&ExactValue!="") {
 												System.out.println("NO Values found for "+param);
-												wResult.enterResult("SMOKE", "Fail", ExactValue, testcase, ResultColumn_1, ResultColumn_2);
+											//	wResult.enterResult("SMOKE", "Fail", ExactValue, testcase, ResultColumn_1, ResultColumn_2);
 
 											} else
 
 												if(data[testcase][7].contains(ExactValue)||data[testcase][5].contains("Not Fixed")){
 													System.out.println(data[testcase][4]+" vales is :" + keys.contains(param));
 													System.out.println(keys);
-													wResult.enterResult("SMOKE", "Pass", ExactValue, testcase, ResultColumn_1, ResultColumn_2);
+												//	wResult.enterResult("SMOKE", "Pass", ExactValue, testcase, ResultColumn_1, ResultColumn_2);
 												}else if(data[testcase][7].contains(ExactValue)||data[testcase][5].contains("Fixed")){
 													System.out.println(data[testcase][4]+" vales is :" + keys.contains(param));
 													System.out.println(keys);
-													wResult.enterResult("SMOKE", "Pass", ExactValue, testcase, ResultColumn_1, ResultColumn_2);
+													//wResult.enterResult("SMOKE", "Pass", ExactValue, testcase, ResultColumn_1, ResultColumn_2);
 												}
 
 										}
 									}else if(Param_val.equals("Fail")){
 										System.out.println("Values are not matched");
-										wResult.enterResult("SMOKE", "Not matched", ExactValue, testcase, ResultColumn_1, ResultColumn_2);
+										//wResult.enterResult("SMOKE", "Not matched", ExactValue, testcase, ResultColumn_1, ResultColumn_2);
 										break;
 									}
 								}else if(ParamType!=data[testcase][4])
@@ -256,11 +256,11 @@ public class Cust_param extends Driver {
 									{
 										if (data[testcase][8].contains(ExactValue.toString())&&ExactValue!="") {
 											System.out.println("NO Values found for "+param);
-											wResult.enterResult("SMOKE", "Fail", ExactValue, testcase, ResultColumn_1, ResultColumn_2);
+											//wResult.enterResult("SMOKE", "Fail", ExactValue, testcase, ResultColumn_1, ResultColumn_2);
 										}else if(data[testcase][7].contains(ExactValue)||data[testcase][5].contains("Fixed")){
 											System.out.println(param+" vales is :" + keys.contains(data[testcase][4].toString()));
 											System.out.println(keys);
-											wResult.enterResult("SMOKE", "Pass", ExactValue, testcase, ResultColumn_1, ResultColumn_2);
+											//wResult.enterResult("SMOKE", "Pass", ExactValue, testcase, ResultColumn_1, ResultColumn_2);
 										}
 
 										break;
@@ -272,18 +272,18 @@ public class Cust_param extends Driver {
 										System.out.println("Exact Value is "+ ExactValue + " Data in Excel " + data[testcase][8]+" Size is : "+ExactValue.length());
 										if (data[testcase][8].contains(ExactValue)&&(ExactValue.length() !=data[testcase][6].length())&&ExactValue!="") {
 											System.out.println("NO Values found for "+param);
-											wResult.enterResult("SMOKE", "Fail", ExactValue, testcase, ResultColumn_1, ResultColumn_2);
+											//wResult.enterResult("SMOKE", "Fail", ExactValue, testcase, ResultColumn_1, ResultColumn_2);
 
 										} else
 
 											if(data[testcase][7].contains(ExactValue)||data[testcase][5].contains("Not Fixed")){
 												System.out.println(data[testcase][4]+" vales is :" + keys.contains(param));
 												System.out.println(keys);
-												wResult.enterResult("SMOKE", "Pass", ExactValue, testcase, ResultColumn_1, ResultColumn_2);
+												//wResult.enterResult("SMOKE", "Pass", ExactValue, testcase, ResultColumn_1, ResultColumn_2);
 											}else if(data[testcase][7].contains(ExactValue)||data[testcase][5].contains("Fixed")){
 												System.out.println(data[testcase][4]+" vales is :" + keys.contains(param));
 												System.out.println(keys);
-												wResult.enterResult("SMOKE", "Pass", ExactValue, testcase, ResultColumn_1, ResultColumn_2);
+											//	wResult.enterResult("SMOKE", "Pass", ExactValue, testcase, ResultColumn_1, ResultColumn_2);
 											}
 
 									}
