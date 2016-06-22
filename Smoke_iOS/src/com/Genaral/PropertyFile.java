@@ -13,7 +13,7 @@ public class PropertyFile {
 
 	public static void property() throws IOException
 	{
-		File file = new File("/Users/aparna/Documents/Naresh/Smoke_iOS/DataFile.Properties");
+		File file = new File("/Users/vishal.pathania/.jenkins/workspace/Android_Smoke_Test_Cases/Smoke_iOS/DataFile.Properties");
 		try {
 			fileInput = new FileInputStream(file);
 			properties.load(fileInput);
