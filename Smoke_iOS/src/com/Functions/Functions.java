@@ -1026,7 +1026,7 @@ public class Functions extends Driver{
 		//MobileElement el1 = (MobileElement) Ad.findElementByXPath("//UIAApplication[1]/UIAWindow[1]/UIACollectionView[1]/UIACollectionCell[1]/UIACollectionView[1]/UIACollectionCell[1]/UIAStaticText[3]");
 		TouchAction action1 = new TouchAction(Ad);
 
-		action1.longPress(el).moveTo(2, 400).release().perform();
+		action1.longPress(el).moveTo(2, 200).release().perform();
 		Thread.sleep(1000);
 
 	}
