@@ -1,0 +1,146 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.werather.SmokeiOS</groupId>
+  <artifactId>com.werather.SmokeiOS</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <url>http://maven.apache.org</url>
+
+  
+	<properties>
+		<suiteXmlFile>testng.xml</suiteXmlFile>
+		<skipTests>false</skipTests>
+	</properties>
+
+
+	<repositories>
+		<repository>
+			<id>my-local-repo</id>
+			<url>file:/Users/aparna/Desktop/my-repo/repo</url>
+		</repository>
+	</repositories>
+
+  <dependencies>
+  
+  <!-- Extentreports Dependency JAR -->
+		<dependency>
+			<groupId>com.relevantcodes</groupId>
+			<artifactId>extentreports</artifactId>
+			<version>2.10</version>
+		</dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    
+    
+    <!-- http://mvnrepository.com/artifact/commons-io/commons-io -->
+<dependency>
+    <groupId>commons-io</groupId>
+    <artifactId>commons-io</artifactId>
+    <version>2.5</version>
+</dependency>
+    
+    <!-- Adding TestNG dependency -->
+ 
+<dependency>
+  <groupId>org.testng</groupId>
+  <artifactId>testng</artifactId>
+  <version>6.9.4</version>
+  <scope>test</scope>
+</dependency>
+
+<!-- Adding Selenium dependency -->
+
+<dependency>
+<groupId>org.seleniumhq.selenium</groupId>
+<artifactId>selenium-server</artifactId>
+<version>2.53.0</version>
+</dependency> 
+
+<!-- Adding Selenium dependency -->
+
+<dependency>
+<groupId>org.seleniumhq.selenium</groupId>
+<artifactId>selenium-java</artifactId>
+<version>2.51.0</version>
+</dependency> 
+
+<!-- Adding Java Client dependency -->
+<!-- http://mvnrepository.com/artifact/io.appium/java-client -->
+<dependency>
+    <groupId>io.appium</groupId>
+    <artifactId>java-client</artifactId>
+    <version>3.4.1</version>
+  <exclusions>
+    <exclusion>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+    </exclusion>
+  </exclusions>
+  
+</dependency>
+<dependency>
+	<groupId>com.googlecode.json-simple</groupId>
+	<artifactId>json-simple</artifactId>
+	<version>1.1</version>
+</dependency>
+
+<dependency>
+	<groupId>org.apache.poi</groupId>
+	<artifactId>poi</artifactId>
+	<version>3.9</version>
+</dependency>
+
+
+  	<dependency>
+  		<groupId>atu.reporter</groupId>
+  		<artifactId>atureports</artifactId>
+  		<version>5.5</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>atu.testrecorder</groupId>
+  		<artifactId>testrecorder</artifactId>
+  		<version>2.1</version>
+  	</dependency>
+  </dependencies>
+  
+  
+	<build>
+		<pluginManagement>
+
+
+			<plugins>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+
+					<configuration>
+						<version>3.3</version>
+
+					</configuration>
+				</plugin>
+
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.6</version>
+					<configuration>
+
+						<suiteXmlFiles>
+							<suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+						</suiteXmlFiles>
+
+						<testFailureIgnore>true</testFailureIgnore>
+					</configuration>
+				</plugin>
+
+			</plugins>
+		</pluginManagement>
+	</build>
+  
+</project>
