@@ -4,13 +4,19 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.ios.IOSDriver;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -20,15 +26,23 @@ import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecuteResultHandler;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.tools.ant.types.FileList.FileName;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.SessionId;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -212,19 +226,21 @@ public class Functions extends Driver{
 		Ad = new IOSDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 		Ad.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
+		
+		//Handle Extra popup appears when app launched (like New module ebnable)
 		try{
 			Ad.findElementByName("close_button").click();
 		}catch(Exception e){
 
 		}
+		Functions.TakeScreenshot();
 	}
 
 	//Verifi User Loggedin
 	public static void verifyuserloggedIn() throws Exception{	
 		readExcelValues.excelValues("Smoke","Login");
 
-		//		Settings =(MobileElement) Ad.findElementByXPath(readExcelValues.data[1][Cap]);
-		//		Settings.click();
+
 		UserStatus= Ad.findElementByXPath(readExcelValues.data[2][Cap]).getText();
 
 		if(UserStatus.equals(readExcelValues.data[9][Cap])){
@@ -265,9 +281,13 @@ public class Functions extends Driver{
 			Thread.sleep(7000);
 
 			WebDriverWait wait = new WebDriverWait(Ad,10);
-			wait.until(ExpectedConditions.visibilityOf(Settings));
+			try{
+				wait.until(ExpectedConditions.visibilityOf(Settings));
 
-
+			}catch (Exception e)
+			{
+				Functions.TakeScreenshot();
+			}
 			Settings.click();
 
 			Thread.sleep(3000);
@@ -288,8 +308,12 @@ public class Functions extends Driver{
 	//Relaunch the app
 	public void relaunchtheApp() throws Exception
 	{
-		Ad.launchApp();
-		System.out.println("App launched successfully");
+		try{
+			Ad.launchApp();
+			System.out.println("App launched successfully");
+		}catch (Exception e){
+			Functions.TakeScreenshot();
+		}
 	}
 
 	public static void uninstall_installApp() throws Exception{
@@ -384,6 +408,7 @@ public class Functions extends Driver{
 		}else
 		{
 			System.out.println("Saved address limite excied");
+			Functions.TakeScreenshot();
 		}
 
 	}
@@ -502,31 +527,67 @@ public class Functions extends Driver{
 		}
 	}
 
+	//Download ap from HockeyApp
+	public static void delete_IPA() throws Exception{
+		readExcelValues.excelValues("Smoke","Paths");
+
+		String App = readExcelValues.data[14][Cap];
+		String AppPath = readExcelValues.data[15][Cap];
+
+		File index = new File(AppPath);
+		File f = new File(App);
+		try{
+			System.out.println("file Size is:"+FileUtils.sizeOf(f));
+		}catch(Exception e){
+			System.out.println("Ipa file not available in the path");
+		}
+		if (!index.exists()) {
+			System.out.println("Specified folder is not exist and creating the same folder now");
+			index.mkdir();
+		} else {
+			System.out.println("Specified folder is exist and deleting the same folder");
+			System.out.println("File name :"+FileUtils.sizeOf(index));
+			FileUtils.cleanDirectory(index);
+			System.out.println("Deleted all the files in the specified folder");
+
+		}
+	}
+
+	//Verify App downloaded or not
+	public static void Verify_IPA() throws Exception{
+		readExcelValues.excelValues("Smoke","Paths");
+
+
+		String App = readExcelValues.data[14][Cap];
+		String AppPath = readExcelValues.data[15][Cap];
+		File indexPath =  new File(AppPath);
+		File file = new File(App);
+		long Size = FileUtils.sizeOf(file);
+		System.out.println("File Size 4 is :"+Size);
+
+		for(int i=1;i<=40;i++){
+			if(FileUtils.sizeOf(file)>1){
+				System.out.println("ipa File Downloaded ");
+				break;
+			}else{
+				Thread.sleep(10000);
+			}
+		}
+
+	}
+
 	//Open Charless session and control from Browser
 	public static void startCharlesSession() throws Exception{
 
-		//Driver.property();
+
 		//Open Charles Using Terminal
 		String[] openCharles_str ={"/bin/bash", "-c", "open -a charles"};
 		Runtime.getRuntime().exec(openCharles_str);	
 		Thread.sleep(10000);
 
 		delete_folder();
-		//		readExcelValues.excelValues("Smoke","Paths");
-		//
-		//
+
 		String downloadPath = readExcelValues.data[4][Cap];
-		//
-		//		File index = new File(downloadPath);
-		//
-		//		if (!index.exists()) {
-		//			System.out.println("Specified folder is not exist and creating the same folder now");
-		//			index.mkdir();
-		//		} else {
-		//			System.out.println("Specified folder is exist and deleting the same folder");
-		//			FileUtils.cleanDirectory(index);
-		//			System.out.println("Deleted all the files in the specified folder");
-		//		}
 
 		FirefoxProfile profile = new FirefoxProfile();
 
@@ -1080,7 +1141,8 @@ public class Functions extends Driver{
 						Functions.scroll_Down();
 					}
 				}catch(Exception e){
-					System.out.println("News Extended option not found still on search");
+					System.out.println("Hurricane Extended option not found still on search");
+					Functions.TakeScreenshot();
 				}
 			}
 
@@ -1101,6 +1163,7 @@ public class Functions extends Driver{
 					break;
 				} catch (Exception e) {
 					System.out.println("News element Not fount");
+					Functions.TakeScreenshot();
 				}	
 				scroll_Down();
 			}
@@ -1142,10 +1205,7 @@ public class Functions extends Driver{
 		}
 	}
 
-	//Get attribute
-	public static void get_attribute(){
 
-	}
 
 	//Navigate to selected exteneded page
 	public static void Navigate_extendedPages(String Pagename) throws Exception{
@@ -1189,6 +1249,7 @@ public class Functions extends Driver{
 					}
 				}catch(Exception e){
 					System.out.println("News Extended option not found still on search");
+					Functions.TakeScreenshot();
 				}
 			}
 
@@ -1207,7 +1268,8 @@ public class Functions extends Driver{
 						break;
 					}
 				}catch(Exception e){
-					System.out.println("News Extended option not found still on search");
+					System.out.println("Hurricane Extended option not found still on search");
+					Functions.TakeScreenshot();
 				}
 			}
 
@@ -1233,30 +1295,30 @@ public class Functions extends Driver{
 			Assert.fail();
 		}
 
-		if(x==18){
-			try{
-				String originalContext = Ad.getContext();
-				System.out.println("Context is :"+originalContext.toString());
-
-				//Ad.context("NATIVE_APP");
-				//Ad.context("WebView");
-				Ad.findElement(By.name("video messagecard close")).click();
-				Ad.findElementByName(readExcelValues.data[6][Cap]).click();
-				if(ElemntType.contains("name")){
-					Ad.findElementByName(readExcelValues.data[5][Cap]).click();
-				}else if(ElemntType.contains("xpath")){
-					Ad.findElementByXPath(Xpth).click();
-				}else if(ElemntType.contains("classname")){
-					Ad.findElementByClassName(readExcelValues.data[5][Cap]).click();
-				}else{
-					System.out.println("User Still on Home page element not fount");
-					Assert.fail();
-				}
-			}catch(Exception e){
-				System.out.println("User on Videos page and continue");
-			}
-
-		}
+		//		if(x==18){
+		//			try{
+		//				String originalContext = Ad.getContext();
+		//				System.out.println("Context is :"+originalContext.toString());
+		//
+		//				//Ad.context("NATIVE_APP");
+		//				//Ad.context("WebView");
+		//				Ad.findElement(By.name("video messagecard close")).click();
+		//				Ad.findElementByName(readExcelValues.data[6][Cap]).click();
+		//				if(ElemntType.contains("name")){
+		//					Ad.findElementByName(readExcelValues.data[5][Cap]).click();
+		//				}else if(ElemntType.contains("xpath")){
+		//					Ad.findElementByXPath(Xpth).click();
+		//				}else if(ElemntType.contains("classname")){
+		//					Ad.findElementByClassName(readExcelValues.data[5][Cap]).click();
+		//				}else{
+		//					System.out.println("User Still on Home page element not fount");
+		//					Assert.fail();
+		//				}
+		//			}catch(Exception e){
+		//				System.out.println("User on Videos page and continue");
+		//			}
+		//
+		//		}
 
 		//Verify the  user on Extended page or not
 		Functions.Verify_Extenedpage(Pagename);
@@ -1372,7 +1434,7 @@ public class Functions extends Driver{
 				AdyVal = Integer.parseInt(Ady);
 			}
 			if(ads>0){
-				for(int i =1;i<=3;i++){
+				for(int s =1;s<=3;s++){
 
 					if(Ad.findElementByXPath(AdPath[ads].toString()).isDisplayed()){
 						//Ad.findElementByName("ADVERTISEMENT").isDisplayed()){
@@ -1385,7 +1447,12 @@ public class Functions extends Driver{
 			//try{
 			WebDriverWait wait = new WebDriverWait(Ad, 4);
 			wait.until(ExpectedConditions.visibilityOf(Ad.findElementByXPath(Adp)));
-			MobileElement AdEle = (MobileElement) Ad.findElementByXPath(Adp);
+			MobileElement AdEle =null;
+			try{
+				AdEle = (MobileElement) Ad.findElementByXPath(Adp);
+			}catch (Exception e){
+				Functions.TakeScreenshot();
+			}
 			//				String xVal=AdxVal.toString().trim();
 			//				System.out.println("xVal is :"+xVal.trim());
 			int x= AdxVal;
@@ -1413,15 +1480,13 @@ public class Functions extends Driver{
 
 					System.out.println("Ad present but sizes are not matched");
 					Ad.findElementByName(readExcelValues.data[6][Cap]).click();
+					Functions.TakeScreenshot();
 					Assert.fail();
 				}
-				//Ad.findElementByName(readExcelValues.data[6][Cap]).click();
+
 				Thread.sleep(2000);
 			}
-			//			}catch(Exception e){
-			//				navBack_fromExtendedPage(Pagename);
-			//
-			//			}
+
 		}
 		if(readExcelValues.data[12][Cap].toString().contains("No")){
 
@@ -1772,7 +1837,7 @@ public class Functions extends Driver{
 					adreq1=adreq1.replaceAll("\"","");
 					adreq1=adreq1.replaceAll(",","&");
 					adreq1=adreq1.replaceAll("=&","nl&");
-					
+
 					//pubreq1=pubreq1.replaceAll(":","=");
 				}
 
@@ -1783,109 +1848,109 @@ public class Functions extends Driver{
 				System.out.println("***********************************");
 
 			}else{
-				//for(int feed=1;feed<=5;feed++){
-					pubads.clear();
+				//for(int feeds=1;feeds<=5;feeds++){
+				pubads.clear();
 
-					pubadcal = sb.toString().substring(sb.toString().lastIndexOf(readExcelValues.data[17][Cap])+feed);
-					pubadcal = sb.toString().substring(sb.toString().lastIndexOf(readExcelValues.data[17][Cap]));
-					pubreq1 = pubadcal.toString().substring(pubadcal.toString().indexOf(readExcelValues.data[7][Cap]));
+				pubadcal = sb.toString().substring(sb.toString().lastIndexOf(readExcelValues.data[17][Cap])+feed);
+				pubadcal = sb.toString().substring(sb.toString().lastIndexOf(readExcelValues.data[17][Cap]));
+				pubreq1 = pubadcal.toString().substring(pubadcal.toString().indexOf(readExcelValues.data[7][Cap]));
 
-					if(pubreq1.contains(readExcelValues.data[8][Cap]) || pubreq1.contains(readExcelValues.data[9][Cap])||pubreq1.contains(readExcelValues.data[10][Cap])){
-						pubreq1= pubreq1.toString().replaceAll(readExcelValues.data[8][Cap], "=");
-						pubreq1= pubreq1.toString().replaceAll(readExcelValues.data[9][Cap], "&");
-						pubreq1= pubreq1.toString().replaceAll(readExcelValues.data[10][Cap], ",");
-					}else{
-						System.out.println("not a ad call");
-					}
+				if(pubreq1.contains(readExcelValues.data[8][Cap]) || pubreq1.contains(readExcelValues.data[9][Cap])||pubreq1.contains(readExcelValues.data[10][Cap])){
+					pubreq1= pubreq1.toString().replaceAll(readExcelValues.data[8][Cap], "=");
+					pubreq1= pubreq1.toString().replaceAll(readExcelValues.data[9][Cap], "&");
+					pubreq1= pubreq1.toString().replaceAll(readExcelValues.data[10][Cap], ",");
+				}else{
+					System.out.println("not a ad call");
+				}
 
-					int sizeparam = readExcelValues.data[14][Cap].length();
-					pubreq1 = pubreq1.substring(pubreq1.indexOf(readExcelValues.data[14][Cap])+sizeparam,pubreq1.indexOf(readExcelValues.data[15][Cap]));
-					//System.out.println("feed call zip is "+ pubreq1.toString());
-					if(Excelname=="Smoke"){
-						pubreq1=pubreq1.toString();
-					}else{
-						pubreq1=pubreq1.replaceAll("^\"|:\"$","");
-						pubreq1=pubreq1.replaceAll("\"","");
-						pubreq1=pubreq1.replaceAll(",","&");
-						pubreq1=pubreq1.replaceAll("_"," ");
-					}
+				int sizeparam = readExcelValues.data[14][Cap].length();
+				pubreq1 = pubreq1.substring(pubreq1.indexOf(readExcelValues.data[14][Cap])+sizeparam,pubreq1.indexOf(readExcelValues.data[15][Cap]));
+				//System.out.println("feed call zip is "+ pubreq1.toString());
+				if(Excelname=="Smoke"){
+					pubreq1=pubreq1.toString();
+				}else{
+					pubreq1=pubreq1.replaceAll("^\"|:\"$","");
+					pubreq1=pubreq1.replaceAll("\"","");
+					pubreq1=pubreq1.replaceAll(",","&");
+					pubreq1=pubreq1.replaceAll("_"," ");
+				}
 
-					pubads.add(pubreq1.toString());
-					System.out.println("Pubads data is :"+pubads.toString());
-					System.out.println("=================================");
-					Cust_param cp = new Cust_param();
-					//Read Excel
-					String[][] data = new String[10][10];
-					ExcelData er = new ExcelData();
-					data = er.excelread("Cust_Param_Result","AllParams");
-					Write_result wrResult = new Write_result();
+				pubads.add(pubreq1.toString());
+				System.out.println("Pubads data is :"+pubads.toString());
+				System.out.println("=================================");
+				Cust_param cp = new Cust_param();
+				//Read Excel
+				String[][] data = new String[10][10];
+				ExcelData er = new ExcelData();
+				data = er.excelread("Cust_Param_Result","AllParams");
+				Write_result wrResult = new Write_result();
 
-					
-					for(int filln = 1;filln<=43;filln++){
-						wrResult.WriteResult("AllParams","n",filln,2);
-						wrResult.WriteResult("AllParams","n",filln,3);
-					}
 
-					for(String pubreq2:pubads){
-						String str[] = pubreq2.split("&");
-						
-						for(String pubreq3:ads){
-							String str1[] = pubreq3.split("&");
-							for (String ssss : str) {
-								String s[] = ssss.split("=");
-							
-								for (String sss : str1) {
-									String s1[] = sss.split("=");
-									if(s[0].equals(s1[0])){
-										
-										if(s[1].equals(s1[1])){
-											System.out.println("Pubad Param :"+s[0] +"-----"+ "Pubad Value :"+s[1]);
-											System.out.println("ad Param :"+s1[0] +"-----"+ " ad Value :"+s1[1]);
-											System.out.println("Values are matched ");
-											for(int paramtot =1;paramtot<=43;paramtot++){
-												//System.out.println("Exceldata is :"+data[paramtot][0].toString());
-												if(s[0].equals(data[paramtot][0])){
-													if(data[paramtot][1].toString().contains(s1[1])){
+				for(int filln = 1;filln<=43;filln++){
+					wrResult.WriteResult("AllParams","n",filln,2);
+					wrResult.WriteResult("AllParams","n",filln,3);
+				}
+
+				for(String pubreq2:pubads){
+					String str[] = pubreq2.split("&");
+
+					for(String pubreq3:ads){
+						String str1[] = pubreq3.split("&");
+						for (String ssss : str) {
+							String s[] = ssss.split("=");
+
+							for (String sss : str1) {
+								String s1[] = sss.split("=");
+								if(s[0].equals(s1[0])){
+
+									if(s[1].equals(s1[1])){
+										System.out.println("Pubad Param :"+s[0] +"-----"+ "Pubad Value :"+s[1]);
+										System.out.println("ad Param :"+s1[0] +"-----"+ " ad Value :"+s1[1]);
+										System.out.println("Values are matched ");
+										for(int paramtot =1;paramtot<=43;paramtot++){
+											//System.out.println("Exceldata is :"+data[paramtot][0].toString());
+											if(s[0].equals(data[paramtot][0])){
+												if(data[paramtot][1].toString().contains(s1[1])){
 													wrResult.WriteResultAllParams("AllParams",s1[1].toString(),"Passed",paramtot,2,3);
 													cp.Param_val = "Pass";
-													
+
 													break;
-													}else
-													{
-														wrResult.WriteResultAllParams("AllParams",s1[1].toString(),"MisMatched",paramtot,2,3);
-														cp.Param_val = "Fail";
-														break;
-													}
-												}
-												
-											}
-											
-											//cp.Param_val = "Pass";
-											
-											System.out.println("==================================");
-										}else{
-											System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-											System.out.println("Pubad Param :"+s[0] +"-----"+ "Pubad Value :"+s[1]);
-											System.out.println("ad Param :"+s1[0] +"-----"+ " ad Value :"+s1[1]);
-											System.out.println("Values are not matched");
-											for(int paramtot =1;paramtot<=43;paramtot++){
-												if(s[0].equals(data[paramtot][0])){
-													wrResult.WriteResultAllParams("AllParams",s1[1].toString(),"Failed",paramtot,2,3);
+												}else
+												{
+													wrResult.WriteResultAllParams("AllParams",s1[1].toString(),"MisMatched",paramtot,2,3);
 													cp.Param_val = "Fail";
 													break;
 												}
-												
 											}
-											
-											System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+
 										}
+
+										//cp.Param_val = "Pass";
+
+										System.out.println("==================================");
 									}else{
-										
+										System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+										System.out.println("Pubad Param :"+s[0] +"-----"+ "Pubad Value :"+s[1]);
+										System.out.println("ad Param :"+s1[0] +"-----"+ " ad Value :"+s1[1]);
+										System.out.println("Values are not matched");
+										for(int paramtot =1;paramtot<=43;paramtot++){
+											if(s[0].equals(data[paramtot][0])){
+												wrResult.WriteResultAllParams("AllParams",s1[1].toString(),"Failed",paramtot,2,3);
+												cp.Param_val = "Fail";
+												break;
+											}
+
+										}
+
+										System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 									}
+								}else{
+
 								}
 							}
 						}
 					}
+				}
 				//}
 			}
 
@@ -1900,7 +1965,7 @@ public class Functions extends Driver{
 		}
 
 
-;
+		;
 	}
 	//Verify Cust_Params from Pubad
 
@@ -2001,22 +2066,109 @@ public class Functions extends Driver{
 
 	}
 
+	//Take Screenshot
+	public static void TakeScreenshot() throws Exception{
+
+		File Screenshot = ((TakesScreenshot)Ad).getScreenshotAs(OutputType.FILE);
+		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmm").format(Calendar.getInstance().getTime());
+		FileUtils.copyFile(Screenshot, new File("/Users/aparna/Documents/Naresh/com.werather.SmokeiOS/FailScreens/ScreenShot-"+timeStamp+".png"));
+
+	}
+
+	//Download app from Hockey
+	public static void app_download_from_hockeyapp() throws InterruptedException, IOException, Exception{
+
+		FirefoxProfile profile1 = new FirefoxProfile();
+		profile1.setPreference("browser.download.folderList",2);
+		profile1.setPreference("browser.download.panel.shown", false);
+		profile1.setPreference("browser.download.dir","/Users/aparna/Documents/Naresh/com.werather.SmokeiOS/Build");
+		profile1.setPreference("browser.helperApps.neverAsk.openFile","text/xml,text/csv,application/x-msexcel,application/octet-stream,application/vnd.android.package-archive,application/excel,application/x-excel,application/vnd.ms-excel,image/png,image/jpeg,text/html,text/plain,application/msword,application/xml,application/apk,application/ipa");
+		profile1.setPreference("browser.helperApps.neverAsk.saveToDisk","text/xml,text/csv,application/x-msexcel,application/octet-stream,application/vnd.android.package-archive,application/excel,application/x-excel,application/vnd.ms-excel,image/png,image/jpeg,text/html,text/plain,application/msword,application/xml,application/apk,application/zip");
+
+
+
+		WebDriver driver = new FirefoxDriver(profile1);
+		driver.manage().window().maximize();
+		driver.get("https://rink.hockeyapp.net/users/sign_in");
+		driver.findElement(By.id("user_email")).sendKeys("kvelappan@weather.com");
+		driver.findElement(By.id("user_password")).sendKeys("300interstate");
+		driver.findElement(By.name("commit")).click();
+
+		Thread.sleep(2000);
+		String Apps = driver.findElement(By.xpath("/html/body/div[2]/div[2]/div/div[2]/ul/li[2]/a")).getText();
+		System.out.println("Apps text :: "+Apps);
+		if(Apps.contains("iOS")){
+			System.out.println("Apps content already in :: "+Apps);
+		}else{
+
+
+			driver.findElement(By.xpath("/html/body/div[2]/div[2]/div/div[2]/ul/li[2]/a")).click();
+			Thread.sleep(2000);
+			for(int i=2;i<=7;i++){
+				WebElement platforms = driver.findElement(By.xpath("/html/body/div[2]/div[2]/div/div[2]/ul/li[2]/ul/li["+i+"]/a/span"));
+				String platformsText = platforms.getText();
+				System.out.println("platforms text :: "+platformsText);
+				if(platformsText.contains("iOS")){
+					Thread.sleep(2000);
+					platforms.click();
+					System.out.println("Selected "+platformsText +"in the Platforms Dropdown");
+					break;
+				}else{
+					System.out.println(platformsText +"not found in the list");
+				}
+			}
+		}
+		for(int j=10;j<=15;j++){
+			WebElement build =  driver.findElement(By.xpath("/html/body/div[2]/div[2]/div/table/tbody/tr["+j+"]/td[2]"));
+			String buildText = build.getText();
+			Thread.sleep(2000);
+			if(buildText.contains("Nightly QA")){
+				JavascriptExecutor jse = (JavascriptExecutor)driver;
+				jse.executeScript("window.scrollBy(0,350)", "");
+				System.out.println("Buid Text is : "+buildText);
+				build.click();
+				break;
+			}
+		}
+
+		for(int k=2;k<=5;k++){
+			WebElement Build_Name = driver.findElement(By.xpath("/html/body/div[2]/div[1]/div[2]/div/form/table/tbody/tr["+k+"]/td[2]"));
+			String BuildName =Build_Name.getText();
+			Thread.sleep(2000);
+			if(k==2){
+				System.out.println("Buid Name is : "+BuildName);
+				Build_Name.click();
+				break;
+			}
+
+		}
+
+		driver.findElement(By.xpath("/html/body/div[2]/div[2]/div[1]/div[1]/div[1]/div[1]/div/a[1]")).click();
+		Thread.sleep(2000);
+		Verify_IPA();
+
+	}
+
+
 
 	public static void main(String[] args) throws Exception
 	{
-//		Functions.startCharlesSession();
-//		Functions.charles_Stop();
-//		//STR
-////		Functions.uninstallApp();
-////		Functions.installApp();
-//		
-//		Functions.Appium_Autostart();
-//		Functions.delete_folder();
-//		Functions.clear_session();
-//		Functions.capabilities();
-//		Functions.launchtheApp();
-//		Functions.scroll_Down();
-//		Functions.downloadXMLFile();
+		Functions.startCharlesSession();
+		Functions.charles_Stop();
+//		delete_IPA();
+//		app_download_from_hockeyapp();
+
+		//STR
+		Functions.uninstallApp();
+		Functions.installApp();
+
+		Functions.Appium_Autostart();
+		Functions.delete_folder();
+		Functions.clear_session();
+		Functions.capabilities();
+		Functions.launchtheApp();
+		Functions.scroll_Down();
+		Functions.downloadXMLFile();
 		Functions.readXML();
 		//readExcelValues.excelValues("Cust_Param","readDSX(MOData)");
 		Functions.readDSX_call(5,"readTruboApi","readPubads");
