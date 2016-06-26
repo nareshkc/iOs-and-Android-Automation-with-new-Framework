@@ -221,7 +221,7 @@ public class Functions extends Driver{
 		capabilities.setCapability("--session-override",true);
 		System.out.println("Reading capabilities done");
 		//Wait time for Execution of node.js
-		Thread.sleep(70000);
+		Thread.sleep(90000);
 
 		Ad = new IOSDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 		Ad.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);

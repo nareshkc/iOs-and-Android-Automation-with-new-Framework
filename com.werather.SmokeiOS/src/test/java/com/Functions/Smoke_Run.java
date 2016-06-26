@@ -230,6 +230,9 @@ public class Smoke_Run extends Driver {
 	@BeforeTest
 	public void beforeTest() throws Exception {
 		//Preconditions
+		Functions.startCharlesSession();
+		Functions.charles_Stop();
+		
 		Functions.delete_IPA();
 		Functions.app_download_from_hockeyapp();
 //		
