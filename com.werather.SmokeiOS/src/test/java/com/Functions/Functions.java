@@ -83,6 +83,8 @@ public class Functions extends Driver{
 	static String[] splitPubvalues = null;
 	static String pubadcal=null;
 	static String adcal=null;
+	static int startY;
+	static int endY;
 	public static String seg = null;
 	public static String Xpth =null;
 	public static String VerifypubadValues=null;
@@ -165,6 +167,15 @@ public class Functions extends Driver{
 		js.executeScript("mobile: scroll", scrollObject);
 
 
+	}
+	//Swipe
+	public static void Swipe(){
+		Dimension dimensions = Ad.manage().window().getSize();
+		Double startY1 = dimensions.getHeight() * 0.7;  
+		startY = startY1.intValue();
+		Double endY1 = (double) (dimensions.getHeight()/40);  //  dimensions.getHeight()  0.2;  == 512.0
+		endY = endY1.intValue();
+		Ad.swipe(0, startY, 0, endY,2000);
 	}
 	//App Kill Relaunch
 	public static void Kill_realaunch() throws Exception
@@ -508,14 +519,16 @@ public class Functions extends Driver{
 		}
 
 	}
-
+//Delete Charles session xml files
 	public static void delete_folder() throws Exception{
 		readExcelValues.excelValues("Smoke","Paths");
 
 
 		String downloadPath = readExcelValues.data[4][Cap];
+		//String Screenshots = readExcelValues.data[16][Cap];
 
 		File index = new File(downloadPath);
+		
 
 		if (!index.exists()) {
 			System.out.println("Specified folder is not exist and creating the same folder now");
@@ -525,7 +538,33 @@ public class Functions extends Driver{
 			FileUtils.cleanDirectory(index);
 			System.out.println("Deleted all the files in the specified folder");
 		}
+		
 	}
+	
+	
+	//Delete Screenshots session xml files
+		public static void delete_screenshots() throws Exception{
+			readExcelValues.excelValues("Smoke","Paths");
+
+
+			String downloadPath = readExcelValues.data[16][Cap];
+			//String Screenshots = readExcelValues.data[16][Cap];
+
+			File index = new File(downloadPath);
+			//File Screenindex= new File(Screenshots);
+
+			if (!index.exists()) {
+				System.out.println("Specified folder is not exist and creating the same folder now");
+				index.mkdir();
+			} else {
+				System.out.println("Specified folder is exist and deleting the same folder");
+				FileUtils.cleanDirectory(index);
+				System.out.println("Deleted all the files in the specified folder");
+			}
+			
+		}
+	
+	
 
 	//Download ap from HockeyApp
 	public static void delete_IPA() throws Exception{
@@ -563,7 +602,7 @@ public class Functions extends Driver{
 		File indexPath =  new File(AppPath);
 		File file = new File(App);
 		long Size = FileUtils.sizeOf(file);
-		System.out.println("File Size 4 is :"+Size);
+		System.out.println("File Size is :"+Size);
 
 		for(int i=1;i<=40;i++){
 			if(FileUtils.sizeOf(file)>1){
@@ -1434,13 +1473,29 @@ public class Functions extends Driver{
 				AdyVal = Integer.parseInt(Ady);
 			}
 			if(ads>0){
-				for(int s =1;s<=3;s++){
-
+				//Ad.findElementByName("BREATHING").click();;
+				for(int s =1;s<=4;s++){
+					//try{
 					if(Ad.findElementByXPath(AdPath[ads].toString()).isDisplayed()){
 						//Ad.findElementByName("ADVERTISEMENT").isDisplayed()){
 						break;
+					}else{
+//						System.out.println("Ad not found -- try to scroll down for ad");
+						try{
+							Functions.Swipe();
+						}catch(Exception e){
+							Functions.scroll_Down();
+						}
+//						Ad.findElementByName("ADVERTISEMENT").click();
+//						}catch(Exception e){
+//							MobileElement nationalMap = (MobileElement) Ad.findElementByName("National Map");
+//							MobileElement Breath = (MobileElement) Ad.findElementByName("BREATHING");	
+//						}
+						
 					}
-					scroll_Down();
+//					}catch(Exception e){
+//						System.out.println("Trying for ad");
+//					}
 				}
 
 			}
@@ -1452,6 +1507,11 @@ public class Functions extends Driver{
 				AdEle = (MobileElement) Ad.findElementByXPath(Adp);
 			}catch (Exception e){
 				Functions.TakeScreenshot();
+				Ad.findElementByName("BREATHING").click();
+				Functions.scroll_Down();
+				Functions.scrolldown();
+//				MobileElement Advert = (MobileElement) Ad.findElementByName("ADVERTISEMENT");
+//				MobileElement Advert = (MobileElement) Ad.findElementByName("ADVERTISEMENT");
 			}
 			//				String xVal=AdxVal.toString().trim();
 			//				System.out.println("xVal is :"+xVal.trim());
@@ -2157,11 +2217,9 @@ public class Functions extends Driver{
 		Functions.charles_Stop();
 //		delete_IPA();
 //		app_download_from_hockeyapp();
-
 		//STR
 		Functions.uninstallApp();
 		Functions.installApp();
-
 		Functions.Appium_Autostart();
 		Functions.delete_folder();
 		Functions.clear_session();
@@ -2170,7 +2228,6 @@ public class Functions extends Driver{
 		Functions.scroll_Down();
 		Functions.downloadXMLFile();
 		Functions.readXML();
-		//readExcelValues.excelValues("Cust_Param","readDSX(MOData)");
 		Functions.readDSX_call(5,"readTruboApi","readPubads");
 	}
 }
