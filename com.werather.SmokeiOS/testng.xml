@@ -4,15 +4,10 @@
   <test name="Smoke_iOS">
     <classes>
       <class name="com.Functions.Smoke_Run"/>
+       <class name="com.Custom_Parameter.run_CustomParameters"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
 
-<suite name="Custom_Parameters" parallel="none">
-  <test name="Custom_Params">
-    <classes>
-      <class name="com.Custom_Parameter.run_CustomParameters"/>
-    </classes>
-  </test> <!-- Test -->
-</suite> <!-- Suite -->
+
 
