@@ -1,0 +1,31 @@
+-------------------------------------------------------------------------------
+Test set: TestSuite
+-------------------------------------------------------------------------------
+Tests run: 14, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 2,051.326 sec <<< FAILURE!
+extenedLSModule_ads(com.Functions.Smoke_Run)  Time elapsed: 178.239 sec  <<< FAILURE!
+org.openqa.selenium.NoSuchElementException: An element could not be located on the page using the given search parameters. (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 21.93 seconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '2.51.0', revision: '1af067dbcaedd7d2ab9af5151fc471d363d97193', time: '2016-02-05 11:20:57'
+System info: host: 'localhost', ip: '127.0.0.1', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.11.1', java.version: '1.8.0_60'
+Driver info: io.appium.java_client.ios.IOSDriver
+Capabilities [{app=/Users/aparna/Documents/Naresh/com.werather.SmokeiOS/Build/TheWeatherASDev.ipa, appPackage=com.weather.Weather, networkConnectionEnabled=false, warnings={}, bundleId=com.weather.TWC, --session-override=true, databaseEnabled=false, deviceName==iPhone 6 (9.1) [caea71833e3ca5e0adb5070514485bdeb8827951], platform=MAC, desired={app=/Users/aparna/Documents/Naresh/com.werather.SmokeiOS/Build/TheWeatherASDev.ipa, appPackage=com.weather.Weather, bundleId=com.weather.TWC, --session-override=true, deviceName==iPhone 6 (9.1) [caea71833e3ca5e0adb5070514485bdeb8827951], appium-version=1.5.1, fullRest=true, newCommandTimeout=100000.0, autoLaunch=true, platformVersion=9.1, forceIphone=true, platformName=iOS, device=iPhone, autoAcceptAlerts=true}, appium-version=1.5.1, fullRest=true, newCommandTimeout=100000.0, autoLaunch=true, platformVersion=9.1, forceIphone=true, webStorageEnabled=false, locationContextEnabled=false, browserName=iOS, takesScreenshot=true, javascriptEnabled=true, platformName=iOS, device=iPhone, autoAcceptAlerts=true}]
+Session ID: 8c4a906e-ae3e-45e9-81ae-aea89274e9af
+*** Element info: {Using=xpath, value=//UIAApplication[1]/UIAWindow[1]/UIACollectionView[1]/UIACollectionCell[6]/UIAWebView[1]}
+	at sun.reflect.GeneratedConstructorAccessor80.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+	at io.appium.java_client.DefaultGenericMobileDriver.execute(DefaultGenericMobileDriver.java:43)
+	at io.appium.java_client.AppiumDriver.execute(AppiumDriver.java:1)
+	at io.appium.java_client.ios.IOSDriver.execute(IOSDriver.java:1)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:363)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:500)
+	at io.appium.java_client.DefaultGenericMobileDriver.findElementByXPath(DefaultGenericMobileDriver.java:129)
+	at io.appium.java_client.AppiumDriver.findElementByXPath(AppiumDriver.java:1)
+	at io.appium.java_client.ios.IOSDriver.findElementByXPath(IOSDriver.java:1)
+	at com.Functions.Functions.Verify_Adpresenton_extendedPages(Functions.java:1499)
+	at com.Functions.Smoke_Run.extenedLSModule_ads(Smoke_Run.java:212)
+

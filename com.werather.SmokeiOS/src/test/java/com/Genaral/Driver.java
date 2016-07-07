@@ -21,6 +21,7 @@ public class Driver extends PropertyFile {
 	@SuppressWarnings("rawtypes")
 	protected static AppiumDriver Ad ;
 	public static WebDriver driver = null;
+	public static WebDriver driver_ipa =null;
 	protected static ExtentReports reporter;
 	//protected static ExtentTest logger;
 	public static String Excel_Path =null;

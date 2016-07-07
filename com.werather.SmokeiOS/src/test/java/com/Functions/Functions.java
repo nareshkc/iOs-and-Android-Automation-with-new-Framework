@@ -83,6 +83,8 @@ public class Functions extends Driver{
 	static String[] splitPubvalues = null;
 	static String pubadcal=null;
 	static String adcal=null;
+	static String HurricaneXpath =null;
+	static String prerolladxpath =null;
 	static int startY;
 	static int endY;
 	public static String seg = null;
@@ -232,12 +234,12 @@ public class Functions extends Driver{
 		capabilities.setCapability("--session-override",true);
 		System.out.println("Reading capabilities done");
 		//Wait time for Execution of node.js
-		Thread.sleep(90000);
+		Thread.sleep(110000);
 
 		Ad = new IOSDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 		Ad.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
-		
+
 		//Handle Extra popup appears when app launched (like New module ebnable)
 		try{
 			Ad.findElementByName("close_button").click();
@@ -519,7 +521,7 @@ public class Functions extends Driver{
 		}
 
 	}
-//Delete Charles session xml files
+	//Delete Charles session xml files
 	public static void delete_folder() throws Exception{
 		readExcelValues.excelValues("Smoke","Paths");
 
@@ -528,7 +530,7 @@ public class Functions extends Driver{
 		//String Screenshots = readExcelValues.data[16][Cap];
 
 		File index = new File(downloadPath);
-		
+
 
 		if (!index.exists()) {
 			System.out.println("Specified folder is not exist and creating the same folder now");
@@ -538,33 +540,33 @@ public class Functions extends Driver{
 			FileUtils.cleanDirectory(index);
 			System.out.println("Deleted all the files in the specified folder");
 		}
-		
+
 	}
-	
-	
+
+
 	//Delete Screenshots session xml files
-		public static void delete_screenshots() throws Exception{
-			readExcelValues.excelValues("Smoke","Paths");
+	public static void delete_screenshots() throws Exception{
+		readExcelValues.excelValues("Smoke","Paths");
 
 
-			String downloadPath = readExcelValues.data[16][Cap];
-			//String Screenshots = readExcelValues.data[16][Cap];
+		String downloadPath = readExcelValues.data[16][Cap];
+		//String Screenshots = readExcelValues.data[16][Cap];
 
-			File index = new File(downloadPath);
-			//File Screenindex= new File(Screenshots);
+		File index = new File(downloadPath);
+		//File Screenindex= new File(Screenshots);
 
-			if (!index.exists()) {
-				System.out.println("Specified folder is not exist and creating the same folder now");
-				index.mkdir();
-			} else {
-				System.out.println("Specified folder is exist and deleting the same folder");
-				FileUtils.cleanDirectory(index);
-				System.out.println("Deleted all the files in the specified folder");
-			}
-			
+		if (!index.exists()) {
+			System.out.println("Specified folder is not exist and creating the same folder now");
+			index.mkdir();
+		} else {
+			System.out.println("Specified folder is exist and deleting the same folder");
+			FileUtils.cleanDirectory(index);
+			System.out.println("Deleted all the files in the specified folder");
 		}
-	
-	
+
+	}
+
+
 
 	//Download ap from HockeyApp
 	public static void delete_IPA() throws Exception{
@@ -607,6 +609,8 @@ public class Functions extends Driver{
 		for(int i=1;i<=40;i++){
 			if(FileUtils.sizeOf(file)>1){
 				System.out.println("ipa File Downloaded ");
+				driver_ipa.close();
+				
 				break;
 			}else{
 				Thread.sleep(10000);
@@ -869,7 +873,9 @@ public class Functions extends Driver{
 		}
 		else{
 			System.out.println("bb ad call is not pressent");
+			Functions.navBack_fromExtendedPage("PreRollVideo");
 			Assert.fail("bb ad call is not pressent");
+			
 		}
 
 
@@ -1161,32 +1167,43 @@ public class Functions extends Driver{
 			x=3;
 			String[]xpt = Xpth.split("xpath");
 			String xp=null;
+			String xxpt = xpt[0].toString();
+			String [] xpatcont = xxpt.split("xcount");
 			int xpath;
 			WebElement Hurricane = null;
-			for(int i = 10; i<=13;i++){
-				Xpth=xpt[0]+i+xpt[1];
-				Hurricane = Ad.findElementByXPath(Xpth);
-				String HurricaneText = Hurricane.getText();
-				System.out.println("HurricaneText"+HurricaneText);
-				try{
-					if(HurricaneText.toString().contains("Trop")||HurricaneText.toString().contains("HURRICANE CENTRAL")){
-						if(Hurricane.isDisplayed()){
-							break;
+			outerloop:
+				for(int j=2;j<=4;j++){
+					for(int i = 10; i<=13;i++){
+
+						xxpt= xpatcont[0]+j+xpatcont[1];
+
+						HurricaneXpath=xxpt+i+xpt[1];
+						Xpth=HurricaneXpath;
+						Hurricane = Ad.findElementByXPath(Xpth);
+						String HurricaneText = Hurricane.getText();
+						System.out.println("HurricaneText"+HurricaneText);
+						try{
+							if(HurricaneText.toString().contains("Trop")||HurricaneText.toString().contains("HURRICANE CENTRAL")){
+								if(Hurricane.isDisplayed()){
+									break outerloop;
+
+								}
+								//
+
+								i=i-1;
+								Functions.scroll_Down();
+							}
+							else{
+								Functions.scroll_Down();
+							}
+						}catch(Exception e){
+							System.out.println("Hurricane Extended option not found still on search");
+							Functions.TakeScreenshot();
 						}
-						i=i-1;
-						Functions.scroll_Down();
 					}
-					else{
-						Functions.scroll_Down();
-					}
-				}catch(Exception e){
-					System.out.println("Hurricane Extended option not found still on search");
-					Functions.TakeScreenshot();
+
+
 				}
-			}
-
-
-
 		}else{
 			x=3;
 		}
@@ -1258,7 +1275,7 @@ public class Functions extends Driver{
 			String[]xpt = Xpth.split("xpath");
 			String xp=null;
 			int xpath;
-			//Xpth=xpt[0]+xpath+xpt[1];
+			//Xpth=prerolladxpath;
 			try{
 				xpath=2;
 				Xpth=xpt[0]+xpath+xpt[1];
@@ -1296,21 +1313,21 @@ public class Functions extends Driver{
 
 		}else if(Pagename=="Hurricane(MainPage)"){
 			x=13;
-			String[]xpt = Xpth.split("xpath");
-			String xp=null;
-			int xpath;
-
-			for(int i = 10; i<=13;i++){
-				Xpth=xpt[0]+i+xpt[1];
+//			String[]xpt = Xpth.split("xpath");
+//			String xp=null;
+//			int xpath;
+//
+//			//for(int i = 10; i<=13;i++){
+			Xpth=HurricaneXpath;
 				try{
 					if(Ad.findElementByXPath(Xpth).isDisplayed()){
-						break;
+						//break;
 					}
 				}catch(Exception e){
 					System.out.println("Hurricane Extended option not found still on search");
 					Functions.TakeScreenshot();
 				}
-			}
+			//}
 
 			//			Functions.Xpth=Xpth.toString();
 
@@ -1462,7 +1479,7 @@ public class Functions extends Driver{
 			path = AdPath.length;
 		}
 
-		System.out.println("ADpatha is :"+path);
+		System.out.println("ADpath is :"+path);
 		for(int ads =0;ads<=path-1;ads++){
 			if(path>1){
 				Adp = AdPath[ads].toString();
@@ -1473,29 +1490,36 @@ public class Functions extends Driver{
 				AdyVal = Integer.parseInt(Ady);
 			}
 			if(ads>0){
-				//Ad.findElementByName("BREATHING").click();;
-				for(int s =1;s<=4;s++){
-					//try{
-					if(Ad.findElementByXPath(AdPath[ads].toString()).isDisplayed()){
-						//Ad.findElementByName("ADVERTISEMENT").isDisplayed()){
-						break;
-					}else{
-//						System.out.println("Ad not found -- try to scroll down for ad");
+
+				for(int s =5;s<=7;s++){
+					try{
+						String adxpath = AdPath[ads].toString();
+						System.out.println("Ads xpath is :"+adxpath);
+						String[] xpathad = adxpath.split("xpath");
+						//for(int i = 5;i<=7;i++){
+						prerolladxpath = xpathad[0]+s+xpathad[1];
+						System.out.println("adxpath is :"+prerolladxpath.toString());
 						try{
-							Functions.Swipe();
-						}catch(Exception e){
-							Functions.scroll_Down();
+							if(Ad.findElementByXPath(prerolladxpath.toString()).isDisplayed()){
+								Adp=prerolladxpath.toString();
+								break;
+							}
+						}catch(Exception e2){
+							System.out.println("add not found");
+							try{
+								Functions.Swipe();
+								Functions.Swipe();
+							}catch(Exception e){
+								Functions.scroll_Down();
+							}
 						}
-//						Ad.findElementByName("ADVERTISEMENT").click();
-//						}catch(Exception e){
-//							MobileElement nationalMap = (MobileElement) Ad.findElementByName("National Map");
-//							MobileElement Breath = (MobileElement) Ad.findElementByName("BREATHING");	
-//						}
-						
+						//}
+					}catch(Exception e1){
+
+						System.out.println("add is not present");
+						Functions.TakeScreenshot();
 					}
-//					}catch(Exception e){
-//						System.out.println("Trying for ad");
-//					}
+
 				}
 
 			}
@@ -1510,8 +1534,8 @@ public class Functions extends Driver{
 				Ad.findElementByName("BREATHING").click();
 				Functions.scroll_Down();
 				Functions.scrolldown();
-//				MobileElement Advert = (MobileElement) Ad.findElementByName("ADVERTISEMENT");
-//				MobileElement Advert = (MobileElement) Ad.findElementByName("ADVERTISEMENT");
+				//				MobileElement Advert = (MobileElement) Ad.findElementByName("ADVERTISEMENT");
+				//				MobileElement Advert = (MobileElement) Ad.findElementByName("ADVERTISEMENT");
 			}
 			//				String xVal=AdxVal.toString().trim();
 			//				System.out.println("xVal is :"+xVal.trim());
@@ -1949,6 +1973,7 @@ public class Functions extends Driver{
 				for(int filln = 1;filln<=43;filln++){
 					wrResult.WriteResult("AllParams","n",filln,2);
 					wrResult.WriteResult("AllParams","n",filln,3);
+					wrResult.WriteResult("AllParams","n",filln,4);
 				}
 
 				for(String pubreq2:pubads){
@@ -1971,13 +1996,15 @@ public class Functions extends Driver{
 											//System.out.println("Exceldata is :"+data[paramtot][0].toString());
 											if(s[0].equals(data[paramtot][0])){
 												if(data[paramtot][1].toString().contains(s1[1])){
-													wrResult.WriteResultAllParams("AllParams",s1[1].toString(),"Passed",paramtot,2,3);
+													wrResult.WriteResultAllParams("AllParams",s1[1].toString(),"Passed",paramtot,3,4);
+													wrResult.WriteResultAllParams("AllParams",s[1].toString(),"Passed",paramtot,2,3);
 													cp.Param_val = "Pass";
 
 													break;
 												}else
 												{
-													wrResult.WriteResultAllParams("AllParams",s1[1].toString(),"MisMatched",paramtot,2,3);
+													wrResult.WriteResultAllParams("AllParams",s1[1].toString(),"MisMatched",paramtot,3,4);
+													wrResult.WriteResultAllParams("AllParams",s[1].toString(),"MisMatched",paramtot,2,3);
 													cp.Param_val = "Fail";
 													break;
 												}
@@ -2147,12 +2174,12 @@ public class Functions extends Driver{
 
 
 
-		WebDriver driver = new FirefoxDriver(profile1);
-		driver.manage().window().maximize();
-		driver.get("https://rink.hockeyapp.net/users/sign_in");
-		driver.findElement(By.id("user_email")).sendKeys("kvelappan@weather.com");
-		driver.findElement(By.id("user_password")).sendKeys("300interstate");
-		driver.findElement(By.name("commit")).click();
+		driver_ipa = new FirefoxDriver(profile1);
+		driver_ipa.manage().window().maximize();
+		driver_ipa.get("https://rink.hockeyapp.net/users/sign_in");
+		driver_ipa.findElement(By.id("user_email")).sendKeys("kvelappan@weather.com");
+		driver_ipa.findElement(By.id("user_password")).sendKeys("300interstate");
+		driver_ipa.findElement(By.name("commit")).click();
 
 		Thread.sleep(2000);
 		String Apps = driver.findElement(By.xpath("/html/body/div[2]/div[2]/div/div[2]/ul/li[2]/a")).getText();
@@ -2215,8 +2242,8 @@ public class Functions extends Driver{
 	{
 		Functions.startCharlesSession();
 		Functions.charles_Stop();
-//		delete_IPA();
-//		app_download_from_hockeyapp();
+		//		delete_IPA();
+		//		app_download_from_hockeyapp();
 		//STR
 		Functions.uninstallApp();
 		Functions.installApp();

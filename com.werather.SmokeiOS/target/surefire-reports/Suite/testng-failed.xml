@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite verbose="0" name="Failed suite [Suite]">
+  <test name="Smoke_iOS(failed)">
+    <classes>
+      <class name="com.Custom_Parameter.run_CustomParameters">
+        <methods>
+          <include name="beforeTest"/>
+          <include name="afterTest"/>
+        </methods>
+      </class> <!-- com.Custom_Parameter.run_CustomParameters -->
+      <class name="com.Functions.Smoke_Run">
+        <methods>
+          <include name="extenedLSModule_ads"/>
+          <include name="afterTest"/>
+          <include name="beforeTest"/>
+          <include name="afterMethod"/>
+          <include name="beforeMethod"/>
+        </methods>
+      </class> <!-- com.Functions.Smoke_Run -->
+    </classes>
+  </test> <!-- Smoke_iOS(failed) -->
+</suite> <!-- Failed suite [Suite] -->

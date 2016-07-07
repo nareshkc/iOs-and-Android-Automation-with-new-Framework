@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite tests="14" failures="1" name="TestSuite" time="2,051.316" errors="0" skipped="0">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib"/>
+    <property name="java.vm.version" value="25.60-b23"/>
+    <property name="gopherProxySet" value="false"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="path.separator" value=":"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="/Users/aparna/Documents/Naresh/com.werather.SmokeiOS"/>
+    <property name="java.runtime.version" value="1.8.0_60-b27"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment"/>
+    <property name="basedir" value="/Users/aparna/Documents/Naresh/com.werather.SmokeiOS"/>
+    <property name="java.endorsed.dirs" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/endorsed"/>
+    <property name="os.arch" value="x86_64"/>
+    <property name="surefire.real.class.path" value="/var/folders/9m/t18vys0x1c150q9sd2wb0hg16l853g/T/surefirebooter6912816087533398728.jar"/>
+    <property name="java.io.tmpdir" value="/var/folders/9m/t18vys0x1c150q9sd2wb0hg16l853g/T/"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="https.proxyHost" value="127.0.0.1"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/aparna/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="http.proxyPort" value="8888"/>
+    <property name="surefire.test.class.path" value="/Users/aparna/Documents/Naresh/com.werather.SmokeiOS/target/test-classes:/Users/aparna/Documents/Naresh/com.werather.SmokeiOS/target/classes:/Users/aparna/.m2/repository/com/relevantcodes/extentreports/2.10/extentreports-2.10.jar:/Users/aparna/.m2/repository/org/jsoup/jsoup/1.8.3/jsoup-1.8.3.jar:/Users/aparna/.m2/repository/org/xerial/sqlite-jdbc/3.8.11.1/sqlite-jdbc-3.8.11.1.jar:/Users/aparna/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar:/Users/aparna/.m2/repository/commons-io/commons-io/2.5/commons-io-2.5.jar:/Users/aparna/.m2/repository/org/testng/testng/6.9.4/testng-6.9.4.jar:/Users/aparna/.m2/repository/org/beanshell/bsh/2.0b4/bsh-2.0b4.jar:/Users/aparna/.m2/repository/com/beust/jcommander/1.48/jcommander-1.48.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/selenium-server/2.53.0/selenium-server-2.53.0.jar:/Users/aparna/.m2/repository/org/bouncycastle/bcprov-jdk15on/1.48/bcprov-jdk15on-1.48.jar:/Users/aparna/.m2/repository/org/bouncycastle/bcpkix-jdk15on/1.48/bcpkix-jdk15on-1.48.jar:/Users/aparna/.m2/repository/mx4j/mx4j-tools/3.0.1/mx4j-tools-3.0.1.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/jetty-repacked/9.2.13.v20150730/jetty-repacked-9.2.13.v20150730.jar:/Users/aparna/.m2/repository/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/jetty-rc-repacked/5/jetty-rc-repacked-5.jar:/Users/aparna/.m2/repository/net/jcip/jcip-annotations/1.0/jcip-annotations-1.0.jar:/Users/aparna/.m2/repository/org/yaml/snakeyaml/1.8/snakeyaml-1.8.jar:/Users/aparna/.m2/repository/commons-codec/commons-codec/1.10/commons-codec-1.10.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/selenium-java/2.51.0/selenium-java-2.51.0.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/selenium-chrome-driver/2.51.0/selenium-chrome-driver-2.51.0.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/selenium-remote-driver/2.51.0/selenium-remote-driver-2.51.0.jar:/Users/aparna/.m2/repository/cglib/cglib-nodep/2.1_3/cglib-nodep-2.1_3.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/selenium-api/2.51.0/selenium-api-2.51.0.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/selenium-edge-driver/2.51.0/selenium-edge-driver-2.51.0.jar:/Users/aparna/.m2/repository/org/apache/commons/commons-exec/1.3/commons-exec-1.3.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/selenium-htmlunit-driver/2.51.0/selenium-htmlunit-driver-2.51.0.jar:/Users/aparna/.m2/repository/net/sourceforge/htmlunit/htmlunit/2.18/htmlunit-2.18.jar:/Users/aparna/.m2/repository/xalan/xalan/2.7.2/xalan-2.7.2.jar:/Users/aparna/.m2/repository/xalan/serializer/2.7.2/serializer-2.7.2.jar:/Users/aparna/.m2/repository/org/apache/httpcomponents/httpmime/4.5/httpmime-4.5.jar:/Users/aparna/.m2/repository/net/sourceforge/htmlunit/htmlunit-core-js/2.17/htmlunit-core-js-2.17.jar:/Users/aparna/.m2/repository/xerces/xercesImpl/2.11.0/xercesImpl-2.11.0.jar:/Users/aparna/.m2/repository/xml-apis/xml-apis/1.4.01/xml-apis-1.4.01.jar:/Users/aparna/.m2/repository/net/sourceforge/nekohtml/nekohtml/1.9.22/nekohtml-1.9.22.jar:/Users/aparna/.m2/repository/net/sourceforge/cssparser/cssparser/0.9.16/cssparser-0.9.16.jar:/Users/aparna/.m2/repository/org/w3c/css/sac/1.3/sac-1.3.jar:/Users/aparna/.m2/repository/org/eclipse/jetty/websocket/websocket-client/9.2.12.v20150709/websocket-client-9.2.12.v20150709.jar:/Users/aparna/.m2/repository/org/eclipse/jetty/jetty-util/9.2.12.v20150709/jetty-util-9.2.12.v20150709.jar:/Users/aparna/.m2/repository/org/eclipse/jetty/jetty-io/9.2.12.v20150709/jetty-io-9.2.12.v20150709.jar:/Users/aparna/.m2/repository/org/eclipse/jetty/websocket/websocket-common/9.2.12.v20150709/websocket-common-9.2.12.v20150709.jar:/Users/aparna/.m2/repository/org/eclipse/jetty/websocket/websocket-api/9.2.12.v20150709/websocket-api-9.2.12.v20150709.jar:/Users/aparna/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/selenium-firefox-driver/2.51.0/selenium-firefox-driver-2.51.0.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/selenium-ie-driver/2.51.0/selenium-ie-driver-2.51.0.jar:/Users/aparna/.m2/repository/net/java/dev/jna/jna/4.1.0/jna-4.1.0.jar:/Users/aparna/.m2/repository/net/java/dev/jna/jna-platform/4.1.0/jna-platform-4.1.0.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/selenium-safari-driver/2.51.0/selenium-safari-driver-2.51.0.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/selenium-support/2.51.0/selenium-support-2.51.0.jar:/Users/aparna/.m2/repository/org/webbitserver/webbit/0.4.14/webbit-0.4.14.jar:/Users/aparna/.m2/repository/io/netty/netty/3.5.2.Final/netty-3.5.2.Final.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/selenium-leg-rc/2.51.0/selenium-leg-rc-2.51.0.jar:/Users/aparna/.m2/repository/io/appium/java-client/3.4.1/java-client-3.4.1.jar:/Users/aparna/.m2/repository/com/google/code/gson/gson/2.6.2/gson-2.6.2.jar:/Users/aparna/.m2/repository/org/apache/httpcomponents/httpclient/4.5.2/httpclient-4.5.2.jar:/Users/aparna/.m2/repository/org/apache/httpcomponents/httpcore/4.4.4/httpcore-4.4.4.jar:/Users/aparna/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.jar:/Users/aparna/.m2/repository/com/google/guava/guava/19.0/guava-19.0.jar:/Users/aparna/.m2/repository/cglib/cglib/3.2.1/cglib-3.2.1.jar:/Users/aparna/.m2/repository/org/ow2/asm/asm/5.0.3/asm-5.0.3.jar:/Users/aparna/.m2/repository/org/apache/ant/ant/1.9.4/ant-1.9.4.jar:/Users/aparna/.m2/repository/org/apache/ant/ant-launcher/1.9.4/ant-launcher-1.9.4.jar:/Users/aparna/.m2/repository/commons-validator/commons-validator/1.5.0/commons-validator-1.5.0.jar:/Users/aparna/.m2/repository/commons-beanutils/commons-beanutils/1.9.2/commons-beanutils-1.9.2.jar:/Users/aparna/.m2/repository/commons-digester/commons-digester/1.8.1/commons-digester-1.8.1.jar:/Users/aparna/.m2/repository/org/apache/commons/commons-lang3/3.4/commons-lang3-3.4.jar:/Users/aparna/.m2/repository/com/googlecode/json-simple/json-simple/1.1/json-simple-1.1.jar:/Users/aparna/.m2/repository/org/apache/poi/poi/3.9/poi-3.9.jar:/Users/aparna/.m2/repository/atu/reporter/atureports/5.5/atureports-5.5.jar:/Users/aparna/.m2/repository/atu/testrecorder/testrecorder/2.1/testrecorder-2.1.jar:"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="52.0"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="10.11.1"/>
+    <property name="user.home" value="/Users/aparna"/>
+    <property name="user.timezone" value="Asia/Kolkata"/>
+    <property name="java.awt.printerjob" value="sun.lwawt.macosx.CPrinterJob"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="user.name" value="aparna"/>
+    <property name="java.class.path" value="/Users/aparna/Documents/Naresh/com.werather.SmokeiOS/target/test-classes:/Users/aparna/Documents/Naresh/com.werather.SmokeiOS/target/classes:/Users/aparna/.m2/repository/com/relevantcodes/extentreports/2.10/extentreports-2.10.jar:/Users/aparna/.m2/repository/org/jsoup/jsoup/1.8.3/jsoup-1.8.3.jar:/Users/aparna/.m2/repository/org/xerial/sqlite-jdbc/3.8.11.1/sqlite-jdbc-3.8.11.1.jar:/Users/aparna/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar:/Users/aparna/.m2/repository/commons-io/commons-io/2.5/commons-io-2.5.jar:/Users/aparna/.m2/repository/org/testng/testng/6.9.4/testng-6.9.4.jar:/Users/aparna/.m2/repository/org/beanshell/bsh/2.0b4/bsh-2.0b4.jar:/Users/aparna/.m2/repository/com/beust/jcommander/1.48/jcommander-1.48.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/selenium-server/2.53.0/selenium-server-2.53.0.jar:/Users/aparna/.m2/repository/org/bouncycastle/bcprov-jdk15on/1.48/bcprov-jdk15on-1.48.jar:/Users/aparna/.m2/repository/org/bouncycastle/bcpkix-jdk15on/1.48/bcpkix-jdk15on-1.48.jar:/Users/aparna/.m2/repository/mx4j/mx4j-tools/3.0.1/mx4j-tools-3.0.1.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/jetty-repacked/9.2.13.v20150730/jetty-repacked-9.2.13.v20150730.jar:/Users/aparna/.m2/repository/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/jetty-rc-repacked/5/jetty-rc-repacked-5.jar:/Users/aparna/.m2/repository/net/jcip/jcip-annotations/1.0/jcip-annotations-1.0.jar:/Users/aparna/.m2/repository/org/yaml/snakeyaml/1.8/snakeyaml-1.8.jar:/Users/aparna/.m2/repository/commons-codec/commons-codec/1.10/commons-codec-1.10.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/selenium-java/2.51.0/selenium-java-2.51.0.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/selenium-chrome-driver/2.51.0/selenium-chrome-driver-2.51.0.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/selenium-remote-driver/2.51.0/selenium-remote-driver-2.51.0.jar:/Users/aparna/.m2/repository/cglib/cglib-nodep/2.1_3/cglib-nodep-2.1_3.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/selenium-api/2.51.0/selenium-api-2.51.0.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/selenium-edge-driver/2.51.0/selenium-edge-driver-2.51.0.jar:/Users/aparna/.m2/repository/org/apache/commons/commons-exec/1.3/commons-exec-1.3.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/selenium-htmlunit-driver/2.51.0/selenium-htmlunit-driver-2.51.0.jar:/Users/aparna/.m2/repository/net/sourceforge/htmlunit/htmlunit/2.18/htmlunit-2.18.jar:/Users/aparna/.m2/repository/xalan/xalan/2.7.2/xalan-2.7.2.jar:/Users/aparna/.m2/repository/xalan/serializer/2.7.2/serializer-2.7.2.jar:/Users/aparna/.m2/repository/org/apache/httpcomponents/httpmime/4.5/httpmime-4.5.jar:/Users/aparna/.m2/repository/net/sourceforge/htmlunit/htmlunit-core-js/2.17/htmlunit-core-js-2.17.jar:/Users/aparna/.m2/repository/xerces/xercesImpl/2.11.0/xercesImpl-2.11.0.jar:/Users/aparna/.m2/repository/xml-apis/xml-apis/1.4.01/xml-apis-1.4.01.jar:/Users/aparna/.m2/repository/net/sourceforge/nekohtml/nekohtml/1.9.22/nekohtml-1.9.22.jar:/Users/aparna/.m2/repository/net/sourceforge/cssparser/cssparser/0.9.16/cssparser-0.9.16.jar:/Users/aparna/.m2/repository/org/w3c/css/sac/1.3/sac-1.3.jar:/Users/aparna/.m2/repository/org/eclipse/jetty/websocket/websocket-client/9.2.12.v20150709/websocket-client-9.2.12.v20150709.jar:/Users/aparna/.m2/repository/org/eclipse/jetty/jetty-util/9.2.12.v20150709/jetty-util-9.2.12.v20150709.jar:/Users/aparna/.m2/repository/org/eclipse/jetty/jetty-io/9.2.12.v20150709/jetty-io-9.2.12.v20150709.jar:/Users/aparna/.m2/repository/org/eclipse/jetty/websocket/websocket-common/9.2.12.v20150709/websocket-common-9.2.12.v20150709.jar:/Users/aparna/.m2/repository/org/eclipse/jetty/websocket/websocket-api/9.2.12.v20150709/websocket-api-9.2.12.v20150709.jar:/Users/aparna/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/selenium-firefox-driver/2.51.0/selenium-firefox-driver-2.51.0.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/selenium-ie-driver/2.51.0/selenium-ie-driver-2.51.0.jar:/Users/aparna/.m2/repository/net/java/dev/jna/jna/4.1.0/jna-4.1.0.jar:/Users/aparna/.m2/repository/net/java/dev/jna/jna-platform/4.1.0/jna-platform-4.1.0.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/selenium-safari-driver/2.51.0/selenium-safari-driver-2.51.0.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/selenium-support/2.51.0/selenium-support-2.51.0.jar:/Users/aparna/.m2/repository/org/webbitserver/webbit/0.4.14/webbit-0.4.14.jar:/Users/aparna/.m2/repository/io/netty/netty/3.5.2.Final/netty-3.5.2.Final.jar:/Users/aparna/.m2/repository/org/seleniumhq/selenium/selenium-leg-rc/2.51.0/selenium-leg-rc-2.51.0.jar:/Users/aparna/.m2/repository/io/appium/java-client/3.4.1/java-client-3.4.1.jar:/Users/aparna/.m2/repository/com/google/code/gson/gson/2.6.2/gson-2.6.2.jar:/Users/aparna/.m2/repository/org/apache/httpcomponents/httpclient/4.5.2/httpclient-4.5.2.jar:/Users/aparna/.m2/repository/org/apache/httpcomponents/httpcore/4.4.4/httpcore-4.4.4.jar:/Users/aparna/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.jar:/Users/aparna/.m2/repository/com/google/guava/guava/19.0/guava-19.0.jar:/Users/aparna/.m2/repository/cglib/cglib/3.2.1/cglib-3.2.1.jar:/Users/aparna/.m2/repository/org/ow2/asm/asm/5.0.3/asm-5.0.3.jar:/Users/aparna/.m2/repository/org/apache/ant/ant/1.9.4/ant-1.9.4.jar:/Users/aparna/.m2/repository/org/apache/ant/ant-launcher/1.9.4/ant-launcher-1.9.4.jar:/Users/aparna/.m2/repository/commons-validator/commons-validator/1.5.0/commons-validator-1.5.0.jar:/Users/aparna/.m2/repository/commons-beanutils/commons-beanutils/1.9.2/commons-beanutils-1.9.2.jar:/Users/aparna/.m2/repository/commons-digester/commons-digester/1.8.1/commons-digester-1.8.1.jar:/Users/aparna/.m2/repository/org/apache/commons/commons-lang3/3.4/commons-lang3-3.4.jar:/Users/aparna/.m2/repository/com/googlecode/json-simple/json-simple/1.1/json-simple-1.1.jar:/Users/aparna/.m2/repository/org/apache/poi/poi/3.9/poi-3.9.jar:/Users/aparna/.m2/repository/atu/reporter/atureports/5.5/atureports-5.5.jar:/Users/aparna/.m2/repository/atu/testrecorder/testrecorder/2.1/testrecorder-2.1.jar:"/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre"/>
+    <property name="sun.java.command" value="/var/folders/9m/t18vys0x1c150q9sd2wb0hg16l853g/T/surefirebooter6912816087533398728.jar /var/folders/9m/t18vys0x1c150q9sd2wb0hg16l853g/T/surefire4597572745946015870tmp /var/folders/9m/t18vys0x1c150q9sd2wb0hg16l853g/T/surefire4473247864260898209tmp"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.language" value="en"/>
+    <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.8.0_60"/>
+    <property name="java.ext.dirs" value="/Users/aparna/Library/Java/Extensions:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/ext:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java"/>
+    <property name="http.proxyHost" value="127.0.0.1"/>
+    <property name="sun.boot.class.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/sunrsasign.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/classes"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="localRepository" value="/Users/aparna/.m2/repository"/>
+    <property name="file.separator" value="/"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="https.proxyPort" value="8888"/>
+    <property name="sun.cpu.isalist" value=""/>
+  </properties>
+  <testcase classname="com.Functions.Smoke_Run" name="pullto_refresh" time="16.811"/>
+  <testcase classname="com.Functions.Smoke_Run" name="cleanlaunch" time="46.055"/>
+  <testcase classname="com.Functions.Smoke_Run" name="WFXTriggers_cxtg" time="260.295"/>
+  <testcase classname="com.Functions.Smoke_Run" name="WFXTriggers_Factuals" time="1.041"/>
+  <testcase classname="com.Functions.Smoke_Run" name="ad_crwd" time="0.026"/>
+  <testcase classname="com.Functions.Smoke_Run" name="extenedHourlyPage_ads" time="68.958"/>
+  <testcase classname="com.Functions.Smoke_Run" name="extenedDailyPage_ads" time="68.998"/>
+  <testcase classname="com.Functions.Smoke_Run" name="extenedMapPage_ads" time="61.535"/>
+  <testcase classname="com.Functions.Smoke_Run" name="extenedNewsPage_ads" time="205.879"/>
+  <testcase classname="com.Functions.Smoke_Run" name="setto_TestMode" time="126.348"/>
+  <testcase classname="com.Functions.Smoke_Run" name="Verify_PrerollAd" time="140.98"/>
+  <testcase classname="com.Functions.Smoke_Run" name="extenedHurricane_ads" time="135.156"/>
+  <testcase classname="com.Functions.Smoke_Run" name="extenedLSModule_ads" time="178.232">
+    <failure message="An element could not be located on the page using the given search parameters. (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 21.93 seconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: &apos;2.51.0&apos;, revision: &apos;1af067dbcaedd7d2ab9af5151fc471d363d97193&apos;, time: &apos;2016-02-05 11:20:57&apos;
+System info: host: &apos;localhost&apos;, ip: &apos;127.0.0.1&apos;, os.name: &apos;Mac OS X&apos;, os.arch: &apos;x86_64&apos;, os.version: &apos;10.11.1&apos;, java.version: &apos;1.8.0_60&apos;
+Driver info: io.appium.java_client.ios.IOSDriver
+Capabilities [{app=/Users/aparna/Documents/Naresh/com.werather.SmokeiOS/Build/TheWeatherASDev.ipa, appPackage=com.weather.Weather, networkConnectionEnabled=false, warnings={}, bundleId=com.weather.TWC, --session-override=true, databaseEnabled=false, deviceName==iPhone 6 (9.1) [caea71833e3ca5e0adb5070514485bdeb8827951], platform=MAC, desired={app=/Users/aparna/Documents/Naresh/com.werather.SmokeiOS/Build/TheWeatherASDev.ipa, appPackage=com.weather.Weather, bundleId=com.weather.TWC, --session-override=true, deviceName==iPhone 6 (9.1) [caea71833e3ca5e0adb5070514485bdeb8827951], appium-version=1.5.1, fullRest=true, newCommandTimeout=100000.0, autoLaunch=true, platformVersion=9.1, forceIphone=true, platformName=iOS, device=iPhone, autoAcceptAlerts=true}, appium-version=1.5.1, fullRest=true, newCommandTimeout=100000.0, autoLaunch=true, platformVersion=9.1, forceIphone=true, webStorageEnabled=false, locationContextEnabled=false, browserName=iOS, takesScreenshot=true, javascriptEnabled=true, platformName=iOS, device=iPhone, autoAcceptAlerts=true}]
+Session ID: 8c4a906e-ae3e-45e9-81ae-aea89274e9af
+*** Element info: {Using=xpath, value=//UIAApplication[1]/UIAWindow[1]/UIACollectionView[1]/UIACollectionCell[6]/UIAWebView[1]}" type="org.openqa.selenium.NoSuchElementException">org.openqa.selenium.NoSuchElementException: An element could not be located on the page using the given search parameters. (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 21.93 seconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: &apos;2.51.0&apos;, revision: &apos;1af067dbcaedd7d2ab9af5151fc471d363d97193&apos;, time: &apos;2016-02-05 11:20:57&apos;
+System info: host: &apos;localhost&apos;, ip: &apos;127.0.0.1&apos;, os.name: &apos;Mac OS X&apos;, os.arch: &apos;x86_64&apos;, os.version: &apos;10.11.1&apos;, java.version: &apos;1.8.0_60&apos;
+Driver info: io.appium.java_client.ios.IOSDriver
+Capabilities [{app=/Users/aparna/Documents/Naresh/com.werather.SmokeiOS/Build/TheWeatherASDev.ipa, appPackage=com.weather.Weather, networkConnectionEnabled=false, warnings={}, bundleId=com.weather.TWC, --session-override=true, databaseEnabled=false, deviceName==iPhone 6 (9.1) [caea71833e3ca5e0adb5070514485bdeb8827951], platform=MAC, desired={app=/Users/aparna/Documents/Naresh/com.werather.SmokeiOS/Build/TheWeatherASDev.ipa, appPackage=com.weather.Weather, bundleId=com.weather.TWC, --session-override=true, deviceName==iPhone 6 (9.1) [caea71833e3ca5e0adb5070514485bdeb8827951], appium-version=1.5.1, fullRest=true, newCommandTimeout=100000.0, autoLaunch=true, platformVersion=9.1, forceIphone=true, platformName=iOS, device=iPhone, autoAcceptAlerts=true}, appium-version=1.5.1, fullRest=true, newCommandTimeout=100000.0, autoLaunch=true, platformVersion=9.1, forceIphone=true, webStorageEnabled=false, locationContextEnabled=false, browserName=iOS, takesScreenshot=true, javascriptEnabled=true, platformName=iOS, device=iPhone, autoAcceptAlerts=true}]
+Session ID: 8c4a906e-ae3e-45e9-81ae-aea89274e9af
+*** Element info: {Using=xpath, value=//UIAApplication[1]/UIAWindow[1]/UIACollectionView[1]/UIACollectionCell[6]/UIAWebView[1]}
+	at sun.reflect.GeneratedConstructorAccessor80.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+	at io.appium.java_client.DefaultGenericMobileDriver.execute(DefaultGenericMobileDriver.java:43)
+	at io.appium.java_client.AppiumDriver.execute(AppiumDriver.java:1)
+	at io.appium.java_client.ios.IOSDriver.execute(IOSDriver.java:1)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:363)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:500)
+	at io.appium.java_client.DefaultGenericMobileDriver.findElementByXPath(DefaultGenericMobileDriver.java:129)
+	at io.appium.java_client.AppiumDriver.findElementByXPath(AppiumDriver.java:1)
+	at io.appium.java_client.ios.IOSDriver.findElementByXPath(IOSDriver.java:1)
+	at com.Functions.Functions.Verify_Adpresenton_extendedPages(Functions.java:1499)
+	at com.Functions.Smoke_Run.extenedLSModule_ads(Smoke_Run.java:212)
+</failure>
+    <system-out>==============================================
+****** LS Module test cases Started
+User on Main page
+LifeStylepage is displayed
+User Navigate to Selected LifeStyle page
+ADpatha is :2
+Size of the ad is ::(300, 25)
+Height  of the ad is ::25
+Width of the ad is ::300
+Ad present on ExtendedLSModule(Allergy)page
+Ad sizes are matched
+</system-out>
+  </testcase>
+  <testcase classname="com.Custom_Parameter.run_CustomParameters" name="Verify_CustomParameters" time="107.944"/>
+</testsuite>

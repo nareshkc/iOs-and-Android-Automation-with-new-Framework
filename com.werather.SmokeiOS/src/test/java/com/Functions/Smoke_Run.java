@@ -147,7 +147,7 @@ public class Smoke_Run extends Driver {
 
 
 	@Test(priority =9,enabled = true)
-	public void setto_TestMode() throws Exception {
+	public void Verifu_Pubadcall_in_TestMode() throws Exception {
 		System.out.println("==============================================");
 		System.out.println("****** Set Test mode and verify BB Cal test cases Started");
 		Functions.Setappinto_TestMode();
@@ -158,6 +158,8 @@ public class Smoke_Run extends Driver {
 
 
 	}
+	
+	//Thirdparty beacon Testcase Verification
 
 	@Test(priority =10,enabled = false)
 	public void ThirdParty_beacons() throws Exception {
@@ -174,9 +176,10 @@ public class Smoke_Run extends Driver {
 		System.out.println("==============================================");
 		System.out.println("****** Prerol-video ad test cases Started");
 		//Functions.Setappinto_TestMode();
+		//Functions.enternewAddress("08302");
 		Functions.delete_folder();
 		Functions.clear_session();
-		Functions.enternewAddress("48467");
+		//Functions.enternewAddress("08302");
 		Functions.Verify_selectedPages("PreRollVideo");
 		Functions.Navigate_extendedPages("PreRollVideo");
 		Functions.downloadXMLFile();
@@ -233,7 +236,7 @@ public class Smoke_Run extends Driver {
 		Functions.startCharlesSession();
 		Functions.charles_Stop();
 		Functions.delete_screenshots();
-
+//
 		Functions.delete_IPA();
 		Functions.app_download_from_hockeyapp();
 

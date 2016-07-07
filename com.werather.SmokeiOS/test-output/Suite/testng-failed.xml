@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Suite]" parallel="none">
+  <test name="Smoke_iOS(failed)" parallel="none">
+    <classes>
+      <class name="com.Functions.Smoke_Run">
+        <methods>
+          <include name="WFXTriggers_cxtg"/>
+          <include name="extenedHourlyPage_ads"/>
+          <include name="extenedLSModule_ads"/>
+          <include name="extenedNewsPage_ads"/>
+          <include name="pullto_refresh"/>
+          <include name="setto_TestMode"/>
+          <include name="extenedDailyPage_ads"/>
+          <include name="beforeTest"/>
+          <include name="extenedHurricane_ads"/>
+          <include name="cleanlaunch"/>
+          <include name="Verify_PrerollAd"/>
+          <include name="ad_crwd"/>
+          <include name="extenedMapPage_ads"/>
+          <include name="WFXTriggers_Factuals"/>
+        </methods>
+      </class> <!-- com.Functions.Smoke_Run -->
+    </classes>
+  </test> <!-- Smoke_iOS(failed) -->
+</suite> <!-- Failed suite [Suite] -->

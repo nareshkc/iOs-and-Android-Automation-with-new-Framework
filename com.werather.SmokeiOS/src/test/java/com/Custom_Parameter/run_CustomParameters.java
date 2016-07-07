@@ -29,8 +29,8 @@ public class run_CustomParameters extends Driver {
 			Functions.startCharlesSession();
 			Functions.charles_Stop();
 			//STR
-//			Functions.uninstallApp();
-//			Functions.installApp();
+			Functions.uninstallApp();
+			Functions.installApp();
 			Functions.Appium_Autostart();
 			Functions.capabilities();
 			Functions.launchtheApp();
